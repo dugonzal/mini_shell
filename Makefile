@@ -42,7 +42,9 @@ OS := $(shell uname)
 #condicion para compilar en mac y linux la libreria readline
 
 ifeq ($(OS), Darwin)
-	readline := -I/usr/local/include -L/usr/local/lib -lreadline
+	if [ -d /usr/local/opt/readline/lib ]
+		brew install readline
+	readline := -I/usr/local/opt/readline/include -L/usr/local/opt/readlinelib -lreadline
 else
 	readline :=	-L/usr/include -lreadline
 endif

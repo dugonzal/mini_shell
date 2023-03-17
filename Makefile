@@ -44,13 +44,13 @@ readline :=  -l readline
 #endif
 
 $(NAME): $(OBJ)
-#	@if [ ! -d "libft/*" ]; then git clone https://github.com/dugonzal/libft.git;  fi
 	@make -C libft
 	@mkdir -p bin && mv libft/libft.a bin
 	@$(CC) $(CFLAGS) $(OBJ) -o $@ -L bin -lft -lreadline
 	@printf	"$(BLUE)Compiling $@$(DEFAULT)\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
+	@if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git;  fi
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)*
 	@echo "Compiling $<"
 

@@ -44,11 +44,11 @@ OS := $(shell uname)
 ifeq ($(OS), Darwin)
 	if [ -d /usr/local/opt/readline/lib ]
 		brew install readline
-	readline := -I/usr/local/opt/readline/include -L/usr/local/opt/readlinelib -lreadline
+	readline := -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -lreadline
 else
 	readline :=	-L/usr/include -lreadline
 endif
-
+:
 $(NAME): $(OBJ) $(foo)
 	@make -C libft
 	@mkdir -p bin && mv libft/libft.a bin

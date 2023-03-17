@@ -20,6 +20,8 @@ SRC_DIR		:= src/
 
 OBJ_DIR		:= obj/
 
+INC_DIR		:= include/
+
 SRC_FILES	:= minishell signals utils
 
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -35,21 +37,25 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-readline :=  -l readline
+OS := $(shell uname)
 
-#ifeq (uname(linux))
-#else
-#endif
+#condicion para compilar en mac y linux la libreria readline
 
-$(NAME): $(OBJ)
+ifeq ($(OS), Darwin)
+	readline := -I/usr/local/include -L/usr/local/lib -lreadline
+else
+	readline :=	-L/usr/include -lreadline
+endif
+
+$(NAME): $(OBJ) $(foo)
 	@make -C libft
 	@mkdir -p bin && mv libft/libft.a bin
-	@$(CC) $(CFLAGS) $(OBJ) -o $@ -L bin -lft -lreadline
+	@$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft  
 	@printf	"$(BLUE)Compiling $@$(DEFAULT)\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 	@if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git;  fi
-	@$(CC) $(CFLAGS) -c $< -o $@ 
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)*
 	@echo "Compiling $<"
 
 $(OBJ_DIR):

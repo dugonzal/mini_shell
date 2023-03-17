@@ -20,8 +20,6 @@ SRC_DIR		:= src/
 
 OBJ_DIR		:= obj/
 
-INC_DIR		:= include/
-
 SRC_FILES	:= minishell signals utils
 
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -51,7 +49,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 	@if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git;  fi
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)*
+	@$(CC) $(CFLAGS) -c $< -o $@ 
 	@echo "Compiling $<"
 
 $(OBJ_DIR):

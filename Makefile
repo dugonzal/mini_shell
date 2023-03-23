@@ -42,25 +42,22 @@ OS := $(shell uname)
 #condicion para compilar en mac y linux la libreria readline
 
 ifeq ($(OS), Darwin)
-#if [ ! -d "/usr/local/opt/readline/lib" ]; then brew install readline; fi
-	readline := -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -lreadline
-else
+	readline :=  -lreadline
+	#-I/usr/local/opt/readline/include -L/usr/local/opt/readline/libelse
 	readline :=	-L/usr/include -lreadline
 endif
-:
-$(NAME): $(OBJ) $(foo)
+$(NAME): $(OBJ)  
 	@make -C libft
-	@mkdir -p bin && mv libft/libft.a bin
+	@mkdir -p bin 
+	mv libft/libft.a bin
 	@$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft  
 	@printf	"$(BLUE)Compiling $@$(DEFAULT)\n"
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c 
+	@mkdir -p $(OBJ_DIR)
 	@if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git;  fi
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)*
 	@echo "Compiling $<"
-
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
 
 all: $(NAME)
 
@@ -70,9 +67,8 @@ clean:
 	@echo "Cleaning $(NAME)"
 
 fclean: clean
-	@rm -rf $(OBJ_DIR) bin
+	@rm -rf bin  $(OBJ_DIR)
 	@make -C libft fclean
-	@rm -rf $(OBJ_DIR)
 	@echo "Cleaning $(OBJ_DIR) and bin"
 
 re: fclean all

@@ -25,7 +25,6 @@ int	main(int ac, char **av, char **env)
 	int status;
 	(void)av;
 	(void)ac;
-	char *line;
 	(void)env;
 	mini = (t_data *)malloc(sizeof(t_data));
 	if (!mini)
@@ -34,9 +33,9 @@ int	main(int ac, char **av, char **env)
 	status = 1;
 	while (status)
 	{
-		line = readline (BLUE"minishell$GUEST$> "RESET);
-  	 	add_history (line); // add to history
- 		if (ft_strncmp(line, "exit", 4) == 0)
+		mini->line = readline (BLUE"minishell$GUEST$> "RESET);
+  	 	add_history (mini->line); // add to history
+ 		if (ft_strncmp(mini->line, "exit", 4) == 0)
 			status = 0;
 		free (mini->line);
 	}

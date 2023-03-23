@@ -21,7 +21,7 @@ void	handler(int sig, siginfo_t *info, void *context)
 	{
 		kill (0, 0);
 		write (1, "\n", 1);
-		rl_replace_line("", 0); // handle signal ctrl + c
+//		rl_replace_line("", 0); // handle signal ctrl + c
 		rl_on_new_line(); // handle signal ctrl + c
 		rl_redisplay();
 	}

@@ -23,6 +23,10 @@
 # include <readline/history.h>
 # include <signal.h>
 
+typedef struct s_cmd
+{
+} t_cmd;
+
 typedef struct s_data
 {
 	char **bufer;

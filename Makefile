@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+         #
+#    By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/03/17 12:35:21 by ciclo            ###   ########.fr        #
+#    Updated: 2023/04/05 10:47:07 by dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,34 +41,41 @@ OS := $(shell uname)
 
 #condicion para compilar en mac y linux la libreria readline
 
+
 ifeq ($(OS), Darwin)
 	readline :=  -lreadline
-	#-I/usr/local/opt/readline/include -L/usr/local/opt/readline/libelse
+#-I/usr/local/opt/readline/include -L/usr/local/opt/readline/libelse
 	readline :=	-L/usr/include -lreadline
 endif
-$(NAME): $(OBJ)  
-	@make -C libft
-	@mkdir -p bin 
-	mv libft/libft.a bin
-	@$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft  
-	@printf	"$(BLUE)Compiling $@$(DEFAULT)\n"
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c 
-	@mkdir -p $(OBJ_DIR)
-	@if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git;  fi
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)*
-	@echo "Compiling $<"
+ifndef verbose
+.SILENT:
+endif
+
+$(NAME): $(OBJ)
+	make -C libft
+	mkdir -p bin
+	mv libft/libft.a bin
+	$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft
+	printf	"$(BLUE)Compiling $@$(DEFAULT)\n"
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	mkdir -p $(OBJ_DIR)
+	if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git;  fi
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)*
+	echo "Compiling $<"
+
 
 all: $(NAME)
 
 clean:
-	@make -C libft clean
-	@rm -rf $(NAME)
-	@echo "Cleaning $(NAME)"
+	make -C libft clean
+	rm -rf $(NAME)
+	echo "Cleaning $(NAME)"
 
 fclean: clean
-	@rm -rf bin  $(OBJ_DIR)
-	@make -C libft fclean
-	@echo "Cleaning $(OBJ_DIR) and bin"
+	rm -rf bin  $(OBJ_DIR)
+	make -C libft fclean
+	echo "Cleaning $(OBJ_DIR) and bin"
 
 re: fclean all

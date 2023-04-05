@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/05 12:01:34 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:52:43 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	execute_comand(t_data *data, char **env)
 	(void)env;
 	error = 0;
 	pid = fork();
-	path = " /Users/dugonzal/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Users/dugonzal/.brew/bin";//get_path(env);
+	if (pid != 0)
+		perror ("Error");
+	path = get_path(env);
 	if (pid == 0)
 	{
 		printf ("data->bufer[0] = %s", data->bufer[0]);

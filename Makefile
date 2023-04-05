@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+         #
+#    By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/05 10:47:07 by dugonzal         ###   ########.fr        #
+#    Updated: 2023/04/05 17:56:23 by ciclo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ OS := $(shell uname)
 ifeq ($(OS), Darwin)
 	readline :=  -lreadline
 #-I/usr/local/opt/readline/include -L/usr/local/opt/readline/libelse
+else
 	readline :=	-L/usr/include -lreadline
 endif
 

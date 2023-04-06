@@ -6,7 +6,7 @@
 #    By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/05 17:56:23 by ciclo            ###   ########.fr        #
+#    Updated: 2023/04/06 20:39:29 by ciclo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,21 @@ OBJ_DIR		:= obj/
 
 INC_DIR		:= include/
 
-SRC_FILES	:= minishell signals utils
+
+parser_dir 	:= parser/
+parser		:=
+
+signals_dir 	:= signals/
+signals		:= signals
+
+SRC_FILES 	+= $(addprefix $(parser_dir),$(parser))
+
+SRC_FILES	+=	minishell  utils
+SRC_FILES 	+= $(addprefix $(signals_dir),$(signals))
 
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+
 
 DEFAULT = \033[0;39m
 GRAY = \033[0;90m
@@ -39,9 +50,6 @@ WHITE = \033[0;97m
 
 OS := $(shell uname)
 
-#condicion para compilar en mac y linux la libreria readline
-
-
 ifeq ($(OS), Darwin)
 	readline :=  -lreadline
 #-I/usr/local/opt/readline/include -L/usr/local/opt/readline/libelse
@@ -54,15 +62,15 @@ ifndef verbose
 endif
 
 $(NAME): $(OBJ)
-	make -C libft
-	mkdir -p bin
-	mv libft/libft.a bin
+	make -C libft && mkdir -p bin && mv libft/libft.a bin
 	$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft
 	printf	"$(BLUE)Compiling $@$(DEFAULT)\n"
 
+
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)
-	if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git;  fi
+	mkdir -p $(OBJ_DIR)$(signals_dir)
+	if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git; fi
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)*
 	echo "Compiling $<"
 

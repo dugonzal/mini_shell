@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/05 17:52:43 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/06 19:46:18 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,19 @@ char *get_path(char **env)
 			path = ft_strdup(env[i] + 5);
 			if (!path)
 				exit(EXIT_FAILURE);
-			return (path);
+			printf ("[%s]\n", path);
+			if (access("ls", 1) == 0)
+			{
+				printf ("aceeess");
+				return (path);
+			}
 		}
 		i++;
 	}
 	return (NULL);
 }
 
-void	execute_comand(t_data *data, char **env)
+void	comand_execute(t_data *mini, char **env)
 {
 	pid_t	pid;
 	int		error;
@@ -50,15 +55,14 @@ void	execute_comand(t_data *data, char **env)
 	(void)env;
 	error = 0;
 	pid = fork();
-	if (pid != 0)
-		perror ("Error");
 	path = get_path(env);
+	printf ("%s\n", path);
 	if (pid == 0)
 	{
-		printf ("data->bufer[0] = %s", data->bufer[0]);
-		error = execve("/bin/ls", data->bufer, &path);
+		printf ("data->bufer[0] = %s\n", mini->bufer[0]);
+		error = execve("/bin/ls", mini->bufer, &path);
 		if (error == -1)
-			perror ("Error");
+			perror ("Error -<");
 	}
 	else
 		wait(NULL);
@@ -85,7 +89,7 @@ int	main(int ac, char **av, char **env)
 		mini->bufer = ft_split(mini->line, ' ');
 		if (!ft_strncmp(mini->line, "exit", 4))
 			status = 0;
-		execute_comand(mini, env);
+		comand_execute(mini, env);
 		free (mini->line);
 	}
 	return (0);

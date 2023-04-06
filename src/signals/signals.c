@@ -6,11 +6,11 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/03/13 15:36:02 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/06 19:47:49 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 
 void	handler(int sig, siginfo_t *info, void *context)

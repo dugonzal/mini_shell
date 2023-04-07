@@ -6,7 +6,7 @@
 #    By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/06 20:39:29 by ciclo            ###   ########.fr        #
+#    Updated: 2023/04/07 09:23:22 by ciclo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,31 +22,27 @@ OBJ_DIR		:= obj/
 
 INC_DIR		:= include/
 
+# folders for sources
 
 parser_dir 	:= parser/
 parser		:=
 
-signals_dir 	:= signals/
-signals		:= signals
-
 SRC_FILES 	+= $(addprefix $(parser_dir),$(parser))
 
-SRC_FILES	+=	minishell  utils
-SRC_FILES 	+= $(addprefix $(signals_dir),$(signals))
+SRC_FILES	+=	minishell  utils signals
 
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-
-DEFAULT = \033[0;39m
-GRAY = \033[0;90m
-RED = \033[0;91m
-GREEN = \033[0;92m
-YELLOW = \033[0;93m
-BLUE = \033[0;94m
+DEFAULT	= \033[0;39m
+GRAY 	= \033[0;90m
+RED 	= \033[0;91m
+GREEN 	= \033[0;92m
+YELLOW 	= \033[0;93m
+BLUE 	= \033[0;94m
 MAGENTA = \033[0;95m
-CYAN = \033[0;96m
-WHITE = \033[0;97m
+CYAN 	= \033[0;96m
+WHITE 	= \033[0;97m
 
 OS := $(shell uname)
 

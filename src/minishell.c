@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/08 22:16:48 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/08 22:38:01 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*check_access(char *path, char *bin)
 	while (bin[j])
 		tmp[i++] = bin[j++];
 	tmp[i] = 0;
-	if (!access(tmp, F_OK))
+	if (!access(tmp, 0))
 		return (tmp);
 	free (tmp);
 	return (NULL);
@@ -69,6 +69,7 @@ void	bin_execute(t_data *mini)
 				perror ("Error :");
 		}
 		else
+		{
 			while (mini->path[++i] != 0)
 			{
 				tmp = check_access(mini->path[i], mini->bufer[0]);
@@ -77,11 +78,20 @@ void	bin_execute(t_data *mini)
 			}
 			if (error != 0)
 				perror ("Error :");
-		exit (1);
+		}
+		exit (EXIT_SUCCESS);
 	}
 	else
 		wait(NULL);
 }
+
+/*
+Estado de salida:
+ 0  si todo fue bien
+ 1  si hubo problemas menores (p. ej., no poder acceder a un subdirectorio),
+ 2  si hubo un serio problema (p. ej., no se puede acceder al argumento de
+ línea de órdenes)
+*/
 
 int	main(int ac, char **av, char **env)
 {
@@ -106,6 +116,7 @@ int	main(int ac, char **av, char **env)
 		free (mini->line);
 		free (mini->bufer);
 	}
+	free (mini->path);
 	free (mini);
 	exit(EXIT_SUCCESS);
 }

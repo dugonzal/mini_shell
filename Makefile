@@ -6,7 +6,7 @@
 #    By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/08 22:08:31 by ciclo            ###   ########.fr        #
+#    Updated: 2023/04/08 22:34:10 by ciclo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ OBJ_DIR		:= obj/
 INC_DIR		:= include/
 
 # folders for sources
-
 parser_dir 	:= parser/
 parser		:=
 
@@ -62,14 +61,12 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft
 	printf	"$(BLUE)Compiling $@$(DEFAULT)\n"
 
-
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)$(signals_dir)
 	if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git; fi
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)*
 	echo "Compiling $<"
-
 
 all: $(NAME)
 

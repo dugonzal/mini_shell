@@ -6,7 +6,7 @@
 #    By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/07 12:30:11 by ciclo            ###   ########.fr        #
+#    Updated: 2023/04/08 22:08:31 by ciclo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,4 +83,8 @@ fclean: clean
 	make -C libft fclean
 	echo "Cleaning $(OBJ_DIR) and bin"
 
+val:
+	 valgrind --track-origins=yes \
+	 --leak-check=full --show-leak-kinds=all \
+	 --log-file=valgrind.log ./$(NAME)
 re: fclean all

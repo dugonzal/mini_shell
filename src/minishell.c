@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/08 22:38:01 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/08 22:44:10 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	bin_execute(t_data *mini)
 	char	*tmp;
 
 	error = 0;
-	i = -1;
 	tmp = NULL;
 	mini->pid = fork();
 	if (!ft_strncmp(mini->line, "exit", 4))
@@ -70,6 +69,7 @@ void	bin_execute(t_data *mini)
 		}
 		else
 		{
+			i = -1;
 			while (mini->path[++i] != 0)
 			{
 				tmp = check_access(mini->path[i], mini->bufer[0]);

@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/08 22:05:23 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/08 22:16:48 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	bin_execute(t_data *mini)
 			{
 				tmp = check_access(mini->path[i], mini->bufer[0]);
 				error = execve(tmp, mini->bufer, mini->env);
+				free (tmp);
 			}
 			if (error != 0)
 				perror ("Error :");
-		free (tmp);
 		exit (1);
 	}
 	else

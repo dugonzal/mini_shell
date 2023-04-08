@@ -6,7 +6,7 @@
 #    By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/07 09:23:22 by ciclo            ###   ########.fr        #
+#    Updated: 2023/04/07 12:30:11 by ciclo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ else
 endif
 
 ifndef verbose
-.SILENT:
+#.SILENT:
 endif
 
 $(NAME): $(OBJ)

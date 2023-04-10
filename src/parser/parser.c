@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/10 14:18:14 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/10 21:44:07 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	bin_execute(t_data *mini)
 		{
 			error = execve(mini->bufer[0], mini->bufer, mini->env);
 			if (error == -1)
-				printf  (RED"Error : comando no funciona\n"RESET);
+				printf  (RED"Error : comand noo found\n"RESET);
 		}
 		else
 		{
@@ -67,7 +67,7 @@ void	bin_execute(t_data *mini)
 				free (tmp);
 			}
 			if (error != 0)
-				printf  (RED"Error : comando no funciona\n"RESET);
+				printf  (RED"Error : comand no found\n"RESET);
 		}
 		exit (EXIT_SUCCESS);
 	}
@@ -102,7 +102,7 @@ int	verify_quotes(t_data *data)
 		data->quotes = 1;
 	if (err[1] % 2 != 0 || err[0] % 2 != 0)
 	{
-		printf (RED"Error : comillas sin cerrar\n"RESET);
+		printf (RED"Error : Unmached quotes \n"RESET);
 		return (1);
 	}
 	return (0);

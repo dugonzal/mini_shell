@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/08 22:44:10 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/10 12:18:24 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,71 +19,9 @@ uso de rutas relativas o absolutas)
  Esperar a que el comando termine su ejecución
  Mostrar el prompt de nuevo
  voy a empezar por buscar el ejecutable en el PATH*/
-char	*check_access(char *path, char *bin)
-{
-	char	*tmp;
-	int		i;
-	int		j;
 
-	if (!path || !bin)
-		return (NULL);
-	i = -1;
-	j = 0;
-	tmp = (char *)malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(bin) + 2));
-	if (!tmp)
-		return (NULL);
-	while (path[++i])
-		tmp[i] = path[i];
-	tmp[i] = '/';
-	i++;
-	while (bin[j])
-		tmp[i++] = bin[j++];
-	tmp[i] = 0;
-	if (!access(tmp, 0))
-		return (tmp);
-	free (tmp);
-	return (NULL);
-}
 
-void	bin_execute(t_data *mini)
-{
-	int		error;
-	int		i;
-	char	*tmp;
 
-	error = 0;
-	tmp = NULL;
-	mini->pid = fork();
-	if (!ft_strncmp(mini->line, "exit", 4))
-	{
-		mini->status = 0;
-		return ;
-	}
-	if (!mini->pid)
-	{
-		if (mini->bufer[0][0] == '.' || mini->bufer[0][0] == '/')
-		{
-			error = execve(mini->bufer[0], mini->bufer, mini->env);
-			if (error == -1)
-				perror ("Error :");
-		}
-		else
-		{
-			i = -1;
-			while (mini->path[++i] != 0)
-			{
-				tmp = check_access(mini->path[i], mini->bufer[0]);
-				error = execve(tmp, mini->bufer, mini->env);
-				free (tmp);
-			}
-			if (error != 0)
-				perror ("Error :");
-		}
-		exit (EXIT_SUCCESS);
-	}
-	else
-		wait(NULL);
-}
 
 /*
 Estado de salida:
@@ -95,28 +33,27 @@ Estado de salida:
 
 int	main(int ac, char **av, char **env)
 {
-	t_data	*mini;
+	t_data	*data;
 
 	(void)av;
 	(void)ac;
-	mini = (t_data *)malloc(sizeof(t_data));
-	if (!mini)
+	data = (t_data *)malloc(sizeof(t_data));
+	if (!data)
 		exit(EXIT_FAILURE);
-	ft_memset (mini, 0, sizeof(t_data));
-	mini->status = 1;
-	mini->path = ft_split(getenv("PATH"), ':');
-	while (mini->status)
+	ft_memset (data, 0, sizeof(t_data));
+	data->status = 1;
+	data->path = ft_split(getenv("PATH"), ':');
+	while (data->status)
 	{
 		signals();
-		mini->line = readline (BLUE"minishell$GUEST$> "RESET);
-		add_history (mini->line);
-		mini->bufer = ft_split(mini->line, ' ');
-		mini->env = env;
-		bin_execute(mini);
-		free (mini->line);
-		free (mini->bufer);
+		data->line = readline (BLUE"minishell$GUEST$> "RESET);
+		add_history (data->line);
+		if (!ft_strncmp(data->line, "exit", 4))
+			data->status = 0;
+		data->env = env;
+		parser(data);
 	}
-	free (mini->path);
-	free (mini);
+	free (data->path);
+	free (data);
 	exit(EXIT_SUCCESS);
 }

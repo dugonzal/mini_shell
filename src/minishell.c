@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/10 20:20:21 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/10 20:23:42 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,25 @@ Estado de salida:
  2  si hubo un serio problema (p. ej., no se puede acceder al argumento de
  línea de órdenes)
 */
+// usar calloc desde ahora
 
 int	main(int ac, char **av, char **env)
 {
-	t_data	*data;
+	t_data	data;
 
 	(void)av;
 	(void)ac;
-	data = (t_data *)malloc(sizeof(t_data));
-	if (!data)
-		exit(EXIT_FAILURE);
-	ft_memset (data, 0, sizeof(t_data));
-	data->status = 1;
-	while (data->status)
+	ft_memset (&data, 0, sizeof(t_data));
+	data.status = 1;
+	while (data.status)
 	{
 		signals();
 		prompt();
-		data->line = readline ("");
-		add_history (data->line);
-		data->env = env;
-		parser(data);
+		data.line = readline ("");
+		add_history (data.line);
+		data.env = env;
+		parser(&data);
 	}
-	free (data->path);
-	free (data);
+	free (data.path);
 	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/10 14:17:11 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/10 20:20:21 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int	main(int ac, char **av, char **env)
 		prompt();
 		data->line = readline ("");
 		add_history (data->line);
-		if (!ft_strncmp(data->line, "exit", 4))
-			data->status = 0;
 		data->env = env;
 		parser(data);
 	}

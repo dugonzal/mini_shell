@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/10 14:11:36 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/10 14:18:14 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,11 @@ void	bin_execute(t_data *mini)
 	int		i;
 	char	*tmp;
 
+
 	error = 0;
 	tmp = NULL;
 	mini->pid = fork();
-	if (!ft_strncmp(mini->line, "exit", 4))
-	{
-		ft_exit(mini);
-		return ;
-	}
+	mini->path = ft_split(getenv("PATH"), ':');
 	if (!mini->pid)
 	{
 		if (mini->bufer[0][0] == '.' || mini->bufer[0][0] == '/')
@@ -115,6 +112,11 @@ void	parser(t_data *data)
 {
 	if (!data->line)
 		return ;
+	if (!ft_strncmp(data->line, "exit", 4))
+	{
+		ft_exit(data);
+		return ;
+	}
 	else if (verify_quotes(data))
 		return;
 	if (data->quotes) // si hay comillas

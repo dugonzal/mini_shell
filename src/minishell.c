@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/10 13:34:02 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/10 14:17:11 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ uso de rutas relativas o absolutas)
  Mostrar el prompt de nuevo
  voy a empezar por buscar el ejecutable en el PATH*/
 
-
-
-
 /*
 Estado de salida:
  0  si todo fue bien
@@ -30,7 +27,6 @@ Estado de salida:
  2  si hubo un serio problema (p. ej., no se puede acceder al argumento de
  línea de órdenes)
 */
-
 
 int	main(int ac, char **av, char **env)
 {
@@ -43,7 +39,6 @@ int	main(int ac, char **av, char **env)
 		exit(EXIT_FAILURE);
 	ft_memset (data, 0, sizeof(t_data));
 	data->status = 1;
-	data->path = ft_split(getenv("PATH"), ':');
 	while (data->status)
 	{
 		signals();

@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/10 20:23:42 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/10 21:30:11 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ Estado de salida:
  2  si hubo un serio problema (p. ej., no se puede acceder al argumento de
  línea de órdenes)
 */
-// usar calloc desde ahora
 
 int	main(int ac, char **av, char **env)
 {
@@ -35,13 +34,13 @@ int	main(int ac, char **av, char **env)
 
 	(void)av;
 	(void)ac;
+
 	ft_memset (&data, 0, sizeof(t_data));
 	data.status = 1;
 	while (data.status)
 	{
 		signals();
-		prompt();
-		data.line = readline ("");
+		data.line = readline (prompt());
 		add_history (data.line);
 		data.env = env;
 		parser(&data);

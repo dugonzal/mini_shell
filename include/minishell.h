@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/10 14:08:39 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/10 20:30:38 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_data
 void	handler(int sig, siginfo_t *info, void *context);
 void	signals(void);
 void	parser(t_data *data);
-void	prompt(void);
+char	*prompt(void);
 
 // builtins
 void	ft_exit(t_data  *data);

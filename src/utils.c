@@ -6,8 +6,14 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/03/10 21:26:34 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/10 13:33:34 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void prompt(void)
+{
+	printf("\033[1;32m%s\033[0m", getenv("USER"));
+	printf("\033[1;34m@minishell> \033[0m");
+}

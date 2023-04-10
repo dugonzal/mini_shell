@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/10 12:18:24 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/10 13:34:02 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ Estado de salida:
  línea de órdenes)
 */
 
+
 int	main(int ac, char **av, char **env)
 {
 	t_data	*data;
@@ -46,7 +47,8 @@ int	main(int ac, char **av, char **env)
 	while (data->status)
 	{
 		signals();
-		data->line = readline (BLUE"minishell$GUEST$> "RESET);
+		prompt();
+		data->line = readline ("");
 		add_history (data->line);
 		if (!ft_strncmp(data->line, "exit", 4))
 			data->status = 0;

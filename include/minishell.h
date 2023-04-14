@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/10 20:30:38 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/14 12:29:28 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	handler(int sig, siginfo_t *info, void *context);
 void	signals(void);
 void	parser(t_data *data);
 char	*prompt(void);
-
+void	bin_execute(t_data *mini);
 // builtins
 void	ft_exit(t_data  *data);
 

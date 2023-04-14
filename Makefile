@@ -6,7 +6,7 @@
 #    By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/10 14:09:03 by ciclo            ###   ########.fr        #
+#    Updated: 2023/04/14 12:35:05 by ciclo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ builtins		:= exit
 SRC_FILES 	+= $(addprefix $(parser_dir),$(parser))
 SRC_FILES 	+= $(addprefix $(builtins_dir),$(builtins))
 
-SRC_FILES	+=	minishell  utils signals
+SRC_FILES	+=	minishell  utils signals exec
 
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))

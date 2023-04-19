@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/10 21:38:30 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/18 13:50:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,15 @@ char	*prompt(void)
 }
 
 
+void print(char **str)
+{
+  int i;
 
+  i	= 0;
+  while (str[i])
+  {
+	printf ("%s", str[i]);
+	i++;
+  }
+}
 

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/19 11:41:57 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/19 11:52:16 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ int	lexer(t_data *data)
   if (!ft_strlen(data->line) || verify_quotes(data))
 		return (1);
   data->line  = ft_strtrim(data->line, " \t\v\f\r\n", 1); 
-  printf ("[%s]\n", data->line);
-  //bin_execute(data);
+  data->bufer = ft_split(data->line, ' ');
+  add_history (data->line);
+  print (data->bufer);
+  bin_execute(data);
   return (0);
 }
-
-
 
 int	main(int ac, char **av, char **env)
 {
@@ -79,9 +79,9 @@ int	main(int ac, char **av, char **env)
 		data.line = readline (prompt());
 		if (!data.line)
 			break;
-		add_history (data.line);
 		data.env = env;
-		lexer(&data);
+		if (lexer(&data))
+		  continue;
 		free (data.line);
 		//parser(&data);
 	}

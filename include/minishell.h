@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/14 12:29:28 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/18 14:48:04 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,22 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <sys/wait.h>
-typedef struct s_cmd
-{
-	char *line;
-} t_cmd;
+//typedef struct s_cmd
+//{
+//	char *line;
+///} t_cmd;
 
 typedef struct s_data
 {
+	char			*cmd;
 	int				quotes;
+	char			**quotes_char;
 	char			**path;
 	char			**bufer;
 	char			**env;
 	char			*line;
 	pid_t			pid;
 	int				status;
-	struct s_cmd	*cmd;
 } t_data;
 
 void	handler(int sig, siginfo_t *info, void *context);
@@ -44,6 +45,7 @@ void	parser(t_data *data);
 char	*prompt(void);
 void	bin_execute(t_data *mini);
 // builtins
+int		verify_quotes(t_data *data);
 void	ft_exit(t_data  *data);
-
+void print(char **str);
 #endif

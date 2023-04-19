@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/08 21:26:33 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/18 14:59:37 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	handler(int sig, siginfo_t *info, void *context)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 1); // handle signal ctrl + c
-		write (1, "\n", 1);
-		printf ("recibido ctrl + c\n");
+		printf("%s\n", prompt());
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)

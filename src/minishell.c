@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/19 11:52:16 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/19 13:52:10 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,25 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
-	ft_memset (&data, 0, sizeof(t_data));
-	data.status = 1;
 	(void)ac;
 	(void)av;
+	ft_bzero (&data, sizeof(t_data));
+	data.status = 1;
 	while (data.status)
 	{
 		signals();
 		data.line = readline (prompt());
 		if (!data.line)
-			break;
+		{
+			perror ("Error readline: ");
+			break;  
+		}
 		data.env = env;
 		if (lexer(&data))
-		  continue;
+		{
+		  free (data.line);
+		  continue; // si hay error en el lexer no se ejecuta el parser
+		}
 		free (data.line);
 		//parser(&data);
 	}

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/19 13:52:10 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/22 12:32:33 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ Estado de salida:
  * si hay redirecciones los guardamos en un array
  * si hay pipes los guardamos en un array
  * si hay comillas los guardamos en un array
- *
+ * estaria guay una funcion como split pero que ademas sea un seter como trim
  * */
+
 int	lexer(t_data *data)
 {
   if (!ft_strlen(data->line) || verify_quotes(data))
@@ -61,7 +62,7 @@ int	lexer(t_data *data)
   data->bufer = ft_split(data->line, ' ');
   add_history (data->line);
   print (data->bufer);
-  bin_execute(data);
+  //bin_execute(data);
   return (0);
 }
 
@@ -88,9 +89,10 @@ int	main(int ac, char **av, char **env)
 		  free (data.line);
 		  continue; // si hay error en el lexer no se ejecuta el parser
 		}
-		free (data.line);
 		//parser(&data);
+		free (data.line);
 	}
+  //❯ sudo lshw -short | grep motherboard
 	free (data.path);
 	exit(EXIT_SUCCESS);
 }

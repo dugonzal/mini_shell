@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/22 12:32:33 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/22 23:15:52 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,121 @@ Estado de salida:
  * si hay comillas los guardamos en un array
  * estaria guay una funcion como split pero que ademas sea un seter como trim
  * */
+/// set la string a tokenizar y el set son los caracteres que se van a delimitar para tokenizar la string
+// echo "hola mundo" | grep "hola" > file.txt
+// cualquier cadena que este entre comillas dobles o simples sera un token
+// primero verificamos si hay comillas dobles y luego simples
 
+typedef struct s_d
+{
+  int count;
+} t_d;
+
+char *count_quotes(char *str, char quote, t_d *data)
+{
+  int i;
+
+  i = 0;
+  while (*str)
+  {
+    if (*str != quote)
+      break ;
+    else
+    {
+      data->count++;
+      str++;
+      i++;
+      while (*str && *str != quote)
+      {
+        i++;
+        if (*str != ' ' && *str != '\t' && *str != '\v' && *str != '\f' && *str != '\r' && *str != '\n')
+          str++;
+        else
+          i++;
+      } 
+      if (*str == quote)
+      {
+        i++;
+        str++;
+        return (str + i);
+      }
+      else
+      {
+        printf ("Error: quotes not closed\n");
+        break ;
+      }
+    }
+  }
+  return (str);
+}
+
+
+static int count_words(const char *str, char *set, char *quotes)
+{
+  t_d data;
+  char *tmp;
+
+  data.count = 0;
+  (void)set;
+  tmp = (char *)str;
+  while (*tmp)
+  {
+    if (*tmp == quotes[0])
+      tmp = count_quotes(tmp, quotes[0], &data);
+    else if (*tmp == quotes[1])
+      tmp = count_quotes(tmp, quotes[1], &data);
+    else if (*tmp == ' ' || *tmp == '\t' || *tmp == '\v' || *tmp == '\f' || *tmp == '\r' || *tmp == '\n')
+    {
+      tmp++;
+      while (*tmp && *tmp != ' ' && *tmp != '\t' && *tmp != '\v' && *tmp != '\f' && *tmp != '\r' && *tmp != '\n')
+        tmp++;
+      data.count++;
+    }
+    else if (ft_isalnum(*tmp))
+    {
+      printf("count: [%c]", *tmp);
+      while (*tmp && ft_isalnum(*tmp))
+        tmp++;
+      data.count++;
+    }
+    else
+      tmp++;
+  }
+  return (data.count);
+}
+
+
+
+
+
+char	**cmdtrim(char const *str, char *set, char *quotes)
+{
+	char	**tmp;
+	int		nwords;
+
+	tmp = NULL;
+	if (!str)
+		return (NULL);
+	nwords = count_words(str, set, quotes);
+	printf("nwords: [%d]\n", nwords);
+	
+	//if (nwords == -1)
+	//	return (NULL);
+	//tmp = (char **)malloc(sizeof(char *) * (nwords + 1) );
+	//if (!aux)
+	return (tmp);
+}
+
+// vamos a separar las cadenas en sub cadenas poco a poco para poder controlarlo y redimensionarlo
 int	lexer(t_data *data)
 {
-  if (!ft_strlen(data->line) || verify_quotes(data))
+  if (!ft_strlen(data->line))// || verify_quotes(data))
 		return (1);
   data->line  = ft_strtrim(data->line, " \t\v\f\r\n", 1); 
-  data->bufer = ft_split(data->line, ' ');
   add_history (data->line);
-  print (data->bufer);
+   data->bufer = cmdtrim(data->line,  " \t\v\f\r\n", "\"\'");
+ // ftmak print (data->bufer);
+  //data->bufer = ft_strtok(data->line, "\"\' \t\v\f\r\n");
   //bin_execute(data);
   return (0);
 }

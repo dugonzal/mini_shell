@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/22 23:15:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/25 03:35:35 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ Estado de salida:
 
 // lexer analiza la linea de comandos y la separa en tokens para el parser
  /*
-  * exepciones de erro 
+  * exepciones de erro
   * 1. linea vacia
   * 2. comillas sin cerrar
   * 3. redirecciones sin comandos
@@ -58,117 +58,101 @@ Estado de salida:
 // cualquier cadena que este entre comillas dobles o simples sera un token
 // primero verificamos si hay comillas dobles y luego simples
 
-typedef struct s_d
-{
-  int count;
-} t_d;
 
-char *count_quotes(char *str, char quote, t_d *data)
-{
-  int i;
+// whitespaces = " \t\v\f\r\n"
+// quotes = "\"\'"
 
-  i = 0;
-  while (*str)
-  {
-    if (*str != quote)
-      break ;
-    else
-    {
-      data->count++;
-      str++;
-      i++;
-      while (*str && *str != quote)
-      {
-        i++;
-        if (*str != ' ' && *str != '\t' && *str != '\v' && *str != '\f' && *str != '\r' && *str != '\n')
-          str++;
-        else
-          i++;
-      } 
-      if (*str == quote)
-      {
-        i++;
-        str++;
-        return (str + i);
-      }
-      else
-      {
-        printf ("Error: quotes not closed\n");
-        break ;
-      }
-    }
-  }
-  return (str);
+// chatgpt me decia que usara un glag para saber si estaba dentro de unas commillas o no
+// si tengo set en medio de las las palabras y quotes el pricinpio de las palabras
+void	*print_str(char *str, int i)
+{
+	printf("[%c]", str[i]);
+	printf("[%d]", i);
+	printf("\n");
+	return (NULL);
 }
 
-
-static int count_words(const char *str, char *set, char *quotes)
+int	_find(char *str, char c)
 {
-  t_d data;
-  char *tmp;
+	int i;
 
-  data.count = 0;
-  (void)set;
-  tmp = (char *)str;
-  while (*tmp)
-  {
-    if (*tmp == quotes[0])
-      tmp = count_quotes(tmp, quotes[0], &data);
-    else if (*tmp == quotes[1])
-      tmp = count_quotes(tmp, quotes[1], &data);
-    else if (*tmp == ' ' || *tmp == '\t' || *tmp == '\v' || *tmp == '\f' || *tmp == '\r' || *tmp == '\n')
-    {
-      tmp++;
-      while (*tmp && *tmp != ' ' && *tmp != '\t' && *tmp != '\v' && *tmp != '\f' && *tmp != '\r' && *tmp != '\n')
-        tmp++;
-      data.count++;
-    }
-    else if (ft_isalnum(*tmp))
-    {
-      printf("count: [%c]", *tmp);
-      while (*tmp && ft_isalnum(*tmp))
-        tmp++;
-      data.count++;
-    }
-    else
-      tmp++;
-  }
-  return (data.count);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
-
-
-
-
-
-char	**cmdtrim(char const *str, char *set, char *quotes)
+int _count_words(t_data *data, char *whitespace, char *quotes)
 {
-	char	**tmp;
-	int		nwords;
+	char *tmp;
+	int count;
+	int flag;
+	int i;
 
-	tmp = NULL;
-	if (!str)
-		return (NULL);
-	nwords = count_words(str, set, quotes);
-	printf("nwords: [%d]\n", nwords);
-	
-	//if (nwords == -1)
-	//	return (NULL);
-	//tmp = (char **)malloc(sizeof(char *) * (nwords + 1) );
-	//if (!aux)
-	return (tmp);
+	count = 0;
+	tmp = data->line;
+	flag = 0;
+	i = 0;
+	(void)quotes;
+	while (tmp[i])
+	{
+		printf ("[%c]", tmp[i]);
+		if (find(quotes, tmp[i]) == 1)
+			flag = 1;
+		if (flag)
+		{
+			i++;
+			while (tmp[i] && !_find(quotes, tmp[i]))
+				i++;
+				count++;
+			flag = 0;
+		}
+		if (tmp[i] && !_find(whitespace, tmp[i]) && !_find(quotes, tmp[i]) && !flag)
+		{
+			i++;
+			if (_find (quotes, tmp[i]))
+				flag = 1;
+			count++;
+			while (tmp[i] && !_find(whitespace, tmp[i]) && !_find(quotes, tmp[i]) && !flag)
+			{
+				if (_find(whitespace, tmp[i]))
+					break;
+				else if (_find(quotes, tmp[i]))
+					flag = 1;
+				i++;
+			}
+		}
+		else if (tmp[i] && _find(whitespace, tmp[i]) && !_find(quotes, tmp[i]) && !flag)
+		{
+			i++;
+			while (tmp[i] && _find(whitespace, tmp[i]) && !_find(quotes, tmp[i]))
+			{
+				if (!_find(whitespace, tmp[i]))
+					break;
+				i++;
+			}
+		}
+		else
+			i++;
+	}
+	return (count);
 }
-
-// vamos a separar las cadenas en sub cadenas poco a poco para poder controlarlo y redimensionarlo
 int	lexer(t_data *data)
 {
-  if (!ft_strlen(data->line))// || verify_quotes(data))
+	char *whitespaces;
+	char *quotes;
+
+	quotes = "\"\'";
+	whitespaces = " \t\v\f\r";
+	if (!ft_strlen(data->line))// || verify_quotes(data))
 		return (1);
-  data->line  = ft_strtrim(data->line, " \t\v\f\r\n", 1); 
+	data->line = ft_strtrim(data->line, whitespaces, 1);
+	int i = _count_words(data, whitespaces, quotes);
+	printf("\ni = %d\n", i);
   add_history (data->line);
-   data->bufer = cmdtrim(data->line,  " \t\v\f\r\n", "\"\'");
- // ftmak print (data->bufer);
-  //data->bufer = ft_strtok(data->line, "\"\' \t\v\f\r\n");
-  //bin_execute(data);
   return (0);
 }
 
@@ -187,16 +171,13 @@ int	main(int ac, char **av, char **env)
 		if (!data.line)
 		{
 			perror ("Error readline: ");
-			break;  
+			break;
 		}
 		data.env = env;
-		if (lexer(&data))
-		{
-		  free (data.line);
-		  continue; // si hay error en el lexer no se ejecuta el parser
-		}
+		lexer(&data);
 		//parser(&data);
 		free (data.line);
+    free (data.bufer);
 	}
   //❯ sudo lshw -short | grep motherboard
 	free (data.path);

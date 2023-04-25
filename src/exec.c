@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/13 17:05:59 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/04/24 11:42:33 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*check_access(char *path, char *bin)
 	return (NULL);
 }
 
+/// @brief
+/// @param mini
 void	bin_execute(t_data *mini)
 {
 	int		error;
@@ -46,8 +48,8 @@ void	bin_execute(t_data *mini)
 
 	error = 0;
 	tmp = NULL;
-	mini->pid = fork();
 	mini->path = ft_split(getenv("PATH"), ':');
+	mini->pid = fork();
 	if (!mini->pid)
 	{
 		if (mini->bufer[0][0] == '.' || mini->bufer[0][0] == '/')

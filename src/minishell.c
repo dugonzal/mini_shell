@@ -6,7 +6,7 @@
 /*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/25 03:35:35 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/25 11:29:32 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,53 +90,75 @@ int _count_words(t_data *data, char *whitespace, char *quotes)
 	char *tmp;
 	int count;
 	int flag;
-	int i;
-
+	int i[2];
 	count = 0;
 	tmp = data->line;
 	flag = 0;
-	i = 0;
+	i[1] = 0;
+	i[0] = 0;
 	(void)quotes;
-	while (tmp[i])
+	while (tmp[i[0]])
 	{
-		printf ("[%c]", tmp[i]);
-		if (find(quotes, tmp[i]) == 1)
+		if ((*quotes == tmp[i[0]]) == 1)
 			flag = 1;
+		else if ((*quotes + 1 == tmp[i[0]]) == 1)
+			flag = 2;
 		if (flag)
 		{
-			i++;
-			while (tmp[i] && !_find(quotes, tmp[i]))
-				i++;
-				count++;
+			i[0]++;
+			while (tmp[i[0]])
+			{
+				if (*quotes == tmp[i[0]] && flag == 1)
+				{
+					flag = 0;
+					break;
+				}
+				if (*quotes + 1 == tmp[i[0]] && flag == 2)
+				{
+					flag = 0;
+					break;
+				}
+				else
+					i[0]++;
+			}
+			count++;
 			flag = 0;
 		}
-		if (tmp[i] && !_find(whitespace, tmp[i]) && !_find(quotes, tmp[i]) && !flag)
+		if (tmp[i[0]] && !_find(whitespace, tmp[i[0]]) && !_find(quotes, tmp[i[0]]) && !flag)
 		{
-			i++;
-			if (_find (quotes, tmp[i]))
+			i[0]++;
+			if (_find (quotes, tmp[i[0]]))
 				flag = 1;
 			count++;
-			while (tmp[i] && !_find(whitespace, tmp[i]) && !_find(quotes, tmp[i]) && !flag)
+			while (tmp[i[0]] && !_find(whitespace, tmp[i[0]]) && !_find(quotes, tmp[i[0]]) && !flag)
 			{
-				if (_find(whitespace, tmp[i]))
+				if (_find(whitespace, tmp[i[0]]))
 					break;
-				else if (_find(quotes, tmp[i]))
+				else if (_find(quotes, tmp[i[0]]))
+				{
 					flag = 1;
-				i++;
+					break;
+				}
+				i[0]++;
 			}
 		}
-		else if (tmp[i] && _find(whitespace, tmp[i]) && !_find(quotes, tmp[i]) && !flag)
+		else if (tmp[i[0]] && _find(whitespace, tmp[i[0]]) && !_find(quotes, tmp[i[0]]) && !flag)
 		{
-			i++;
-			while (tmp[i] && _find(whitespace, tmp[i]) && !_find(quotes, tmp[i]))
+			i[0]++;
+			while (tmp[i[0]] && _find(whitespace, tmp[i[0]]) && !_find(quotes, tmp[i[0]]))
 			{
-				if (!_find(whitespace, tmp[i]))
+				if (!_find(whitespace, tmp[i[0]]))
 					break;
-				i++;
+				else if (_find(quotes, tmp[i[0]]))
+				{
+					flag = 1;
+					break;
+				}
+				i[0]++;
 			}
 		}
 		else
-			i++;
+			i[0]++;
 	}
 	return (count);
 }
@@ -144,14 +166,34 @@ int	lexer(t_data *data)
 {
 	char *whitespaces;
 	char *quotes;
-
+	char **tokens;
+	int count;
+	int words = 0;
+	int flag = 0;
+	int j = 0;
 	quotes = "\"\'";
 	whitespaces = " \t\v\f\r";
 	if (!ft_strlen(data->line))// || verify_quotes(data))
 		return (1);
+
 	data->line = ft_strtrim(data->line, whitespaces, 1);
-	int i = _count_words(data, whitespaces, quotes);
-	printf("\ni = %d\n", i);
+	int i =_count_words(data, whitespaces, quotes);
+	tokens = (char **)malloc(sizeof(char *) * (i + 1));
+	count = 0;
+	while (count < ft_strlen2(data->line))
+	{
+		if (*quotes == data->line[count] || *(quotes + 1) == data->line[count])
+			flag = 1;
+		if (flag)
+		{
+			count++;
+			tokens[words] = 
+		}
+		else
+			words++;
+		break ;
+	}
+	printf("%s %s", tokens[0], tokens[1]);
   add_history (data->line);
   return (0);
 }

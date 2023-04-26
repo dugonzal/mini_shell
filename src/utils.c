@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/22 19:08:33 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:09:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,19 @@ char	*prompt(void)
 	return (prompt);
 }
      
+void	*free_array(char **array)
+{
+	int i;
 
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free (array);
+  return (NULL);
+}
 
 void print(char **str)
 {

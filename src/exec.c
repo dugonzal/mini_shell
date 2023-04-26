@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/24 11:42:33 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 00:05:38 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ char	*check_access(char *path, char *bin)
 	while (path[++i])
 		tmp[i] = path[i];
 	tmp[i] = '/';
-	i++;
-	while (bin[j])
-		tmp[i++] = bin[j++];
+		tmp[++i] = bin[j++];
 	tmp[i] = 0;
 	if (!access(tmp, 0))
 		return (tmp);

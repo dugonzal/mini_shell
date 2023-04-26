@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 15:07:18 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:20:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ typedef struct s_data
 	char			**path;
 	char			**env;
 	int				*fd;
-	
-	int				flag[2];
 	int				status;
 	pid_t 			pid;
 	//struct s_cmd	s_cmd;

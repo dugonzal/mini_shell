@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 15:17:41 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:12:41 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ Estado de salida:
  línea de órdenes)
 */
 
-// lexer -> parser -> builtins -> bin_execute -> waitpid
+// lexer -> parser -> builtins -> expanser -> bin_execute -> waitpid
 
 // lexer analiza la linea de comandos y la separa en tokens para el parser
  /*
@@ -61,17 +61,6 @@ Estado de salida:
 
 // whitespaces = " \t\v\f\r\n"
 // quotes = "\"\'"
-
-// chatgpt me decia que usara un glag para saber si estaba dentro de unas commillas o no
-// si tengo set en medio de las las palabras y quotes el pricinpio de las palabras
-void	*print_str(char *str, int i)
-{
-	printf("[%c]", str[i]);
-	printf("[%d]", i);
-	printf("\n");
-	return (NULL);
-}
-
 int	_find(char *str, char c)
 {
 	int i;
@@ -94,6 +83,7 @@ char	*tmp_sky(char *str, char s)
   str++;
   return (str);
 }
+
 char	*tmp_sky_set(char *str, char *set, char *quotes)
 {
   str++;
@@ -121,7 +111,6 @@ int	_count(char *str, char *set)
 
 	quotes = "\"\'";
 	count = 0;
-	(void)set;
 	while (*str)
 	{
 	  if (*str && _find(quotes, *str))
@@ -141,16 +130,30 @@ int	_count(char *str, char *set)
 }
 
 
-int count_set(char *str, char *set)
+int count_word(char *str, char *set)
 {
   int i;
-
-  i = 0;
+  
+  i = 1;
   while (str[i] && !_find(set, str[i]))
 	i++;
   return (i);
 }
-
+int count_word_q(char *str, char *set)
+{
+  int i;
+  char quote;
+  
+  i = 1;
+  (void)set;
+  quote = *str;
+  while (str[i] && str[i] != quote)
+	i++;
+  if (str[i] && _find("\'\"", str[i]))
+	i++;
+  printf ("i = %d %c\n", i, str[i]);
+  return (i);
+}
 char **split_token(char *prompt, char *set)
 {
   char **tmp;
@@ -172,20 +175,25 @@ char **split_token(char *prompt, char *set)
 	row = 0;
 	if (*prompt && _find(quotes, *prompt)) // si es una comillas
 	{
-	  tmp[word] = (char *)malloc(sizeof(char) * (count_set(prompt, quotes) + 1));
+	  tmp[word] = (char *)malloc(sizeof(char) * (count_word_q(prompt, quotes) + 1));
 	  if (!tmp[word])
 		return(free_array(tmp));
 	  tmp_quotes = *prompt;
 	  tmp[word][row++] = *prompt++;
 	  while (*prompt && *prompt != tmp_quotes) 
 		tmp[word][row++] = *prompt++;
+	  if (*prompt != tmp_quotes)
+	  {
+		  printf (RED"Error: quotes not closed\n"RESET);
+		  return (free_array(tmp));
+	  }
 	  tmp[word][row++] = *prompt++;
 	  tmp[word][row] = '\0';
 	  word++;
 	}
 	else if (*prompt && !_find(set, *prompt) && !_find(quotes, *prompt)) // si es un caracteres
 	{
-	  tmp[word] = (char *)malloc(sizeof(char) * (count_set(prompt, set) + 1));
+	  tmp[word] = (char *)malloc(sizeof(char) * (count_word(prompt, set) + 1));
 	  if (!tmp[word])
 		return(free_array(tmp));
 	  while (*prompt && !_find(set, *prompt) && !_find(quotes, *prompt))
@@ -195,23 +203,21 @@ char **split_token(char *prompt, char *set)
 	}
 	else
 	  prompt++;
-	
   }
   tmp[word] = NULL;
   return (tmp);
 }
 
-
-
 int	lexer(t_data *data)
 {
 	char *whitespaces;
 
-	whitespaces = " \t\v\f\r";
-	if (!ft_strlen(data->line)) // || verify_quotes(data))
+	if (!ft_strlen(data->line))
 		return (1);
+	whitespaces = " \t\v\f\r";
 	data->line = ft_strtrim(data->line, whitespaces, 1);
-	data->bufer = split_token(data->line, whitespaces);
+	if (!(data->bufer = split_token(data->line, whitespaces)))
+		return (1);
 	print(data->bufer);
   add_history (data->line);
   return (0);
@@ -231,13 +237,14 @@ int	main(int ac, char **av, char **env)
 		data.line = readline (prompt());
 		if (!data.line)
 		{
-			perror ("Error readline: ");
+			perror (RED"Error readline: "RESET);
 			break;
 		}
 		data.env = env;
 		lexer(&data);
 		//parser(&data);
 		free (data.line);
+		free (data.bufer);
 	}
   //❯ sudo lshw -short | grep motherboard
 	free (data.path);

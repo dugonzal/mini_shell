@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/24 12:01:59 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:07:18 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	// deberia tener una variable que de las cadenas de la linea de comando
+	char			*line;
 	char			**bufer;
 	char			**cmd;
 	char			**path;
 	char			**env;
-	int				*delimits;
-	char			*line;
 	int				*fd;
-	int				flag;
+	
+	int				flag[2];
 	int				status;
 	pid_t 			pid;
 	//struct s_cmd	s_cmd;
@@ -56,4 +56,5 @@ int		verify_quotes(t_data *data);
 void	ft_exit(t_data  *data);
 void	print(char **str);
 
+void	*free_array(char **array);
 #endif

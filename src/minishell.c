@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/25 11:29:32 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:17:41 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,115 +85,134 @@ int	_find(char *str, char c)
 	}
 	return (0);
 }
-int _count_words(t_data *data, char *whitespace, char *quotes)
+
+char	*tmp_sky(char *str, char s)
 {
-	char *tmp;
+  str++;
+  while (*str && *str != s)
+	str++;
+  str++;
+  return (str);
+}
+char	*tmp_sky_set(char *str, char *set, char *quotes)
+{
+  str++;
+  while (*str && !_find(set, *str) && !_find(quotes, *str))
+	str++;
+  if (*str && !_find(quotes, *str))
+	str++;
+  return (str);
+}
+
+
+char	*sky(char *str)
+{
+  if (*str == '\'')
+	str = tmp_sky(str, '\'');
+  else if (*str == '\"')
+	  str = tmp_sky(str, '\"');
+  return (str);
+}
+
+int	_count(char *str, char *set)
+{
 	int count;
-	int flag;
-	int i[2];
+	char *quotes;
+
+	quotes = "\"\'";
 	count = 0;
-	tmp = data->line;
-	flag = 0;
-	i[1] = 0;
-	i[0] = 0;
-	(void)quotes;
-	while (tmp[i[0]])
+	(void)set;
+	while (*str)
 	{
-		if ((*quotes == tmp[i[0]]) == 1)
-			flag = 1;
-		else if ((*quotes + 1 == tmp[i[0]]) == 1)
-			flag = 2;
-		if (flag)
-		{
-			i[0]++;
-			while (tmp[i[0]])
-			{
-				if (*quotes == tmp[i[0]] && flag == 1)
-				{
-					flag = 0;
-					break;
-				}
-				if (*quotes + 1 == tmp[i[0]] && flag == 2)
-				{
-					flag = 0;
-					break;
-				}
-				else
-					i[0]++;
-			}
-			count++;
-			flag = 0;
-		}
-		if (tmp[i[0]] && !_find(whitespace, tmp[i[0]]) && !_find(quotes, tmp[i[0]]) && !flag)
-		{
-			i[0]++;
-			if (_find (quotes, tmp[i[0]]))
-				flag = 1;
-			count++;
-			while (tmp[i[0]] && !_find(whitespace, tmp[i[0]]) && !_find(quotes, tmp[i[0]]) && !flag)
-			{
-				if (_find(whitespace, tmp[i[0]]))
-					break;
-				else if (_find(quotes, tmp[i[0]]))
-				{
-					flag = 1;
-					break;
-				}
-				i[0]++;
-			}
-		}
-		else if (tmp[i[0]] && _find(whitespace, tmp[i[0]]) && !_find(quotes, tmp[i[0]]) && !flag)
-		{
-			i[0]++;
-			while (tmp[i[0]] && _find(whitespace, tmp[i[0]]) && !_find(quotes, tmp[i[0]]))
-			{
-				if (!_find(whitespace, tmp[i[0]]))
-					break;
-				else if (_find(quotes, tmp[i[0]]))
-				{
-					flag = 1;
-					break;
-				}
-				i[0]++;
-			}
-		}
-		else
-			i[0]++;
+	  if (*str && _find(quotes, *str))
+	  {
+		str = sky(str);
+		count++;
+	  }
+	  else if (*str && !_find(set, *str) && !_find(quotes, *str))
+	  {
+		str = tmp_sky_set(str, set, quotes);
+		count++;
+	  }
+	  else
+		str++;
 	}
 	return (count);
 }
+
+
+int count_set(char *str, char *set)
+{
+  int i;
+
+  i = 0;
+  while (str[i] && !_find(set, str[i]))
+	i++;
+  return (i);
+}
+
+char **split_token(char *prompt, char *set)
+{
+  char **tmp;
+  int row;
+  int word;
+  char *quotes;
+  char tmp_quotes;
+
+  if (!prompt || !set)
+	return (NULL);
+  quotes = "\"\'";
+  row = 0;
+  word = 0;
+  tmp = (char **)malloc(sizeof(char *) * (_count(prompt, set) + 1));
+  if (!tmp)
+	return (NULL);
+  while (*prompt)
+  {
+	row = 0;
+	if (*prompt && _find(quotes, *prompt)) // si es una comillas
+	{
+	  tmp[word] = (char *)malloc(sizeof(char) * (count_set(prompt, quotes) + 1));
+	  if (!tmp[word])
+		return(free_array(tmp));
+	  tmp_quotes = *prompt;
+	  tmp[word][row++] = *prompt++;
+	  while (*prompt && *prompt != tmp_quotes) 
+		tmp[word][row++] = *prompt++;
+	  tmp[word][row++] = *prompt++;
+	  tmp[word][row] = '\0';
+	  word++;
+	}
+	else if (*prompt && !_find(set, *prompt) && !_find(quotes, *prompt)) // si es un caracteres
+	{
+	  tmp[word] = (char *)malloc(sizeof(char) * (count_set(prompt, set) + 1));
+	  if (!tmp[word])
+		return(free_array(tmp));
+	  while (*prompt && !_find(set, *prompt) && !_find(quotes, *prompt))
+		tmp[word][row++] = *prompt++;
+	  tmp[word][row] = '\0';
+	  word++;
+	}
+	else
+	  prompt++;
+	
+  }
+  tmp[word] = NULL;
+  return (tmp);
+}
+
+
+
 int	lexer(t_data *data)
 {
 	char *whitespaces;
-	char *quotes;
-	char **tokens;
-	int count;
-	int words = 0;
-	int flag = 0;
-	int j = 0;
-	quotes = "\"\'";
-	whitespaces = " \t\v\f\r";
-	if (!ft_strlen(data->line))// || verify_quotes(data))
-		return (1);
 
+	whitespaces = " \t\v\f\r";
+	if (!ft_strlen(data->line)) // || verify_quotes(data))
+		return (1);
 	data->line = ft_strtrim(data->line, whitespaces, 1);
-	int i =_count_words(data, whitespaces, quotes);
-	tokens = (char **)malloc(sizeof(char *) * (i + 1));
-	count = 0;
-	while (count < ft_strlen2(data->line))
-	{
-		if (*quotes == data->line[count] || *(quotes + 1) == data->line[count])
-			flag = 1;
-		if (flag)
-		{
-			count++;
-			tokens[words] = 
-		}
-		else
-			words++;
-		break ;
-	}
-	printf("%s %s", tokens[0], tokens[1]);
+	data->bufer = split_token(data->line, whitespaces);
+	print(data->bufer);
   add_history (data->line);
   return (0);
 }
@@ -219,7 +238,6 @@ int	main(int ac, char **av, char **env)
 		lexer(&data);
 		//parser(&data);
 		free (data.line);
-    free (data.bufer);
 	}
   //❯ sudo lshw -short | grep motherboard
 	free (data.path);

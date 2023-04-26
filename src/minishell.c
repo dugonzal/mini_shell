@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 16:53:38 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:12:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,10 +210,8 @@ int	lexer(t_data *data)
 {
 	char *whitespaces;
 
-  if (!data->line || !*data->line)
-  {
+	if (!ft_strlen(data->line))
 	  return (1);
-  }
 	whitespaces = " \t\v\f\r";
 	data->line = ft_strtrim(data->line, whitespaces, 1);
 	if (!(data->bufer = split_token(data->line, whitespaces)))

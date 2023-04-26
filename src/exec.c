@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 16:51:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:02:38 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ char	*check_access(char *path, char *bin)
 	tmp[i] = 0;
 	if (!access(tmp, 0))
 		return (tmp);
-	else
-	  free (tmp);
+	free (tmp);
 	return (NULL);
 }
 

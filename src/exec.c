@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 00:05:38 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:51:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*check_access(char *path, char *bin)
 	char	*tmp;
 	int		i;
 	int		j;
-
 	if (!path || !bin)
 		return (NULL);
 	i = -1;
@@ -28,11 +27,14 @@ char	*check_access(char *path, char *bin)
 	while (path[++i])
 		tmp[i] = path[i];
 	tmp[i] = '/';
-		tmp[++i] = bin[j++];
+	i++;
+	while (bin[j])
+	  tmp[i++] = bin[j++];
 	tmp[i] = 0;
 	if (!access(tmp, 0))
 		return (tmp);
-	free (tmp);
+	else
+	  free (tmp);
 	return (NULL);
 }
 
@@ -46,7 +48,6 @@ void	bin_execute(t_data *mini)
 
 	error = 0;
 	tmp = NULL;
-	mini->path = ft_split(getenv("PATH"), ':');
 	mini->pid = fork();
 	if (!mini->pid)
 	{
@@ -54,7 +55,7 @@ void	bin_execute(t_data *mini)
 		{
 			error = execve(mini->bufer[0], mini->bufer, mini->env);
 			if (error == -1)
-				printf  (RED"Error : comand noo found\n"RESET);
+				printf  (RED"Error : comand no found\n"RESET);
 		}
 		else
 		{
@@ -63,7 +64,6 @@ void	bin_execute(t_data *mini)
 			{
 				tmp = check_access(mini->path[i], mini->bufer[0]);
 				error = execve(tmp, mini->bufer, mini->env);
-				free (tmp);
 			}
 			if (error)
 				printf  (RED"Error : comand no found\n"RESET);

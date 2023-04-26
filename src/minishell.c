@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 16:12:41 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:53:38 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,19 +139,17 @@ int count_word(char *str, char *set)
 	i++;
   return (i);
 }
-int count_word_q(char *str, char *set)
+int count_word_q(char *str)
 {
   int i;
   char quote;
   
   i = 1;
-  (void)set;
   quote = *str;
   while (str[i] && str[i] != quote)
 	i++;
   if (str[i] && _find("\'\"", str[i]))
 	i++;
-  printf ("i = %d %c\n", i, str[i]);
   return (i);
 }
 char **split_token(char *prompt, char *set)
@@ -175,7 +173,7 @@ char **split_token(char *prompt, char *set)
 	row = 0;
 	if (*prompt && _find(quotes, *prompt)) // si es una comillas
 	{
-	  tmp[word] = (char *)malloc(sizeof(char) * (count_word_q(prompt, quotes) + 1));
+	  tmp[word] = (char *)malloc(sizeof(char) * (count_word_q(prompt) + 1));
 	  if (!tmp[word])
 		return(free_array(tmp));
 	  tmp_quotes = *prompt;
@@ -212,14 +210,18 @@ int	lexer(t_data *data)
 {
 	char *whitespaces;
 
-	if (!ft_strlen(data->line))
-		return (1);
+  if (!data->line || !*data->line)
+  {
+	  return (1);
+  }
 	whitespaces = " \t\v\f\r";
 	data->line = ft_strtrim(data->line, whitespaces, 1);
 	if (!(data->bufer = split_token(data->line, whitespaces)))
 		return (1);
-	print(data->bufer);
   add_history (data->line);
+  free (data->line);
+  ///print (data->bufer);
+  bin_execute(data);
   return (0);
 }
 
@@ -231,19 +233,19 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	ft_bzero (&data, sizeof(t_data));
 	data.status = 1;
+	data.path = ft_split(getenv("PATH"), ':');
 	while (data.status)
 	{
 		signals();
 		data.line = readline (prompt());
 		if (!data.line)
 		{
-			perror (RED"Error readline: "RESET);
+			printf (RED"Error: readline\n"RESET);
 			break;
 		}
 		data.env = env;
 		lexer(&data);
 		//parser(&data);
-		free (data.line);
 		free (data.bufer);
 	}
   //❯ sudo lshw -short | grep motherboard

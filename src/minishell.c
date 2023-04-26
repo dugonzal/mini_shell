@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 17:12:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:51:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,164 +61,20 @@ Estado de salida:
 
 // whitespaces = " \t\v\f\r\n"
 // quotes = "\"\'"
-int	_find(char *str, char c)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	*tmp_sky(char *str, char s)
-{
-  str++;
-  while (*str && *str != s)
-	str++;
-  str++;
-  return (str);
-}
-
-char	*tmp_sky_set(char *str, char *set, char *quotes)
-{
-  str++;
-  while (*str && !_find(set, *str) && !_find(quotes, *str))
-	str++;
-  if (*str && !_find(quotes, *str))
-	str++;
-  return (str);
-}
-
-
-char	*sky(char *str)
-{
-  if (*str == '\'')
-	str = tmp_sky(str, '\'');
-  else if (*str == '\"')
-	  str = tmp_sky(str, '\"');
-  return (str);
-}
-
-int	_count(char *str, char *set)
-{
-	int count;
-	char *quotes;
-
-	quotes = "\"\'";
-	count = 0;
-	while (*str)
-	{
-	  if (*str && _find(quotes, *str))
-	  {
-		str = sky(str);
-		count++;
-	  }
-	  else if (*str && !_find(set, *str) && !_find(quotes, *str))
-	  {
-		str = tmp_sky_set(str, set, quotes);
-		count++;
-	  }
-	  else
-		str++;
-	}
-	return (count);
-}
-
-
-int count_word(char *str, char *set)
-{
-  int i;
-  
-  i = 1;
-  while (str[i] && !_find(set, str[i]))
-	i++;
-  return (i);
-}
-int count_word_q(char *str)
-{
-  int i;
-  char quote;
-  
-  i = 1;
-  quote = *str;
-  while (str[i] && str[i] != quote)
-	i++;
-  if (str[i] && _find("\'\"", str[i]))
-	i++;
-  return (i);
-}
-char **split_token(char *prompt, char *set)
-{
-  char **tmp;
-  int row;
-  int word;
-  char *quotes;
-  char tmp_quotes;
-
-  if (!prompt || !set)
-	return (NULL);
-  quotes = "\"\'";
-  row = 0;
-  word = 0;
-  tmp = (char **)malloc(sizeof(char *) * (_count(prompt, set) + 1));
-  if (!tmp)
-	return (NULL);
-  while (*prompt)
-  {
-	row = 0;
-	if (*prompt && _find(quotes, *prompt)) // si es una comillas
-	{
-	  tmp[word] = (char *)malloc(sizeof(char) * (count_word_q(prompt) + 1));
-	  if (!tmp[word])
-		return(free_array(tmp));
-	  tmp_quotes = *prompt;
-	  tmp[word][row++] = *prompt++;
-	  while (*prompt && *prompt != tmp_quotes) 
-		tmp[word][row++] = *prompt++;
-	  if (*prompt != tmp_quotes)
-	  {
-		  printf (RED"Error: quotes not closed\n"RESET);
-		  return (free_array(tmp));
-	  }
-	  tmp[word][row++] = *prompt++;
-	  tmp[word][row] = '\0';
-	  word++;
-	}
-	else if (*prompt && !_find(set, *prompt) && !_find(quotes, *prompt)) // si es un caracteres
-	{
-	  tmp[word] = (char *)malloc(sizeof(char) * (count_word(prompt, set) + 1));
-	  if (!tmp[word])
-		return(free_array(tmp));
-	  while (*prompt && !_find(set, *prompt) && !_find(quotes, *prompt))
-		tmp[word][row++] = *prompt++;
-	  tmp[word][row] = '\0';
-	  word++;
-	}
-	else
-	  prompt++;
-  }
-  tmp[word] = NULL;
-  return (tmp);
-}
 
 int	lexer(t_data *data)
 {
-	char *whitespaces;
+  char *whitespaces;
 
-	if (!ft_strlen(data->line))
-	  return (1);
-	whitespaces = " \t\v\f\r";
-	data->line = ft_strtrim(data->line, whitespaces, 1);
-	if (!(data->bufer = split_token(data->line, whitespaces)))
-		return (1);
+  if (!ft_strlen(data->line))
+	return (1);
+  whitespaces = " \t\v\f\r";
+  data->line = ft_strtrim(data->line, whitespaces, 1);
+  if (!(data->bufer = split_token(data->line, whitespaces)))
+  	return (1);
   add_history (data->line);
   free (data->line);
-  ///print (data->bufer);
+  print (data->bufer);
   bin_execute(data);
   return (0);
 }
@@ -237,16 +93,12 @@ int	main(int ac, char **av, char **env)
 		signals();
 		data.line = readline (prompt());
 		if (!data.line)
-		{
-			printf (RED"Error: readline\n"RESET);
 			break;
-		}
 		data.env = env;
 		lexer(&data);
 		//parser(&data);
 		free (data.bufer);
 	}
-  //❯ sudo lshw -short | grep motherboard
 	free (data.path);
 	exit(EXIT_SUCCESS);
 }

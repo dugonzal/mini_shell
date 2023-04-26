@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+         #
+#    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/14 12:35:05 by ciclo            ###   ########.fr        #
+#    Updated: 2023/04/26 20:42:36 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ INC_DIR		:= include/
 
 # folders for sources
 parser_dir 	:= parser/
-parser		:= parser
+parser		:= parser utils
 
 builtins_dir 	:= builtins/
 builtins		:= exit
@@ -88,5 +88,5 @@ fclean: clean
 val:
 	 valgrind --track-origins=yes \
 	 --leak-check=full --show-leak-kinds=all \
-	 --log-file=valgrind.log ./$(NAME)
+	 --log-file=valgrind.log ./$(NAME) < test
 re: fclean all

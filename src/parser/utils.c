@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:36:28 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/26 20:55:08 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/27 11:53:10 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int _count_row(char *str, char *set)
   return (i);
 }
 
-int count_word_q(char *str)
+int count_row_quotes(char *str)
 {
   int i;
   char quote;

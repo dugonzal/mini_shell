@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/27 14:59:45 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:17:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ static int	count_word(char *str, char *set)
 	return (count);
 }
 
+char *token_split(char *str, char c)
+{
+  char *tmp;
+  int i;
+ 
+  i = 0;
+  while (str[i] && str[i] == c)
+	i++;
+  tmp = ft_strndup(str, i);
+  if (!tmp)
+	return (NULL);
+  return (tmp);
+}
+
 // contempla el caso de que haya espacios entre comillas
 char **split_token(char *prompt, char *set)
 {
@@ -68,6 +82,15 @@ char **split_token(char *prompt, char *set)
 	}
 	else if (*prompt && !_find(set, *prompt) && !_find("\"\'", *prompt)) // si es un caracteres
 	{
+	  if (_find("<|>", *prompt))
+	  {
+		tmp[word] = token_split(prompt, *prompt);
+		if (!tmp[word])
+		  return(free_array(tmp));
+		prompt += ft_strlen(tmp[word]);
+		word++;
+		continue;
+	  }
 	  size = _count_row(prompt, set);
 	  tmp[word] = ft_strndup(prompt, size);
 	  if (!tmp[word])

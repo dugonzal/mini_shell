@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:36:28 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/27 14:36:31 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:02:21 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int _count_row(char *str, char *set)
   int i;
  
   i = 1;
-  while (str[i] && !_find(set, str[i]))
+  while (str[i] && !_find("<|>", str[i]) \
+  &&  !_find(set, str[i]) && !_find("\'\"", str[i]))
 	i++;
   return (i);
 }

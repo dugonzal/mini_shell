@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/27 14:21:51 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:41:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char **split_token(char *prompt, char *set)
   int row;
   int word;
   char tmp_quotes;
+  int size;
 
   if (!prompt || !set)
 	return (NULL);
@@ -74,12 +75,13 @@ char **split_token(char *prompt, char *set)
 	  tmp[word][row] = '\0';
 	  word++;
 	}
-	else if (*prompt && !_find(set, *prompt) && !_find("\'\"", *prompt)) // si es un caracteres
+	else if (*prompt && !_find(set, *prompt) && !_find("\"\'", *prompt)) // si es un caracteres
 	{
-	  tmp[word] = ft_strndup(prompt, count_row(prompt, set));
+	  size = _count_row(prompt, set);
+	  tmp[word] = ft_strndup(prompt, size);
 	  if (!tmp[word])
 		return(free_array(tmp));
-	  prompt += count_row(prompt, set);
+	  prompt += size;
 	  word++;
 	}
 	else

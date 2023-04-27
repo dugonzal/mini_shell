@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/27 14:22:00 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:36:27 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	print(char **str);
 // parser
 char	**split_token(char *prompt, char *set);
 int 	count_row_quotes(char *str);
-int		count_row(char *str, char *set);
+int		_count_row(char *str, char *set);
 int		count(char *str, char *set);
 char	*sky(char *str);
 char	*tmp_sky_set(char *str, char *set, char *quotes);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 20:49:30 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/27 12:23:51 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 typedef struct s_cmd
 {
 	pid_t			*pid; // si lo declaro como un puntero tengo que hacer malloc
-	char *line;
+	char			**cmd;
 	struct s_cmd	*next;
 
 } t_cmd;
@@ -41,6 +41,7 @@ typedef struct s_data
 	int				*fd;
 	int				status;
 	pid_t 			pid;
+	int				pipe;
 	//struct s_cmd	s_cmd;
 } t_data;
 
@@ -60,11 +61,12 @@ void	print(char **str);
 
 // parser
 char	**split_token(char *prompt, char *set);
-int 	count_word_q(char *str);
+int 	count_row_quotes(char *str);
 int		_count_row(char *str, char *set);
 int		count(char *str, char *set);
 char	*sky(char *str);
 char	*tmp_sky_set(char *str, char *set, char *quotes);
 char	*tmp_sky(char *str, char s);
 int		_find(char *set, char c);
+int		lexer(t_data *data);
 #endif

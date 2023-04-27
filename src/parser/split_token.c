@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/27 14:41:11 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:59:45 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,37 +42,28 @@ static int	count_word(char *str, char *set)
 	return (count);
 }
 
+// contempla el caso de que haya espacios entre comillas
 char **split_token(char *prompt, char *set)
 {
   char **tmp;
-  int row;
   int word;
-  char tmp_quotes;
   int size;
 
   if (!prompt || !set)
 	return (NULL);
-  row = 0;
   word = 0;
   tmp = (char **)malloc(sizeof(char *) * (count_word(prompt, set) + 1));
   if (!tmp)
 	return (NULL);
   while (*prompt)
   {
-	row = 0;
 	if (*prompt && _find("\"\'", *prompt)) // si es una comillas
 	{
-	  tmp[word] = (char *)malloc(sizeof(char) * (count_row_quotes(prompt) + 1));
-	  if (!tmp[word])
-		return(free_array(tmp));
-	  tmp_quotes = *prompt;
-	  tmp[word][row++] = *prompt++;
-	  while (*prompt && *prompt != tmp_quotes) 
-		tmp[word][row++] = *prompt++;
-	  if (*prompt != tmp_quotes)
-		  return (ft_putstr_fd(RED"Error: quotation marks not closed\n"RESET, 2),free_array(tmp));
-	  tmp[word][row++] = *prompt++;
-	  tmp[word][row] = '\0';
+	  size = count_row_quotes(prompt);
+	  tmp[word] = ft_strndup(prompt, size);
+	  if (!tmp[word] || !(ft_strlen(tmp[word]) > 1) || tmp[word][size - 1] != tmp[word][0])
+		return(ft_putstr_fd(RED"Error: quotes no closed \n"RESET, 2), free_array(tmp));
+	  prompt += size;
 	  word++;
 	}
 	else if (*prompt && !_find(set, *prompt) && !_find("\"\'", *prompt)) // si es un caracteres

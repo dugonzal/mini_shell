@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 20:51:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/27 12:21:15 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,6 @@ Estado de salida:
 
 // whitespaces = " \t\v\f\r\n"
 // quotes = "\"\'"
-
-int	lexer(t_data *data)
-{
-  char *whitespaces;
-
-  if (!ft_strlen(data->line))
-	return (1);
-  whitespaces = " \t\v\f\r";
-  data->line = ft_strtrim(data->line, whitespaces, 1);
-  if (!(data->bufer = split_token(data->line, whitespaces)))
-  	return (1);
-  add_history (data->line);
-  free (data->line);
-  print (data->bufer);
-  bin_execute(data);
-  return (0);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
@@ -93,10 +75,12 @@ int	main(int ac, char **av, char **env)
 		signals();
 		data.line = readline (prompt());
 		if (!data.line)
-			break;
+		 break; 
 		data.env = env;
-		lexer(&data);
+		if (lexer(&data))
+			continue ;
 		//parser(&data);
+		//bin_execute(&data);
 		free (data.bufer);
 	}
 	free (data.path);

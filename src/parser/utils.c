@@ -6,7 +6,7 @@
 /*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:36:28 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/28 23:22:30 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/28 23:37:03 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,19 @@ char	*sky(char *str)
 
 int _count_row(char *str, char *set)
 {
+  char *tmp;
   int i;
 
   i = 0;
-  if (_find("<|>", *str))
+  tmp = str;
+  if (_find("<|>", *tmp))
   {
-    while (str[i] && _find("<|>", str[i]))
+    while (tmp[i] && _find("<|>", tmp[i]))
       i++;
+      printf ("i = [%d]\n", i);
     return (i);
   }
-  while (str[i] && !_find(set, str[i]) && !_find("\'\"", str[i]))
+  while (tmp[i] && !_find(set, tmp[i]) && !_find("\'\"", tmp[i]))
 	  i++;
   return (i);
 }
@@ -61,13 +64,13 @@ int count_row_quotes(char *str)
   int i;
   char quote;
 
+  if (str[0] != '\'' && str[0] != '\"')
+    return (0);
   i = 1;
   quote = *str;
-  while (str[i] && str[i] != quote)
-	i++;
-  if (str[i] && _find("\'\"", str[i]))
-	i++;
-  return (i);
+  while (str[i] && str[i] != (quote))
+    i++;
+  if (str[i] == quote)
+    return (i + 1);
+  return (0);
 }
-
-

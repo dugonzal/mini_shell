@@ -6,7 +6,7 @@
 /*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/28 23:20:34 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/28 23:34:38 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,13 @@ char **split_token(char *prompt, char *set)
 	if (*prompt && _find("\"\'", *prompt)) // si es una comillas
 	{
 	  size = count_row_quotes(prompt);
-	  tmp[word] = ft_strndup(prompt, size);
-	  if (!tmp[word] || !(ft_strlen(tmp[word]) > 1) || tmp[word][size - 1] != tmp[word][0])
-	  {
-		ft_putstr_fd(RED"Error: quotes no closed \n"RESET, 1);
+	 if (!size)
+	 {
+		ft_putstr_fd(RED"Error: quotes not closed\n"RESET, 2);
 		return (NULL);
-	  }
+	 }
+	  tmp[word] = ft_strndup(prompt, size);
+	  // check close quotes
 		prompt += size;
 		word++;
 	}

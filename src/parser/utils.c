@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:36:28 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/27 18:02:21 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/28 23:22:30 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,16 @@ char	*sky(char *str)
 int _count_row(char *str, char *set)
 {
   int i;
- 
-  i = 1;
-  while (str[i] && !_find("<|>", str[i]) \
-  &&  !_find(set, str[i]) && !_find("\'\"", str[i]))
-	i++;
+
+  i = 0;
+  if (_find("<|>", *str))
+  {
+    while (str[i] && _find("<|>", str[i]))
+      i++;
+    return (i);
+  }
+  while (str[i] && !_find(set, str[i]) && !_find("\'\"", str[i]))
+	  i++;
   return (i);
 }
 
@@ -55,7 +60,7 @@ int count_row_quotes(char *str)
 {
   int i;
   char quote;
-  
+
   i = 1;
   quote = *str;
   while (str[i] && str[i] != quote)

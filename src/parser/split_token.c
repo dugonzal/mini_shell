@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/27 18:17:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/28 23:20:34 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ static int	count_word(char *str, char *set)
 
 char *token_split(char *str, char c)
 {
-  char *tmp;
-  int i;
- 
+	char	*tmp;
+	int		i;
+
+	if (!str)
+		return (NULL);
   i = 0;
   while (str[i] && str[i] == c)
 	i++;
@@ -76,27 +78,21 @@ char **split_token(char *prompt, char *set)
 	  size = count_row_quotes(prompt);
 	  tmp[word] = ft_strndup(prompt, size);
 	  if (!tmp[word] || !(ft_strlen(tmp[word]) > 1) || tmp[word][size - 1] != tmp[word][0])
-		return(ft_putstr_fd(RED"Error: quotes no closed \n"RESET, 2), free_array(tmp));
-	  prompt += size;
-	  word++;
-	}
-	else if (*prompt && !_find(set, *prompt) && !_find("\"\'", *prompt)) // si es un caracteres
-	{
-	  if (_find("<|>", *prompt))
 	  {
-		tmp[word] = token_split(prompt, *prompt);
-		if (!tmp[word])
-		  return(free_array(tmp));
-		prompt += ft_strlen(tmp[word]);
-		word++;
-		continue;
+		ft_putstr_fd(RED"Error: quotes no closed \n"RESET, 1);
+		return (NULL);
 	  }
-	  size = _count_row(prompt, set);
-	  tmp[word] = ft_strndup(prompt, size);
-	  if (!tmp[word])
-		return(free_array(tmp));
-	  prompt += size;
-	  word++;
+		prompt += size;
+		word++;
+	}
+	else if (!(*prompt == '\0') && *prompt && !_find(set, *prompt) && !_find("\"\'", *prompt)) // si es un caracteres
+	{
+		size = _count_row(prompt, set);
+		tmp[word] = ft_strndup(prompt, size);
+		if (!tmp[word])
+			return(free_array(tmp));
+		prompt += size;
+		word++;
 	}
 	else
 		prompt++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/27 16:43:46 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/28 23:10:06 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int check_pipe(char **str, char c)
 {
   int i;
-  
+
   i = 0;
   while (str[i])
   {
@@ -37,7 +37,7 @@ int check_pipe(char **str, char c)
 int check_redir(char **str, char c)
 {
   int i;
-  
+
   (void)c;
   i = 0;
   while (str[i]) // str[i] = ">" || "<" || "> + >" || "< + <"
@@ -50,43 +50,6 @@ int check_redir(char **str, char c)
 	i++;
   }
   return (0);
-}
-
-void parse_tokens(char **str) // busco tokens que esten junto a caracteres especiales
-{
-  char **tmp;
-  char *special;
-  int i;
-  int j;
-
-  i = 0;
-  tmp = str;
-  while (tmp[i])
-  {
-	j = 0;
-	while (tmp[i][j])
-	{
-		if (tmp[i][j] == '\'' || tmp[i][j] == '\"')
-		{
-		  j++;
-		  while (tmp[i][j] && tmp[i][j] != '\'' && tmp[i][j] != '\"')
-			j++;
-		  j++;
-		}
-	  if (ft_strlen(tmp[i]) > 1 && (tmp[i][j] == '>' || tmp[i][j] == '<' || tmp[i][j] == '|'))
-	  {
-		while (tmp[i][j] && (tmp[i][j] == '>' || tmp[i][j] == '<' || tmp[i][j] == '|'))
-		{
-		  special = &tmp[i][j];
-			printf ("special = %s\n", special);
-		  j++;
-		}
-	  }
-	  else
-		j++;
-	}
-	  i++;
-  }
 }
 
 /// si se ponen los carac

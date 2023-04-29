@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/29 11:31:29 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/29 12:39:44 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,25 @@ static int	count_word(char *str, char *set)
 {
 	int count;
 	char *quotes;
+	char *metacaracteres;
 
+	metacaracteres = "<|>";
 	quotes = "\"\'";
 	count = 0;
 	while (*str)
 	{
-	  if (*str && _find(quotes, *str))
+	  if (*str && _find(quotes, *str)) // quotes 
 	  {
-		str = sky(str);
+		str = sky(str); // aqui se salto las comillas
 		count++;
 	  }
-	  else if (*str && !_find(set, *str) && !_find(quotes, *str))
+	  else if (*str && !_find(set, *str) \
+	  && !_find(quotes, *str) && !_find(metacaracteres, *str)) // caracteres
 	  {
 		str = tmp_sky_set(str, set, quotes);
 		count++;
 	  }
-	  else
+	  else // espacios y demas
 		str++;
 	}
 	return (count);
@@ -64,12 +67,15 @@ char **split_token(char *prompt, char *set)
   char **tmp;
   int word;
   int size;
+  int count;
 
   if (!prompt || !set)
 	return (NULL);
   word = 0;
   (void)size;
-  tmp = (char **)malloc(sizeof(char *) * (count_word(prompt, set) + 1));
+  count = count_word(prompt, set);
+  printf ("count = [%d]\n", count);
+  tmp = (char **)malloc(sizeof(char *) * (count + 1));
   if (!tmp)
 	return (NULL);
   while (*prompt)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/28 23:34:38 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/29 11:31:29 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,32 +68,17 @@ char **split_token(char *prompt, char *set)
   if (!prompt || !set)
 	return (NULL);
   word = 0;
+  (void)size;
   tmp = (char **)malloc(sizeof(char *) * (count_word(prompt, set) + 1));
   if (!tmp)
 	return (NULL);
   while (*prompt)
   {
-	if (*prompt && _find("\"\'", *prompt)) // si es una comillas
+	if (*prompt && !_find("\"\'", *prompt) \
+	&& !_find(set, *prompt) && !_find("<|>", *prompt)) //aqui por ejemplo solo meteria caracteres a los arrays 
 	{
-	  size = count_row_quotes(prompt);
-	 if (!size)
-	 {
-		ft_putstr_fd(RED"Error: quotes not closed\n"RESET, 2);
-		return (NULL);
-	 }
-	  tmp[word] = ft_strndup(prompt, size);
-	  // check close quotes
-		prompt += size;
-		word++;
-	}
-	else if (!(*prompt == '\0') && *prompt && !_find(set, *prompt) && !_find("\"\'", *prompt)) // si es un caracteres
-	{
-		size = _count_row(prompt, set);
-		tmp[word] = ft_strndup(prompt, size);
-		if (!tmp[word])
-			return(free_array(tmp));
-		prompt += size;
-		word++;
+	  printf ("prompt = [%c]\n", *prompt);
+	  prompt++;
 	}
 	else
 		prompt++;

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 20:47:33 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:27:57 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*prompt(void)
 	char	*user;
 	char	*anfitrion;
 
-	if (!(user = getenv("USER")))
+	user = getenv("USER");
+	if (!user)
 		user = ft_strdup("\033[1;31mAnonimo\033[0m");
 	user[0] = ft_toupper(user[0]);
 	user = ft_strjoin("\033[1;31m", user, 0);
@@ -55,7 +56,7 @@ void print(char **str)
   }
 }
 
-int	_find(char *str, char c)
+int	search(char *str, char c)
 {
 	int i;
 

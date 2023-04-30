@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/29 12:46:54 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:28:50 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ Estado de salida:
 /// WhiteSpaces = " \t\v\f\r\n"
 /*
  * empecemos con el lexer
- * primero verificam eos si la linea esta vacia o tiene comillas sin cerrar
+ * primero verificamos si la linea esta vacia o tiene comillas sin cerrar
  * luego verificamos si hay pipes
  * luego verificamos si hay redirecciones
  * luego verificamos si hay comandos
@@ -81,7 +81,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		//parser(&data);
 		//bin_execute(&data);
-		free (data.bufer);
+		free_array (data.bufer);
 	}
 	free (data.path);
 	exit(EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/29 13:04:51 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:16:27 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,14 @@ void	print(char **str);
 // utils
 void	*free_array(char **array);
 void	print(char **str);
+char	*fun_check(char *str);
+int		search(char *set, char c);
 
 // parser
-char	**split_token(char *prompt, char *set, char *quotes, char *special);
-int 	count_row_quotes(char *str);
-int		_count_row(char *str, char *set);
-int		count(char *str, char *set);
-char	*sky(char *str);
-char	*tmp_sky_set(char *str, char *set, char *quotes);
-char	*tmp_sky(char *str, char s);
-int		_find(char *set, char c);
 int		lexer(t_data *data);
+char	**split_token(char *prompt, char *set, char *quotes, char *special);
+int		count_word(char *prompt, char *set, char *quotes, char *specials);
+int		quotes_token(char *str, char quote);
+int		caracteres_token(char *prompt, char *set, char *quotes, char *specials);
+int		specials_token(char *prompt);
 #endif

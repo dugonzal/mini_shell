@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/30 13:18:54 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/04/30 14:58:51 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ INC_DIR		:= include/
 
 # folders for sources
 parser_dir 	:= parser/
-parser		:= split_token parser lexer
+parser		:= split_token parser lexer utils
 
 builtins_dir 	:= builtins/
 builtins		:= exit
@@ -78,12 +78,12 @@ all: $(NAME)
 clean:
 	make -C libft clean
 	rm -rf $(NAME)
-	echo "Cleaning $(NAME)"
+	printf "$(RED)Cleaning $(NAME) $(DEFAULT)"
 
 fclean: clean
 	rm -rf bin  $(OBJ_DIR)
 	make -C libft fclean
-	echo "Cleaning $(OBJ_DIR) and bin"
+	printf "$(RED)Cleaning $(OBJ_DIR) and bin $(DEFAULT)\n"
 
 val:
 	 valgrind --track-origins=yes \

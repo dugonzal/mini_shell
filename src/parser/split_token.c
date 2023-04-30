@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/30 12:00:31 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 12:23:18 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 //enunciado como \ (barra invertida) o ; (punto y coma).
 // voy hacer primero el caso en el que los caracteres entre comillas no tienen
 // espacios luego con espacio
-
 
 char *fun_check(char *str)
 {
@@ -71,6 +70,11 @@ int count_word(char *prompt, char *set, char *quotes, char *specials)
 		tmp += caracteres_token(tmp, set, quotes, specials);
 		count++;
 	}
+	else if (*tmp && _find(quotes, *tmp))
+	{
+	  printf ("count ->[%c]\n", *tmp);
+	  tmp++;
+	}
 	else // estos son los espacios
 		tmp++;
   }
@@ -89,12 +93,12 @@ char **split_token(char *prompt, char *set, char *specials, char *quotes)
   fun_check(*(tmp = (char **)malloc(sizeof(char *) * count + 1)));
   while (*prompt)
   {
+	size = 0;
 	if (*prompt && _find(specials, *prompt)) // specials_token
 	{
 		size = specials_token(prompt);
 		tmp[word] = fun_check(ft_strndup(prompt, size));
 		printf ("[%s]\n", tmp[word]);
-		prompt += size;
 	}
 	else if (*prompt && !_find(specials, *prompt) // caracteres_token
 	&& !_find(quotes, *prompt) && !_find(set, *prompt))
@@ -102,10 +106,16 @@ char **split_token(char *prompt, char *set, char *specials, char *quotes)
 	  size = caracteres_token(prompt, set, quotes, specials);
 	  tmp[word] = fun_check(ft_strndup(prompt, size));
 	  printf ("[%s]\n", tmp[word]);
-	  prompt += size;
 	}
-	else // espacios
+	else if (*prompt && _find(quotes, *prompt))
+	{
+	  printf ("[%c]", *prompt++);
 	  prompt++;
+	}
+	else
+		prompt++;
+	prompt += size;
+	word++;
   }
   tmp = NULL;
   return (tmp);

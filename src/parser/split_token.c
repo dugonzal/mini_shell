@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/30 12:56:24 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 13:00:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char **split_token(char *prompt, char *set, char *specials, char *quotes)
   {
 	size = 0;
 	if (*prompt && _find(specials, *prompt)) // specials_token
-	{
+	{ // reducir lineas metiendo direcatmente la funcion del size de la lina a strndup, pero tendria que avanzar hasta ese punnto
 		size = specials_token(prompt);
 		tmp[word++] = fun_check(ft_strndup(prompt, size));
 	}

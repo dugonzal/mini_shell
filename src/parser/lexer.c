@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/30 15:19:31 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:27:17 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,24 @@
 
 // 1. comprobar que las comillas estan cerradas
 // 2. comprobar que los caracteres especiales estan bien
-
-int check_quotes(char *prompt)
+int check_quotes(char **prompt, char *quotes)
 {
-  (void)prompt;
+  int i;
+  int j;
+  char tmp_quote;
+ 
+  i = -1;
+  while (prompt[++i])
+  {
+	  j = 0;
+	  if (search(quotes, prompt[i][j]))
+	  {
+		tmp_quote = prompt[i][j];
+		while (prompt[i][++j] != tmp_quote)
+		  if (prompt[i][j] == '\0')
+		  	return (1);
+	  }
+  }
   return (0);
 }
 
@@ -31,6 +45,11 @@ int	lexer(t_data *data)
   data->bufer = split_token(data->line, " \t\v\f\r", ">|<", "\"\'");
   if (!data->bufer)
 	  return (1);
+  if (check_quotes(data->bufer, "\'\""))
+  {
+	ft_putstr_fd(RED"minishell: syntax error\n"RESET, 2);
+	return (1);
+  }
  // prin (data->bufer);
   // antes de analizar tengo que recorrer el array en busca de los caracteres especiales que esten juntos a un token
  // data->pipe = check_pipe(data->bufer, '|');

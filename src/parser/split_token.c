@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/29 17:06:12 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 10:46:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,23 @@
 //
 
 
-void *check_fun(char *str)
+void *fun_check(char *str)
 {
   if (!str)
 	return (NULL);
   return (str);
+}
+
+int splecial_token_count(char *prompt)
+{
+  int i;
+
+  if (!(ft_strlen(prompt) > 1))
+	  return (1);
+  i = 0;
+  while (prompt[i] == prompt[i + 1])
+	  i++;
+  return (++i);
 }
 
 // set todo tipo de espacios
@@ -36,14 +48,16 @@ int count_word(char *prompt, char *set, char *quotes, char *specials)
 
   size = 0;
   count = 0;
-  (void)count;
   (void)quotes;
   (void)size;
   (void)set;
   while (*prompt)
   {
 	if (*prompt && _find(specials, *prompt))//splecial
-		printf("[%c]\n", *prompt++);
+	{
+	  prompt += splecial_token_count(&*prompt);
+	  count++;
+	}
 	else
 		prompt++;
   }
@@ -63,6 +77,7 @@ char **split_token(char *prompt, char *set, char *specials, char *quotes)
   (void)word;
   (void)size;
   count = count_word(prompt, set, quotes, specials);
+  printf ("%d", count);
   tmp = NULL;
   return (tmp);
 }

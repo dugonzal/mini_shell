@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/29 16:46:37 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 11:27:41 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	lexer(t_data *data)
 	return (1);
   data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
   if (!(data->bufer = split_token(data->line, " \t\v\f\r", ">|<", "\"\'")))
-  	return (1);
+	return (1);
+  write (1, "\n\n", 2);
+ // prin (data->bufer);
   // antes de analizar tengo que recorrer el array en busca de los caracteres especiales que esten juntos a un token
  // data->pipe = check_pipe(data->bufer, '|');
  // data->redir = check_redir(data->bufer, '>');

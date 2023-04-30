@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/30 10:46:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 12:00:31 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,36 @@
 //enunciado como \ (barra invertida) o ; (punto y coma).
 // voy hacer primero el caso en el que los caracteres entre comillas no tienen
 // espacios luego con espacio
-//
 
 
-void *fun_check(char *str)
+char *fun_check(char *str)
 {
   if (!str)
 	return (NULL);
   return (str);
 }
 
-int splecial_token_count(char *prompt)
+int specials_token(char *prompt)
 {
   int i;
 
-  if (!(ft_strlen(prompt) > 1))
+  if (!(*prompt == 0) && !(ft_strlen(prompt) > 1)) // si en la cadena solo hay un token retorno 1
 	  return (1);
   i = 0;
-  while (prompt[i] == prompt[i + 1])
+  while (prompt[i] == prompt[i + 1]) // cuento hasta que no hayan tokens iguales
 	  i++;
-  return (++i);
+  return (++i);// cuento el primer token 
+}
+
+int	caracteres_token(char *prompt, char *set, char *quotes, char *specials)
+{
+  int i;
+  
+  i = 0;
+  while (prompt[i] && !_find(set, prompt[i])
+  && !_find(quotes, prompt[i]) && !_find(specials, prompt[i]))
+	i++;
+  return (i);
 }
 
 // set todo tipo de espacios
@@ -44,26 +54,29 @@ int splecial_token_count(char *prompt)
 int count_word(char *prompt, char *set, char *quotes, char *specials)
 {
   int count;
-  int size;
+  char *tmp;
 
-  size = 0;
   count = 0;
-  (void)quotes;
-  (void)size;
-  (void)set;
-  while (*prompt)
+  tmp = prompt;
+  while (*tmp)
   {
-	if (*prompt && _find(specials, *prompt))//splecial
+	if (*tmp && _find(specials, *tmp))//splecial
 	{
-	  prompt += splecial_token_count(&*prompt);
+	  tmp += specials_token(&*tmp); // paso como parametro desde ese punto de la cadena
 	  count++;
 	}
-	else
-		prompt++;
+	else if (*tmp  && !_find(specials, *tmp) // caracteres
+	&& !_find(quotes, *tmp) && !_find(set, *tmp)) 
+	{
+		tmp += caracteres_token(tmp, set, quotes, specials);
+		count++;
+	}
+	else // estos son los espacios
+		tmp++;
   }
   return (count);
 }
-// contempla el caso de que haya espacios entre comillas
+
 char **split_token(char *prompt, char *set, char *specials, char *quotes)
 {
   char **tmp;
@@ -71,13 +84,29 @@ char **split_token(char *prompt, char *set, char *specials, char *quotes)
   int size;
   int count;
 
-  count = 0;
   word = 0;
-  (void)count;
-  (void)word;
-  (void)size;
   count = count_word(prompt, set, quotes, specials);
-  printf ("%d", count);
+  fun_check(*(tmp = (char **)malloc(sizeof(char *) * count + 1)));
+  while (*prompt)
+  {
+	if (*prompt && _find(specials, *prompt)) // specials_token
+	{
+		size = specials_token(prompt);
+		tmp[word] = fun_check(ft_strndup(prompt, size));
+		printf ("[%s]\n", tmp[word]);
+		prompt += size;
+	}
+	else if (*prompt && !_find(specials, *prompt) // caracteres_token
+	&& !_find(quotes, *prompt) && !_find(set, *prompt))
+	{
+	  size = caracteres_token(prompt, set, quotes, specials);
+	  tmp[word] = fun_check(ft_strndup(prompt, size));
+	  printf ("[%s]\n", tmp[word]);
+	  prompt += size;
+	}
+	else // espacios
+	  prompt++;
+  }
   tmp = NULL;
   return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/30 17:27:17 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 18:25:51 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	lexer(t_data *data)
  // parse_tokens(data->bufer);
   //if (data->pipe == 2)
 //	return (1);
-  print (data->bufer);
+  //print (data->bufer);
   add_history (data->line);
  // free (data->line);
   return (0);

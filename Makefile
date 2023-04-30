@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/30 13:03:52 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/04/30 13:18:54 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ else
 endif
 
 ifndef verbose
-#.SILENT:
+.SILENT:
 endif
 
 $(NAME): $(OBJ)

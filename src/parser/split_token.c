@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/30 12:23:18 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 12:52:46 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@ int	caracteres_token(char *prompt, char *set, char *quotes, char *specials)
   return (i);
 }
 
+int quotes_token(char *str)
+{
+  int i;
+  char quote;
+
+  i = 1;
+  quote = *str;
+  while (str[i] && str[i] != (quote))
+    i++;
+  if (str[i] == quote)
+    return (++i);
+  return (0);
+}
 // set todo tipo de espacios
 // example <echo"hello world"> 2>file | cat -e
 int count_word(char *prompt, char *set, char *quotes, char *specials)
@@ -59,9 +72,9 @@ int count_word(char *prompt, char *set, char *quotes, char *specials)
   tmp = prompt;
   while (*tmp)
   {
-	if (*tmp && _find(specials, *tmp))//splecial
+	if (*tmp && _find(specials, *tmp))//special
 	{
-	  tmp += specials_token(&*tmp); // paso como parametro desde ese punto de la cadena
+	  tmp += specials_token(tmp); // paso como parametro desde ese punto de la cadena
 	  count++;
 	}
 	else if (*tmp  && !_find(specials, *tmp) // caracteres
@@ -72,8 +85,8 @@ int count_word(char *prompt, char *set, char *quotes, char *specials)
 	}
 	else if (*tmp && _find(quotes, *tmp))
 	{
-	  printf ("count ->[%c]\n", *tmp);
-	  tmp++;
+	  tmp += quotes_token(tmp);
+	  count++;
 	}
 	else // estos son los espacios
 		tmp++;
@@ -86,11 +99,10 @@ char **split_token(char *prompt, char *set, char *specials, char *quotes)
   char **tmp;
   int word;
   int size;
-  int count;
 
   word = 0;
-  count = count_word(prompt, set, quotes, specials);
-  fun_check(*(tmp = (char **)malloc(sizeof(char *) * count + 1)));
+  fun_check(*(tmp = (char **)malloc(sizeof(char *) \
+  * count_word(prompt, set, quotes, specials) + 1)));
   while (*prompt)
   {
 	size = 0;
@@ -98,25 +110,25 @@ char **split_token(char *prompt, char *set, char *specials, char *quotes)
 	{
 		size = specials_token(prompt);
 		tmp[word] = fun_check(ft_strndup(prompt, size));
-		printf ("[%s]\n", tmp[word]);
+		word++;
 	}
 	else if (*prompt && !_find(specials, *prompt) // caracteres_token
 	&& !_find(quotes, *prompt) && !_find(set, *prompt))
 	{
 	  size = caracteres_token(prompt, set, quotes, specials);
 	  tmp[word] = fun_check(ft_strndup(prompt, size));
-	  printf ("[%s]\n", tmp[word]);
+	  word++;
 	}
 	else if (*prompt && _find(quotes, *prompt))
 	{
-	  printf ("[%c]", *prompt++);
-	  prompt++;
+	  size = quotes_token(prompt);
+	  tmp[word] = fun_check(ft_strndup(prompt, size));
+	  word++;
 	}
 	else
 		prompt++;
 	prompt += size;
-	word++;
   }
-  tmp = NULL;
+  tmp[word] = NULL;
   return (tmp);
 }

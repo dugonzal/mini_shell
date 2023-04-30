@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/30 12:52:46 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 12:56:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ char **split_token(char *prompt, char *set, char *specials, char *quotes)
 	if (*prompt && _find(specials, *prompt)) // specials_token
 	{
 		size = specials_token(prompt);
-		tmp[word] = fun_check(ft_strndup(prompt, size));
-		word++;
+		tmp[word++] = fun_check(ft_strndup(prompt, size));
 	}
 	else if (*prompt && !_find(specials, *prompt) // caracteres_token
 	&& !_find(quotes, *prompt) && !_find(set, *prompt))
@@ -122,8 +121,7 @@ char **split_token(char *prompt, char *set, char *specials, char *quotes)
 	else if (*prompt && _find(quotes, *prompt))
 	{
 	  size = quotes_token(prompt);
-	  tmp[word] = fun_check(ft_strndup(prompt, size));
-	  word++;
+	  tmp[word++] = fun_check(ft_strndup(prompt, size));
 	}
 	else
 		prompt++;

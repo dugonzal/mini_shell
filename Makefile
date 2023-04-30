@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/30 15:35:30 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/04/30 15:39:29 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ endif
 $(NAME): $(OBJ)
 	make -C libft && mkdir -p bin && mv libft/libft.a bin
 	$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft -I $(INC_DIR)*
-	printf	"$(BLUE)Compiling $@ $(DEFAULT)\n"
+	printf	"$(BLUE) 🚀 $@ $(DEFAULT)\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)
@@ -71,14 +71,14 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)$(builtins_dir)
 	if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git; fi
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)*
-	printf  "$(MAGENTA)Compiling $< $(DEFAULT)\n"
+	printf  "$(MAGENTA) 🚀 $< $(DEFAULT)\n"
 
 all: $(NAME)
 
 clean:
 	make -C libft clean
 	rm -rf $(NAME)
-	printf "$(RED)Cleaning $(NAME) $(DEFAULT)"
+	printf "$(RED) Cleaning $(NAME) $(DEFAULT)"
 
 fclean: clean
 	rm -rf bin  $(OBJ_DIR)
@@ -89,4 +89,5 @@ val:
 	 valgrind --track-origins=yes \
 	 --leak-check=full --show-leak-kinds=all \
 	 --log-file=valgrind.log ./$(NAME) < test
+
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/29 12:39:44 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/29 17:06:12 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,78 +17,52 @@
 //enunciado como \ (barra invertida) o ; (punto y coma).
 // voy hacer primero el caso en el que los caracteres entre comillas no tienen
 // espacios luego con espacio
-static int	count_word(char *str, char *set)
+//
+
+
+void *check_fun(char *str)
 {
-	int count;
-	char *quotes;
-	char *metacaracteres;
-
-	metacaracteres = "<|>";
-	quotes = "\"\'";
-	count = 0;
-	while (*str)
-	{
-	  if (*str && _find(quotes, *str)) // quotes 
-	  {
-		str = sky(str); // aqui se salto las comillas
-		count++;
-	  }
-	  else if (*str && !_find(set, *str) \
-	  && !_find(quotes, *str) && !_find(metacaracteres, *str)) // caracteres
-	  {
-		str = tmp_sky_set(str, set, quotes);
-		count++;
-	  }
-	  else // espacios y demas
-		str++;
-	}
-	return (count);
-}
-
-char *token_split(char *str, char c)
-{
-	char	*tmp;
-	int		i;
-
-	if (!str)
-		return (NULL);
-  i = 0;
-  while (str[i] && str[i] == c)
-	i++;
-  tmp = ft_strndup(str, i);
-  if (!tmp)
+  if (!str)
 	return (NULL);
-  return (tmp);
+  return (str);
 }
 
+// set todo tipo de espacios
+// example <echo"hello world"> 2>file | cat -e
+int count_word(char *prompt, char *set, char *quotes, char *specials)
+{
+  int count;
+  int size;
+
+  size = 0;
+  count = 0;
+  (void)count;
+  (void)quotes;
+  (void)size;
+  (void)set;
+  while (*prompt)
+  {
+	if (*prompt && _find(specials, *prompt))//splecial
+		printf("[%c]\n", *prompt++);
+	else
+		prompt++;
+  }
+  return (count);
+}
 // contempla el caso de que haya espacios entre comillas
-char **split_token(char *prompt, char *set)
+char **split_token(char *prompt, char *set, char *specials, char *quotes)
 {
   char **tmp;
   int word;
   int size;
   int count;
 
-  if (!prompt || !set)
-	return (NULL);
+  count = 0;
   word = 0;
+  (void)count;
+  (void)word;
   (void)size;
-  count = count_word(prompt, set);
-  printf ("count = [%d]\n", count);
-  tmp = (char **)malloc(sizeof(char *) * (count + 1));
-  if (!tmp)
-	return (NULL);
-  while (*prompt)
-  {
-	if (*prompt && !_find("\"\'", *prompt) \
-	&& !_find(set, *prompt) && !_find("<|>", *prompt)) //aqui por ejemplo solo meteria caracteres a los arrays 
-	{
-	  printf ("prompt = [%c]\n", *prompt);
-	  prompt++;
-	}
-	else
-		prompt++;
-  }
-  tmp[word] = NULL;
+  count = count_word(prompt, set, quotes, specials);
+  tmp = NULL;
   return (tmp);
 }

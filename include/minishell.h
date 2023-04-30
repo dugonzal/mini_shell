@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/27 14:36:27 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/29 13:04:51 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	*free_array(char **array);
 void	print(char **str);
 
 // parser
-char	**split_token(char *prompt, char *set);
+char	**split_token(char *prompt, char *set, char *quotes, char *special);
 int 	count_row_quotes(char *str);
 int		_count_row(char *str, char *set);
 int		count(char *str, char *set);

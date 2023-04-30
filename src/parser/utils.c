@@ -6,11 +6,27 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:36:28 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/29 11:24:26 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/29 12:57:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char *token_split(char *str, char c)
+{
+	char	*tmp;
+	int		i;
+
+	if (!str)
+		return (NULL);
+  i = 0;
+  while (str[i] && str[i] == c)
+	i++;
+  tmp = ft_strndup(str, i);
+  if (!tmp)
+	return (NULL);
+  return (tmp);
+}
 
 char	*tmp_sky(char *str, char s)
 {

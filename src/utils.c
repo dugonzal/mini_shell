@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/30 15:27:57 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:30:53 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,9 @@ void	*free_array(char **array)
 {
 	int i;
 
-	i = 0;
-	while (array[i])
-	{
+	i = -1;
+	while (array[++i])
 		free(array[i]);
-		i++;
-	}
 	free (array);
   return (NULL);
 }
@@ -48,24 +45,18 @@ void print(char **str)
 {
   int i;
 
-  i	= 0;
-  while (str[i])
-  {
+  i	= -1;
+  while (str[++i])
 	printf ("[%s] ", str[i]);
-	i++;
-  }
 }
 
 int	search(char *str, char c)
 {
 	int i;
 
-	i = 0;
-	while (str[i])
-	{
+	i = -1;
+	while (str[++i])
 		if (str[i] == c)
 			return (1);
-		i++;
-	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/01 22:40:05 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/01 23:10:21 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,34 @@ int check_quotes(char **prompt, char *quotes)
 int	check_pipe(char **prompt, char pipe)
 {
   int size;
-  
+  int i;
+
   size = arr_size(prompt);
-  if (prompt[size - 1][0] == pipe)
+  if (prompt[0][0] == pipe || prompt[size - 1][0] == pipe)
 	return (1);
-  else if ((!(arr_size(prompt) > 1) && prompt[0][0] == pipe))
-	return (1);
+  i = -1;
+  while (++i < (size - 1))
+	if (prompt[i] && prompt[i][0] == pipe && prompt[i][1] == pipe)
+	  return (1);
+	else if (prompt[i] && prompt[i][0] == pipe && search("><", prompt[i + 1][0]))
+	  return (1);
   return (0);
 }
 
+int check_redir_output(char **prompt, char redir)
+{
+  int i;
+  int size;
+
+  i = -1;
+  size = arr_size(prompt);
+  if (prompt[0] && prompt[size - 1][0] == redir)
+	return (1);
+  while (prompt[++i])
+	if (prompt[i] && prompt[i][0] == redir && prompt[i][2] == redir)
+	  return (1);
+  return (0);
+}
 int	lexer(t_data *data)
 {
   if (data->line[0] == '\0' || !ft_strlen(data->line))
@@ -57,7 +76,8 @@ int	lexer(t_data *data)
   data->bufer = split_token(data->line, " \t\v\f\r", ">|<", "\"\'");
   if (!data->bufer)
 	  return (1);
-  if (check_quotes(data->bufer, "\'\"") || check_pipe(data->bufer, '|'))
+  if (check_quotes(data->bufer, "\'\"") || check_pipe(data->bufer, '|') \
+	|| check_redir_output(data->bufer, '>'))
   {
     ft_putstr_fd (RED"sintax error minishell\n"RESET, 2);
     free_array (data->bufer);
@@ -67,16 +87,10 @@ int	lexer(t_data *data)
 	&& !data->bufer[1])
   {
       ft_exit (data);
+	  free_array(data->bufer);
 	  return (1);
   }
   print (data->bufer);
-	// prin (data->bufer);
-  // antes de analizar tengo que recorrer el array en busca de los caracteres especiales que esten juntos a un token
- // data->redir = check_redir(data->bufer, '>');
- // parse_tokens(data->bufer);
-  //if (data->pipe == 2)
-//	return (1);
-  //print (data->bufer);
   add_history (data->line);
   free (data->line);
   return (0);

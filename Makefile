@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/04/30 15:40:37 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/04/30 19:33:20 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,19 +71,19 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)$(builtins_dir)
 	if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git; fi
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)*
-	printf  "$(MAGENTA) 🚀 $< $(DEFAULT)\n"
+	printf  "$(GREEN) 🚀  $< $(DEFAULT)\n"
 
 all: $(NAME)
 
 clean:
 	make -C libft clean
 	rm -rf $(NAME)
-	printf "$(RED) Cleaning $(NAME) $(DEFAULT)"
+	printf "$(YELLOW) Cleaning $(NAME) $(DEFAULT)"
 
 fclean: clean
 	rm -rf bin  $(OBJ_DIR)
 	make -C libft fclean
-	printf "$(RED)Cleaning $(OBJ_DIR) and bin $(DEFAULT)\n"
+	printf "$(BLUE)Cleaning $(OBJ_DIR) and bin $(DEFAULT)\n"
 
 val:
 	 valgrind --track-origins=yes \

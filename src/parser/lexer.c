@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/01 22:36:02 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:40:05 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int check_quotes(char **prompt, char *quotes)
   return (0);
 }
 
-int	check_pipe(char **prompt, char specials)
+int	check_pipe(char **prompt, char pipe)
 {
   int size;
   
   size = arr_size(prompt);
-  if (prompt[size - 1][0] == specials)
+  if (prompt[size - 1][0] == pipe)
 	return (1);
-  else if ((!(arr_size(prompt) > 1) && prompt[0][0] == specials))
+  else if ((!(arr_size(prompt) > 1) && prompt[0][0] == pipe))
 	return (1);
   return (0);
 }

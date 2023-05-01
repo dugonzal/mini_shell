@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/30 18:25:51 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/01 20:43:19 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 // 2. comprobar que los caracteres especiales estan bien
 int check_quotes(char **prompt, char *quotes)
 {
-  int i;
-  int j;
-  char tmp_quote;
- 
+  int	i;
+  int	j;
+  char	tmp_quote;
+
   i = -1;
   while (prompt[++i])
   {
 	  j = 0;
-	  if (search(quotes, prompt[i][j]))
+	  if (prompt[i] && search(quotes, prompt[i][j]))
 	  {
 		tmp_quote = prompt[i][j];
 		while (prompt[i][++j] != tmp_quote)
@@ -47,10 +47,17 @@ int	lexer(t_data *data)
 	  return (1);
   if (check_quotes(data->bufer, "\'\""))
   {
-	ft_putstr_fd(RED"minishell: syntax error\n"RESET, 2);
-	return (1);
+    ft_putstr_fd (RED"sintax error minishell\n"RESET, 2);
+    free_array (data->bufer);
+    return (1);
   }
- // prin (data->bufer);
+  if (!ft_strncmp(data->bufer[0], "exit", 4) && ft_strlen(data->bufer[0]) == 4)
+  {
+      ft_exit (data);
+	  return (1);
+  }
+  print (data->bufer);
+	// prin (data->bufer);
   // antes de analizar tengo que recorrer el array en busca de los caracteres especiales que esten juntos a un token
  // data->pipe = check_pipe(data->bufer, '|');
  // data->redir = check_redir(data->bufer, '>');
@@ -59,7 +66,7 @@ int	lexer(t_data *data)
 //	return (1);
   //print (data->bufer);
   add_history (data->line);
- // free (data->line);
+  free (data->line);
   return (0);
 }
 

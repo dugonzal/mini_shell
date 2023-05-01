@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/01 20:34:44 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/05/01 23:29:19 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	specials_token(char *prompt)
 	i = 0;
 	while (prompt[i] == prompt[i + 1])
 		i++;
-	return (++i);
+	return (i + 1);
 }
 
 int	caracteres_token(char *prompt, char *set, char *quotes, char *specials)

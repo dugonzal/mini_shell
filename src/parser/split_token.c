@@ -6,7 +6,7 @@
 /*   By: ciclo <ciclo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/01 19:37:31 by ciclo            ###   ########.fr       */
+/*   Updated: 2023/05/01 19:57:09 by ciclo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ char	**split_token(char *prompt, char *set, char *specials, char *quotes)
 	char	**tmp;
 	int		word;
 
+	tmp = (char **)malloc(sizeof(char *) * \
+	(count_word(prompt, set, quotes, specials) + 1));
+	if (!tmp)
+		return (NULL);
 	word = 0;
-	tmp = (char **)malloc(sizeof(char *) \
-	* count_word(prompt, set, quotes, specials) + 1);
-	fun_check(*tmp);
 	while (*prompt)
 	{
 		if (*prompt && search(specials, *prompt))

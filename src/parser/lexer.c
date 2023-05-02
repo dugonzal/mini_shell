@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/02 10:07:06 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 10:12:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int	check_pipe(char **prompt, char pipe)
 {
   int size;
   int i;
+  int flag;
 
+  flag = 0;
   size = arr_size(prompt);
   if (prompt[0][0] == pipe || prompt[size - 1][0] == pipe)
 	return (1);
@@ -52,6 +54,10 @@ int	check_pipe(char **prompt, char pipe)
 	else if (prompt[i] && prompt[i][0] == pipe \
 	  && search("><", prompt[i + 1][0]))
 	  return (1);
+	else if (prompt[i] && prompt[i][0] == pipe)
+	  flag = 1;
+  if (flag)
+	return (2);
   return (0);
 }
 

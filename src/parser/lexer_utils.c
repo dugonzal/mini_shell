@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:48:17 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/02 13:47:54 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 15:24:18 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,21 @@ int check_redir_output(char **prompt, char redir)
 	  return (1);
 	else if (prompt[i] && i > 3 && prompt[size - 3][0] == redir \
 	  && prompt[size - 2][0] != 0)
-	  return (1);
+	  {
+		printf ("%c ",  prompt[size - 2][0]); 
+		return (1);
+	  }
   return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+

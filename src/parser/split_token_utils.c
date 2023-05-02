@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   split_token_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/01 23:29:19 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:45:20 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ int	quotes_token(char *str, char quote)
 {
 	int	i;
 
+	i = 0;
 	if (*str == quote)
 		i = 1;
-	else
-		return (0);
 	while (str[i] && str[i] != (quote))
 		i++;
 	if (str[i] == quote)

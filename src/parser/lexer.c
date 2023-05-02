@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/02 13:14:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:32:53 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,17 @@ void	expanser(t_data *data)
 
   j = 0;
   i = -1;
-  while (data->env[++i])
+  while (data->bufer[++i])
   {
 	j = -1;
-	while (data->env[i][++j])
-	  if (data->env[i][j] == '$')
-		printf ("[$\n");
+	while (data->bufer[i][++j]);
+	  
   }
 }
 
 int	lexer(t_data *data)
 {
-  if (data->line[0] == '\0' || !ft_strlen(data->line))
+  if (data->line[0] == 0 || !ft_strlen(data->line))
 	return (1);
   data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
   data->bufer = split_token(data->line, " \t\v\f\r", ">|<", "\"\'");
@@ -51,7 +50,7 @@ int	lexer(t_data *data)
 	  return (1);
   else if (lexer_errors(data))
 	return (1);
-  expanser(data);
+  //expanser(data);
   print (data->bufer);
   add_history (data->line);
   free (data->line);

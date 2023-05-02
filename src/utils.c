@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/30 15:30:53 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:49:01 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,11 @@ int	search(char *str, char c)
 			return (1);
 	return (0);
 }
+
+int err_msg(char *str)
+{
+	ft_putstr_fd(str, 2);
+	return (1);
+}
+
+

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/30 15:16:27 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:51:20 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,12 @@ int		count_word(char *prompt, char *set, char *quotes, char *specials);
 int		quotes_token(char *str, char quote);
 int		caracteres_token(char *prompt, char *set, char *quotes, char *specials);
 int		specials_token(char *prompt);
+
+// parser utils
+
+int		err_msg(char *str);
+int		check_redir_output(char **prompt, char redir);
+int		check_pipe(char **prompt, char pipe);
+int		check_quotes(char **prompt, char *quotes);
+
 #endif

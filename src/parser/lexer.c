@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/01 23:22:50 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 10:07:06 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	check_pipe(char **prompt, char pipe)
   while (++i < (size - 1))
 	if (prompt[i] && prompt[i][0] == pipe && prompt[i][1] == pipe)
 	  return (1);
-	else if (prompt[i] && prompt[i][0] == pipe && search("><", prompt[i + 1][0]))
+	else if (prompt[i] && prompt[i][0] == pipe \
+	  && search("><", prompt[i + 1][0]))
 	  return (1);
   return (0);
 }
@@ -71,6 +72,7 @@ int check_redir_output(char **prompt, char redir)
 	  return (1);
   return (0);
 }
+
 int	lexer(t_data *data)
 {
   if (data->line[0] == '\0' || !ft_strlen(data->line))

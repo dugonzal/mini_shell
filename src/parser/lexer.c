@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/02 12:35:48 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:39:06 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	lexer(t_data *data)
   data->bufer = split_token(data->line, " \t\v\f\r", ">|<", "\"\'");
   if (!data->bufer)
 	  return (1);
-  if (lexer_errors(data))
+  else if (lexer_errors(data))
 	return (1);
   print (data->bufer);
   add_history (data->line);

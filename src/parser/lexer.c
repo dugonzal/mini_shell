@@ -6,13 +6,11 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/02 12:49:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 13:14:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
 
 int lexer_errors(t_data *data)
 {
@@ -27,6 +25,22 @@ int lexer_errors(t_data *data)
   return (0);
 }
 
+void	expanser(t_data *data)
+{
+  int i;
+  int j;
+
+  j = 0;
+  i = -1;
+  while (data->env[++i])
+  {
+	j = -1;
+	while (data->env[i][++j])
+	  if (data->env[i][j] == '$')
+		printf ("[$\n");
+  }
+}
+
 int	lexer(t_data *data)
 {
   if (data->line[0] == '\0' || !ft_strlen(data->line))
@@ -37,6 +51,7 @@ int	lexer(t_data *data)
 	  return (1);
   else if (lexer_errors(data))
 	return (1);
+  expanser(data);
   print (data->bufer);
   add_history (data->line);
   free (data->line);

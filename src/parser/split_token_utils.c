@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/02 12:45:20 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 14:04:04 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,14 @@ int	quotes_token(char *str, char quote)
 {
 	int	i;
 
-	i = 0;
 	if (*str == quote)
 		i = 1;
+	else
+		i = 0;
 	while (str[i] && str[i] != (quote))
+	  if (str[i] == '\\' && str[i + 1] == quote)
+		i += 2;
+	  else
 		i++;
 	if (str[i] == quote)
 		i++;

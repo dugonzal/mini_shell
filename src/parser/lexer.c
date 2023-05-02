@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/02 10:12:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:35:48 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,35 @@ int check_redir_output(char **prompt, char redir)
   int i;
   int size;
 
-  i = -1;
   size = arr_size(prompt);
   if (prompt[0] && prompt[size - 1][0] == redir)
 	return (1);
+  i = -1;
   while (prompt[++i])
 	if (prompt[i] && prompt[i][0] == redir && prompt[i][2] == redir)
 	  return (1);
 	else if (prompt[i] && i > 3 && prompt[size - 3][0] == redir \
 	  && prompt[size - 2][0] != 0)
 	  return (1);
+  return (0);
+}
+
+int err_msg(char *str)
+{
+	ft_putstr_fd(str, 2);
+	return (1);
+}
+
+int lexer_errors(t_data *data)
+{
+  if (check_quotes(data->bufer, "\'\""))
+	return(err_msg(RED"minishell: syntax error quotes \" <-> \'  \n"RESET));
+  else if (check_pipe(data->bufer, '|'))
+	return(err_msg(RED"minishell: syntax error pipe '|'\n"RESET));
+  else if (check_redir_output(data->bufer, '<'))
+	return (err_msg(RED"minishell: syntax error redir '<'\n"RESET));
+  else if (check_redir_output(data->bufer, '>'))
+	return (err_msg(RED"minishell: syntax error redir '>'\n"RESET));
   return (0);
 }
 
@@ -87,20 +106,8 @@ int	lexer(t_data *data)
   data->bufer = split_token(data->line, " \t\v\f\r", ">|<", "\"\'");
   if (!data->bufer)
 	  return (1);
-  if (check_quotes(data->bufer, "\'\"") || check_pipe(data->bufer, '|') \
-	|| check_redir_output(data->bufer, '>'))
-  {
-    ft_putstr_fd (RED"sintax error minishell\n"RESET, 2);
-    free_array (data->bufer);
-    return (1);
-  }
-  if (!ft_strncmp(data->bufer[0], "exit", 4) && ft_strlen(data->bufer[0]) == 4 \
-	&& !data->bufer[1])
-  {
-      ft_exit (data);
-	  free_array(data->bufer);
-	  return (1);
-  }
+  if (lexer_errors(data))
+	return (1);
   print (data->bufer);
   add_history (data->line);
   free (data->line);

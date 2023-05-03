@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/03 15:51:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:40:44 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,37 +39,57 @@ char *expanser_check(char *str)
 {
   int	i;
   char	*tmp;
-
+  char *tmp2;
+  char *str_tmp;
   i = -1;
   while (str[++i])
 	if (str[i] && str[i] == '$' && ft_isalpha(str[i + 1]))
 	{
-	  i++;
-	  tmp = ft_strndup(&str[i], count_expanser(&str[i]));
-	  if (getenv(tmp))	
-		return(ft_strdup(getenv(tmp)));
+	  tmp = ft_strndup(&str[i + 1], count_expanser(&str[i + 1]));
+	  if (getenv(tmp))
+	  {
+		tmp2 = ft_strdup(getenv(tmp));
+		str_tmp = ft_strndup(str, i);
+		str_tmp = ft_strjoin(str_tmp, tmp2, 1);
+		i = ft_strlen(str_tmp);
+		str_tmp = ft_strjoin(str_tmp, &str[i], 1);
+		free (tmp);
+		free (tmp2);
+		return (str_tmp);
+	  }
 	  else
-		err_msg(RED" '$' undefine env"RESET);
+	  {
+		free (tmp);
+		err_msg(RED"Error: variable '$' undefine "RESET);
+		return (NULL);	
+	  }
 	}
   return (NULL);
 }
 
-void	expanser(t_data *data)
+int	expanser(t_data *data)
 {
   int i;
   char *tmp;
-  char *tmp2;
 
   tmp = NULL;
-  tmp2 = NULL;
   i = -1;
   while (data->bufer[++i])
 	if (data->bufer[i] && search(data->bufer[i], '$'))
 	{
-		tmp = expanser_check(data->bufer[i]);
+		if (!expanser_check(data->bufer[i]))
+			return (1);
+		else
+		  tmp = expanser_check(data->bufer[i]);
 		break;
 	}
-  printf("tmp = %s\n", tmp);
+  if (tmp)
+  {
+	free (data->bufer[i]); 
+	data->bufer[i] = ft_strdup(tmp);
+	free (tmp);
+  }
+  return (0);
 }
 
 int	lexer(t_data *data)
@@ -82,7 +102,8 @@ int	lexer(t_data *data)
 	  return (1);
   else if (lexer_errors(data))
     return (1);
-  expanser(data);
+  if (expanser(data))
+	return (1);
  // print (data->bufer);
   add_history (data->line);
   free (data->line);

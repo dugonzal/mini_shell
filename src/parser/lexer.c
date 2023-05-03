@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/03 18:11:13 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:54:09 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	lexer(t_data *data)
   if (!data->line[0] || !ft_strlen(data->line))
 	return (1);
   data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
-  if ((ft_strlen(data->line) > 1) &&search("\'\"", data->line[0]) \
+  if (ft_strlen(data->line) > 1 && search("\'\"", data->line[0]) \
 	&& search("\'\"", data->line[ft_strlen(data->line) - 1]))
 	data->line = ft_strtrim(data->line, "\'\"", 1);
   if (!data->line[0] || !ft_strlen(data->line))
@@ -40,7 +40,8 @@ int	lexer(t_data *data)
 	  return (1);
   else if (lexer_errors(data))
     return (1);
- // print (data->bufer);
+  else if (expanser(data))
+	return (1);
   add_history (data->line);
   free (data->line);
   return (0);

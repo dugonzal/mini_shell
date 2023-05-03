@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/03 14:08:23 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:23:23 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ int		err_msg(char *str);
 int		check_redir(char **prompt, char redir);
 int		check_pipe(char **prompt, char pipe);
 int		check_quotes(char **prompt, char *quotes);
+int		expanser(t_data *data);
 
 #endif

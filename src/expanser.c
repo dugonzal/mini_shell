@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/03 21:25:57 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:29:27 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int	expanser(t_data *data)
 		if (search(data->bufer[i], '$'))
 		  expanser(data);
 	  }
-	  else if (data->bufer[i][j + 1] != ft_isalpha(data->bufer[i][j + 1]))
-		continue ;
 	}
   return (0);
 }

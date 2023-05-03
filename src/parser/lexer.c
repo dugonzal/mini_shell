@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/03 14:08:04 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 14:28:55 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ int lexer_errors(t_data *data)
   return (0);
 }
 
+void	expanser(t_data *data)
+{
+  int i;
+
+  i = 0;
+  while (data->bufer[i])
+  {
+	if (data->bufer[i] && search(data->bufer[i], '$'))
+	  printf ("$");
+	i++;
+  }
+}
+
 int	lexer(t_data *data)
 {
   if (!data->line[0] || !ft_strlen(data->line))
@@ -35,7 +48,7 @@ int	lexer(t_data *data)
 	  return (1);
   else if (lexer_errors(data))
     return (1);
-  //expanser(data);
+  expanser(data);
  // print (data->bufer);
   add_history (data->line);
   free (data->line);

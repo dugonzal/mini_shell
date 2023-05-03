@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/03 21:16:50 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:25:57 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int count_expanser(char *str)
 {
   int i;
 
-  i = 0;
-  while (str[i] && ft_isalpha(str[i]))
-	i++;
+  i = -1;
+  while (str[++i] && ft_isalpha(str[i]))
+	;
   return (i);
 }
 
@@ -53,21 +53,15 @@ int	expanser(t_data *data)
 		size = count_expanser(&data->bufer[i][j]);
 		env = ft_getenv(strndup(&data->bufer[i][j], size)); // expanser
 		if (!env)
-		{
-		  err_msg(RED"Error: Environment variable not found."RESET);
-		  return (1);
-		}
-		printf ("env: %s\n", env);
+		  return(err_msg(RED"Error: Environment variable not found."RESET));
 		if (j)
 			env = ft_strjoin(strndup(data->bufer[i], j - 1), env, 1);
 		if (data->bufer[i][j + size] != 0)
 			env = ft_strjoin(env, &data->bufer[i][j + size], 1);
-		 free (data->bufer[i]);
+		free (data->bufer[i]);
 		data->bufer[i] = env;
 		if (search(data->bufer[i], '$'))
 		  expanser(data);
-		else
-			continue ;
 	  }
 	  else if (data->bufer[i][j + 1] != ft_isalpha(data->bufer[i][j + 1]))
 		continue ;

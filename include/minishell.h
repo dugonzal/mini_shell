@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/02 15:40:14 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 14:08:23 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ typedef struct s_cmd
 {
 	pid_t			*pid; // si lo declaro como un puntero tengo que hacer malloc
 	char			**cmd;
-	int				fd[2];
 	struct s_cmd	*next;
-	struct s_cmd	*prev;
 
 } t_cmd;
 
@@ -37,11 +35,14 @@ typedef struct s_data
 	// deberia tener una variable que de las cadenas de la linea de comando
 	char			*line;
 	char			**bufer;
+	char			**cmd;
 	char			**path;
 	char			**env;
 	int				*fd;
 	int				status;
 	pid_t 			pid; // temporal
+	int				pipe;
+	int				redir;
 	//struct s_cmd	s_cmd;
 } t_data;
 
@@ -72,7 +73,7 @@ int		specials_token(char *prompt);
 // parser utils
 
 int		err_msg(char *str);
-int		check_redir_output(char **prompt, char redir);
+int		check_redir(char **prompt, char redir);
 int		check_pipe(char **prompt, char pipe);
 int		check_quotes(char **prompt, char *quotes);
 

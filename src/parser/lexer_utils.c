@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:48:17 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/02 15:29:35 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 14:08:14 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_pipe(char **prompt, char pipe)
   return (0);
 }
 
-int check_redir_output(char **prompt, char redir)
+int check_redir(char **prompt, char redir)
 {
   int i;
   int size;

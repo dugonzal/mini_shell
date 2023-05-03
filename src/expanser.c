@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/03 19:31:51 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:47:29 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,17 @@ int	expanser(t_data *data)
 		  j++;
 	  if (data->bufer[i][j] == '$' && ft_isalpha(data->bufer[i][j + 1]))
 	  {
-		j++;
-		char *tmp = strndup(&data->bufer[i][j], count_expanser(&data->bufer[i][j]));
-		printf ("tmp = [%s]\n", tmp);
-		char *env = ft_getenv(tmp);
-		printf ("----%s---\n", env);
+		char *tmp2 = ft_strndup(data->bufer[i], j); // guardo lo que hay antes de la expansion
+		if (data->bufer[i][j + count_expanser(&data->bufer[i][j + 1])] != 0) // si hay algo despues de la expansion
+		  char *tmp1 = ft_strdup(&data->bufer[i][j + count_expanser(&data->bufer[i][j + 1])]); // guardo lo que hay despues de la expansion
+		char *tmp = ft_getenv(strndup(&data->bufer[i][j + 1], count_expanser(&data->bufer[i][j + 1]))); // guardo la expansion
+		printf ("----%s---\n", tmp);
+		char *full = ft_strjoin(tmp2, tmp, 1); // concateno lo que hay antes de la expansion con la expansion
+		//full = ft_strjoin(full, tmp1, 1); // concateno lo que hay antes de la expansion con la expansion y lo que hay despues de la expansion
+		printf ("----%s---\n", full);
+		//if (search(data->bufer[i], '$'))
+		//  expanser(data);
+		(void)tmp2;
 	  }
 	  else if (data->bufer[i][j + 1] != ft_isalpha(data->bufer[i][j + 1]))
 		continue ;

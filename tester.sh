@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 17:27:23 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/05/03 17:34:42 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/03 17:50:32 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@
 make
 
 function tester() {
-	test=$(echo $@"; exit" | ./minishell 2>&-)
-	test2=$(echo $@"; exit" | bash 2>&-)
+	test=$(echo $@"; exit" | ./minishell 2>&1)
+	test2=$(echo $@"; exit" | bash 2>&1)
 	if [ test != test2 ]; then
 		echo "Error: $1"
 		echo "Expected: $test2"

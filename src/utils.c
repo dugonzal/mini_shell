@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/02 12:49:01 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 14:16:16 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ char	*prompt(void)
 	char	*user;
 	char	*anfitrion;
 
-	user = getenv("USER");
-	if (!user)
+	if (!(user = getenv("USER")))
 		user = ft_strdup("\033[1;31mAnonimo\033[0m");
 	user[0] = ft_toupper(user[0]);
 	user = ft_strjoin("\033[1;31m", user, 0);
 	anfitrion = ft_strjoin("\033[1;34m@MiniShell\033[0m", "🚀> ", 0);
-	prompt = ft_strjoin(user, anfitrion, 0);
-	free(user);
+	prompt = ft_strjoin(user, anfitrion, 1);
 	free (anfitrion);
 	return (prompt);
 }
@@ -61,10 +59,9 @@ int	search(char *str, char c)
 	return (0);
 }
 
-int err_msg(char *str)
+int	err_msg(char *str)
 {
-	ft_putstr_fd(str, 2);
+	if (str)
+		ft_putendl_fd(str, 2);
 	return (1);
 }
-
-

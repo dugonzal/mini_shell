@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/03 20:53:30 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:16:50 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	expanser(t_data *data)
   while (data->bufer[++i])
 	if (data->bufer[i] && search(data->bufer[i], '$'))
 	{
-	  j = 1;
+	  j = 0;
 	  while (data->bufer[i][j] != '$')
 		  j++;
 	  if (data->bufer[i][j] == '$' && ft_isalpha(data->bufer[i][j + 1]))
@@ -57,14 +57,17 @@ int	expanser(t_data *data)
 		  err_msg(RED"Error: Environment variable not found."RESET);
 		  return (1);
 		}
-		if (j > 1)
+		printf ("env: %s\n", env);
+		if (j)
 			env = ft_strjoin(strndup(data->bufer[i], j - 1), env, 1);
 		if (data->bufer[i][j + size] != 0)
 			env = ft_strjoin(env, &data->bufer[i][j + size], 1);
-		free(data->bufer[i]);
+		 free (data->bufer[i]);
 		data->bufer[i] = env;
 		if (search(data->bufer[i], '$'))
 		  expanser(data);
+		else
+			continue ;
 	  }
 	  else if (data->bufer[i][j + 1] != ft_isalpha(data->bufer[i][j + 1]))
 		continue ;

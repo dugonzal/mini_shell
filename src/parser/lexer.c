@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/03 14:28:55 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:51:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,51 @@ int lexer_errors(t_data *data)
   return (0);
 }
 
-void	expanser(t_data *data)
+int count_expanser(char *str)
 {
   int i;
 
   i = 0;
-  while (data->bufer[i])
-  {
-	if (data->bufer[i] && search(data->bufer[i], '$'))
-	  printf ("$");
+  while (str[i] && ft_isalpha(str[i]))
 	i++;
-  }
+  return (i);
+}
+
+char *expanser_check(char *str)
+{
+  int	i;
+  char	*tmp;
+
+  i = -1;
+  while (str[++i])
+	if (str[i] && str[i] == '$' && ft_isalpha(str[i + 1]))
+	{
+	  i++;
+	  tmp = ft_strndup(&str[i], count_expanser(&str[i]));
+	  if (getenv(tmp))	
+		return(ft_strdup(getenv(tmp)));
+	  else
+		err_msg(RED" '$' undefine env"RESET);
+	}
+  return (NULL);
+}
+
+void	expanser(t_data *data)
+{
+  int i;
+  char *tmp;
+  char *tmp2;
+
+  tmp = NULL;
+  tmp2 = NULL;
+  i = -1;
+  while (data->bufer[++i])
+	if (data->bufer[i] && search(data->bufer[i], '$'))
+	{
+		tmp = expanser_check(data->bufer[i]);
+		break;
+	}
+  printf("tmp = %s\n", tmp);
 }
 
 int	lexer(t_data *data)

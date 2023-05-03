@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/03 16:40:44 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:58:56 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	expanser(t_data *data)
 			return (1);
 		else
 		  tmp = expanser_check(data->bufer[i]);
-		break;
 	}
   if (tmp)
   {

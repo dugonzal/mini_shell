@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/04 15:28:40 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:49:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int ac, char **av, char **env)
 		signals();
 		data.line = readline (prompt());
 		if (!data.line)
-		 break;
+			break;
 		data.env = env;
 		if (lexer(&data))
 			continue ;

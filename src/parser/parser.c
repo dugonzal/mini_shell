@@ -6,17 +6,11 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 18:00:03 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 19:47:03 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// voy a quitar las comilla y comprobar que hayan dos
-//No interpretar comillas sin cerrar o caracteres especiales no especificados en el
-//enunciado como \ (barra invertida) o ; (punto y coma).
-// voy hacer primero el caso en el que los caracteres entre comillas no tienen
-// espacios luego con espacio
 
 int	size_argv(char **str)
 {
@@ -36,8 +30,6 @@ int	parser(t_data *data)
   int	i;
 
   cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-  if (!cmd)
-	return (-1);
   size = size_argv(data->bufer);
   cmd->size = size;
   cmd->cmd = (char **)ft_calloc(size + 1, sizeof(char *));

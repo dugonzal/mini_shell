@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/04 11:10:40 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 15:17:20 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ int		expanser(t_data *data);
 
 // parser
 int		parser(t_data *data);
+void	handler_execute(t_data *data);
 
 #endif

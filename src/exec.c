@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/02 16:46:09 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 15:16:50 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,22 @@ void	bin_execute(t_data *mini)
 	}
 	else
 		wait(NULL);
+}
+
+int builtins(t_data *data)
+{
+  if (!ft_strncmp(data->bufer[0], "exit", 4))
+  {
+	ft_exit(data);
+	return (1);
+  }
+  return (0);
+}
+
+void	handler_execute(t_data *data)
+{
+  if (builtins(data))
+	return ;
+  else
+	bin_execute(data);
 }

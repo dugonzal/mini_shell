@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 16:02:35 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:27:41 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,14 @@ int	parser(t_data *data)
 	i++;
   }
   cmd->cmd[i] = NULL;
-  for (int i = 0; cmd->cmd[i] ; i++)
-	printf ("[%s] ", cmd->cmd[i]);
-  printf (" [%s]", cmd->cmd[i]);
+  cmd->next = NULL;
+  cmd->prev = NULL;
+  if (cmd->cmd[i - 1] == NULL)
+	cmd->type = 0;
+  else if (cmd->cmd[i - 1][0] == ';')
+	cmd->type = 1;
+	else
+	cmd->type = 2;
+  printf ("cmd->type = %d\n", cmd->type);
   return (0);
 }

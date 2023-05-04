@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 09:14:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:37:48 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	expanser(t_data *data)
   if (!data->bufer)
 	return (0);
   while (data->bufer[++i])
-	if (data->bufer[i] && search(data->bufer[i], '$'))
+	if (data->bufer[i] && search(data->bufer[i], '$') && !search(data->bufer[i], '\''))
 	{
 	  j = 0;
 	  while (data->bufer[i][j] != '$')

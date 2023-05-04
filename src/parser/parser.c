@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 11:27:01 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:47:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	parser(t_data *data)
   int	size;
   int	i;
 
-  cmd = (t_cmd *)calloc(sizeof(t_cmd), 1);
+  cmd = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
   size = size_argv(data->bufer);
-  cmd->cmd = (char **)calloc(sizeof(char *), size + 1);
+  cmd->cmd = (char **)ft_calloc(sizeof(char *), size + 1);
   i = -1;
   while (++i < size)
 	cmd->cmd[i] = (data->bufer[i]);

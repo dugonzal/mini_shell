@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/04 15:17:43 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 15:28:40 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int ac, char **av, char **env)
 		data.env = env;
 		if (lexer(&data))
 			continue ;
-		//parser(&data);
+		parser(&data);
 		handler_execute(&data);
 		//print (data.bufer);
 		free_array (data.bufer);

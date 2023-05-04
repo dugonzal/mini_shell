@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 16:37:48 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:40:46 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,17 @@ int count_expanser(char *str)
 
 char *ft_getenv(char *str)
 {
+  char *tmp;
+
   if (!str)
 	return (NULL);
-  if (getenv(str))
-	return (getenv(str));
+  tmp = getenv(str);
+  if (tmp)
+  {
+	free (str);
+	return (ft_strdup(tmp));
+  }
+  free (str);
   return (NULL);
 }
 
@@ -42,7 +49,8 @@ int	expanser(t_data *data)
   if (!data->bufer)
 	return (0);
   while (data->bufer[++i])
-	if (data->bufer[i] && search(data->bufer[i], '$') && !search(data->bufer[i], '\''))
+	if (data->bufer[i] && search(data->bufer[i], '$') \
+	  && !search(data->bufer[i], '\''))
 	{
 	  j = 0;
 	  while (data->bufer[i][j] != '$')

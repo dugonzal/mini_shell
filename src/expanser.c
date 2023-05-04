@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/03 21:29:27 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 09:04:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int count_expanser(char *str)
   int i;
 
   i = -1;
-  while (str[++i] && ft_isalpha(str[i]))
+  while (str[++i] && ft_isalnum(str[i]))
 	;
   return (i);
 }
@@ -37,7 +37,7 @@ int	expanser(t_data *data)
   int	j;
   char	*env;
   int	size;
-  
+
   i = -1;
   if (!data->bufer)
 	return (0);
@@ -47,7 +47,7 @@ int	expanser(t_data *data)
 	  j = 0;
 	  while (data->bufer[i][j] != '$')
 		  j++;
-	  if (data->bufer[i][j] == '$' && ft_isalpha(data->bufer[i][j + 1]))
+	  if (data->bufer[i][j] == '$' && ft_isalnum(data->bufer[i][j + 1]))
 	  {
 		j++;
 		size = count_expanser(&data->bufer[i][j]);

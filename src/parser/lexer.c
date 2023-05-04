@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 09:28:32 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 19:52:47 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int lexer_errors(t_data *data)
 
 int	lexer(t_data *data)
 {
-  if (!data->line[0] || !ft_strlen(data->line))
+  if (!data->line[0])
 	return (1);
   data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
   if (ft_strlen(data->line) > 1 && search("\'\"", data->line[0]) \

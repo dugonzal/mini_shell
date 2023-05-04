@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 16:40:46 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:46:05 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int	expanser(t_data *data)
 	  {
 		j++;
 		size = count_expanser(&data->bufer[i][j]);
-		env = ft_getenv(strndup(&data->bufer[i][j], size)); // expanser
+		env = ft_getenv(ft_strndup(&data->bufer[i][j], size)); // expanser
 		if (!env)
 		  return(err_msg(RED"Error: Environment variable not found."RESET));
 		if (j)
-			env = ft_strjoin(strndup(data->bufer[i], j - 1), env, 1);
+			env = ft_strjoin(ft_strndup(data->bufer[i], j - 1), env, 1);
 		if (data->bufer[i][j + size] != 0)
 			env = ft_strjoin(env, &data->bufer[i][j + size], 1);
 		free (data->bufer[i]);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/04/26 21:15:58 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 09:30:21 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,3 +18,9 @@
 // voy hacer primero el caso en el que los caracteres entre comillas no tienen
 // espacios luego con espacio
 
+
+int	parser(t_data *data)
+{
+  (void)data;
+  return (0);
+}

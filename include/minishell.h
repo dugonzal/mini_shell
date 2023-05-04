@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/04 09:30:53 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:10:40 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@
 
 typedef struct s_cmd
 {
+	int				fd[2];
 	pid_t			*pid; // si lo declaro como un puntero tengo que hacer malloc
 	char			**cmd;
+	int				type;
+	int				size;
 	struct s_cmd	*next;
+	struct s_cmd	*prev;
 
 } t_cmd;
 
@@ -41,14 +45,11 @@ typedef struct s_data
 	int				*fd;
 	int				status;
 	pid_t 			pid; // temporal
-	int				pipe;
-	int				redir;
 	//struct s_cmd	s_cmd;
 } t_data;
 
 void	handler(int sig, siginfo_t *info, void *context);
 void	signals(void);
-void	parser(t_data *data);
 char	*prompt(void);
 void	bin_execute(t_data *mini);
 // builtins

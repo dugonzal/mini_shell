@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/02 15:30:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:13:05 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*fun_check(char *str)
 	return (str);
 }
 
-int	specials_token(char *prompt)
+int	specials_token(const char *prompt)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ int	specials_token(char *prompt)
 	return (i + 1);
 }
 
-int	caracteres_token(char *prompt, char *set, char *quotes, char *specials)
+int	caracteres_token(const char *prompt, char *set, char *quotes, char *specials)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ int	caracteres_token(char *prompt, char *set, char *quotes, char *specials)
 	return (i);
 }
 
-int	quotes_token(char *str, char quote)
+int	quotes_token(const char *str, char quote)
 {
 	int	i;
 
@@ -60,13 +60,13 @@ int	quotes_token(char *str, char quote)
 	return (i);
 }
 
-int	count_word(char *prompt, char *set, char *quotes, char *specials)
+int	count_word(const char *prompt, char *set, char *quotes, char *specials)
 {
 	int		count;
 	char	*tmp;
 
 	count = 0;
-	tmp = prompt;
+	tmp = (char *)prompt;
 	while (*tmp)
 	{
 		if (*tmp && search(specials, *tmp))

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/04 16:35:38 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:12:17 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ int		search(char *set, char c);
 
 //lexer 
 int		lexer(t_data *data);
-char	**split_token(char *prompt, char *set, char *quotes, char *special);
-int		count_word(char *prompt, char *set, char *quotes, char *specials);
-int		quotes_token(char *str, char quote);
-int		caracteres_token(char *prompt, char *set, char *quotes, char *specials);
-int		specials_token(char *prompt);
+char	**split_token(const char *prompt, char *set, char *quotes, char *special);
+int		count_word(const char *prompt, char *set, char *quotes, char *specials);
+int		quotes_token(const char *str, char quote);
+int		caracteres_token(const char *prompt, char *set, char *quotes, char *specials);
+int		specials_token(const char *prompt);
 
 // lexer utils
 

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/04 17:16:28 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 20:12:52 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**split_token(const char *prompt, char *set, char *specials, char *quotes)
 			tmp[word++] = fun_check(ft_strndup(prompt, \
 			quotes_token(prompt, *prompt)));
 		prompt += ft_strlen(tmp[word - 1]);
-		if (*prompt && search(set, *prompt))
+		while (*prompt && search(set, *prompt))
 			prompt++;
 	}
 	tmp[word] = NULL;

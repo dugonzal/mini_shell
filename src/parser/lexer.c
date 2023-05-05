@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/05 17:55:06 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:09:39 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	lexer(t_data *data)
 	}
 	data->line = ft_strtrim(data->line, "\'\"", 1);
   }
-  if (!data->line[0] || !ft_strlen(data->line))
+  if (!data->line[0])
 	return (1);
   data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
   if (!data->bufer)

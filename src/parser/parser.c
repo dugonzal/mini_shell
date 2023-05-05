@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/05 18:52:06 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:53:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	parser(t_data *data)
   while (data->bufer[i])
   {
 	size = size_argv(&data->bufer[i]);
-	cmd = last_back(&data->cmd, new_cmd(&data->bufer[i], size));
+	last_back((t_cmd **)cmd->cmd, new_cmd(&data->bufer[i], size));
 	i += size + 1; // mas uno por el ;	
   }
 	return (1);

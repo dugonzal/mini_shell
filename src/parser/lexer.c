@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 19:52:47 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:55:06 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,23 @@ int	lexer(t_data *data)
   if (!data->line[0])
 	return (1);
   data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
-  if (ft_strlen(data->line) > 1 && search("\'\"", data->line[0]) \
-	&& search("\'\"", data->line[ft_strlen(data->line) - 1]))
+  if (data->line[0] == '\'' || data->line[0] == '\"')// si en la primera posicion hay comillas  busco desde la ultima hacia delante para encontrar otra comillas
+  {
+	int size = ft_strlen(data->line);
+	char tmp;
+	tmp = data->line[0];
+	while (--size)
+	{
+	  if (data->line[size] == tmp)
+	  {
+		printf("as[%c]\nas", data->line[size]);	
+		data->line[size] = 32;
+		printf("as[%c]\nas", data->line[size]);	
+		break;
+	  }
+	}
 	data->line = ft_strtrim(data->line, "\'\"", 1);
+  }
   if (!data->line[0] || !ft_strlen(data->line))
 	return (1);
   data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");

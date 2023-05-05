@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/05 18:44:28 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:52:06 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ int	size_argv(char **str)
   i = 0;
   while (str[i] && !search("|;", str[i][0]))
 	i++;
-  if (str[i] == NULL)
-	return (i);
-  return (i + 1);
+  printf ("[%d] <--> [%s]\n", i, str[i]);
+  return (i);
 }
 
 int type(char *str)
@@ -86,10 +85,17 @@ t_cmd *new_cmd(char **str, int size)
 int	parser(t_data *data)
 {
   t_cmd	*cmd;
+  int	size;
+  int	i;
 
+  i = 0;
   cmd = ft_calloc(1, sizeof(t_cmd));
-cmd = new_cmd(data->bufer, size_argv(data->bufer));
-if (!cmd)
+  while (data->bufer[i])
+  {
+	size = size_argv(&data->bufer[i]);
+	cmd = last_back(&data->cmd, new_cmd(&data->bufer[i], size));
+	i += size + 1; // mas uno por el ;	
+  }
 	return (1);
 print (cmd->cmd);
  // printf ("%zu %d", arr_size(cmd->cmd), cmd->size);

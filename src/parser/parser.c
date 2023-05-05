@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/05 18:23:06 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:40:05 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,24 @@ int	size_argv(char **str)
 {
   int	i;
 
-  i = -1;
-  while (str[++i] && !search("|;", str[i][0]))
-	;
+  i = 0;
+  while (str[i] && !search("|;", str[i][0]))
+	i++;
+  if (!str[i])
+	return (i);
   return (i + 1);
+}
+
+int type(char str)
+{
+	if (!str)
+	  return (3);
+	else if (str == ';')
+	  return (4);
+	else if (str == '|')
+	  return (5);
+	else 
+	  return (-1);
 }
 
 // con esta funcion los voy metiendo en un puntero puntero mientras no sea null;|
@@ -51,12 +65,18 @@ t_cmd *new_cmd(char **str, int size)
   cmd->cmd = (char **)ft_calloc(size + 1, sizeof(char *));
   if (!str)
 	return (NULL);
-  i = -1;
-  while (++i < size)
-	cmd->cmd[i] = (str[i]);
+  i = 0;
+  while (i < size)
+  {
+	cmd->cmd[i] = str[i];
+	i++;
+  }
   cmd->next = NULL;
   cmd->prev = NULL;
+  cmd->type = type(str[i][0]);
+  printf ("cmd->type = %d\n", cmd->type);
   cmd->size = size;
+  printf (" = %d\n", cmd->size);
   return (cmd);
 }
 
@@ -69,8 +89,8 @@ int	parser(t_data *data)
 
   cmd = ft_calloc(1, sizeof(t_cmd));
 cmd = new_cmd(data->bufer, size_argv(data->bufer));
-  print (cmd->cmd);
-  printf ("%zu %d", arr_size(cmd->cmd), cmd->size);
+print (cmd->cmd);
+ // printf ("%zu %d", arr_size(cmd->cmd), cmd->size);
   //  if (cmd->cmd[i - 1] == NULL)
 //	cmd->type = 0;
  // else if (cmd->cmd[i - 1][0] == ';')

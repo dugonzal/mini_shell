@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/05 18:19:30 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:23:06 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ t_cmd **last_back(t_cmd **cmd, t_cmd *new)
   return (cmd);
 }
 
-t_cmd *new_cmd(char **str)
+t_cmd *new_cmd(char **str, int size)
 {
   t_cmd *cmd;
-  int	size;
-  int	i; 
+  int	i;
+
   cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-  size = size_argv(str);
   cmd->cmd = (char **)ft_calloc(size + 1, sizeof(char *));
   if (!str)
 	return (NULL);
@@ -69,7 +68,7 @@ int	parser(t_data *data)
   t_cmd	*cmd;
 
   cmd = ft_calloc(1, sizeof(t_cmd));
-  cmd = new_cmd(data->bufer);
+cmd = new_cmd(data->bufer, size_argv(data->bufer));
   print (cmd->cmd);
   printf ("%zu %d", arr_size(cmd->cmd), cmd->size);
   //  if (cmd->cmd[i - 1] == NULL)

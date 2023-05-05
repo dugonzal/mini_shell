@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 19:47:03 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:07:04 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,30 @@ int	size_argv(char **str)
   return (i + 1);
 }
 
+// con esta funcion los voy metiendo en un puntero puntero mientras no sea null;|
+t_cmd **last_back(t_cmd **cmd, t_cmd *new)
+{
+  t_cmd	*tmp;
 
+  if (!new)
+	return (cmd);
+  tmp = *cmd;
+  if (next)
+  {
+	if (!*cmd)
+	{
+	  *cmd = new;
+	  return (cmd);
+	}
+	while (tmp->next)
+	  tmp = tmp->next;
+	tmp->next = new;
+	new->prev = tmp;
+  }
+  return (cmd);
+}
+// quiero ir metiendo los comandos primero en una arrray y
+// luego a un puntero puntero
 int	parser(t_data *data)
 {
   t_cmd	*cmd;

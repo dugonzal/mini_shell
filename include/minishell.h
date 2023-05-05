@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/04 17:12:17 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:03:13 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef struct s_cmd
 {
-	int				fd[2];
+	int				fd[2];// in out I/O
 	pid_t			*pid; // si lo declaro como un puntero tengo que hacer malloc
 	char			**cmd;
 	int				type;
@@ -71,7 +71,6 @@ int		caracteres_token(const char *prompt, char *set, char *quotes, char *special
 int		specials_token(const char *prompt);
 
 // lexer utils
-
 int		err_msg(char *str);
 int		check_redir(char **prompt, char redir);
 int		check_pipe(char **prompt, char pipe);

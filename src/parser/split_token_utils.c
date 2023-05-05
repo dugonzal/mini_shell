@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 17:14:27 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 21:07:13 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	specials_token(const char *prompt)
 {
 	int	i;
 
-	if (*prompt && !(ft_strlen(prompt) > 1))
-		return (1);
 	i = 0;
 	while (prompt[i] == prompt[i + 1])
 		i++;

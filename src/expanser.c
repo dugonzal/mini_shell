@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/04 16:46:05 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/07 10:26:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	expanser(t_data *data)
 
   i = -1;
   if (!data->bufer)
-	return (0);
+	return (1);
   while (data->bufer[++i])
 	if (data->bufer[i] && search(data->bufer[i], '$') \
 	  && !search(data->bufer[i], '\''))
@@ -62,14 +62,17 @@ int	expanser(t_data *data)
 		env = ft_getenv(ft_strndup(&data->bufer[i][j], size)); // expanser
 		if (!env)
 		  return(err_msg(RED"Error: Environment variable not found."RESET));
-		if (j)
-			env = ft_strjoin(ft_strndup(data->bufer[i], j - 1), env, 1);
+		if (j > 1)
+			env = ft_strjoin(ft_strndup(data->bufer[i], j - 1), env, 1);//antes
 		if (data->bufer[i][j + size] != 0)
 			env = ft_strjoin(env, &data->bufer[i][j + size], 1);
-		free (data->bufer[i]);
+		if (!j)
+		  free (data->bufer[i]);
 		data->bufer[i] = env;
 		if (search(data->bufer[i], '$'))
 		  expanser(data);
+		else
+			continue;
 	  }
 	}
   return (0);

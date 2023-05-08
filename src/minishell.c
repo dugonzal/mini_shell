@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/08 17:38:56 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:07:05 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
-	if (ac > 1 && av[1])
+	if (ac > 1 && arr_size(av) > 1)
 	  err("minishell: too many arguments");
 	ft_bzero (&data, sizeof(t_data));
 	data.status = 1;

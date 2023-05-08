@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/08 17:28:27 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:58:52 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ typedef struct s_data
 	char			**path;
 	char			**env;
 	int				status;
-	pid_t 			pid; // temporal
-	//struct s_cmd	*cmd;
 } t_data;
 
 void	handler(int sig, siginfo_t *info, void *context);
@@ -79,5 +77,13 @@ int		lexer_errors(char **str);
 int		parser(t_data *data);
 int		builtins(t_cmd *cmd, t_data *data);
 void	handler_execute(t_data *data, t_cmd *cmd);
+
+// parser utils
+
+t_cmd	**last_back_node(t_cmd **cmd, t_cmd *new);
+t_cmd	*new_node(char **str, int size);
+int		size_node(char **str);
+int		type(char *str);
+void	quotes_quit(char **str, char *quotes);
 
 #endif

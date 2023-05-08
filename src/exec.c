@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/08 17:31:40 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:22:38 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,18 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	pid_t	pid;
 
 	error = 0;
+//	if (cmd->type == 5)
+//	  if (pipe (cmd->fd) == -1)
+//		  return (err_msg(RED"Error : pipe"RESET));
+
+  printf ("fd[0] = %d  fd[1] [%d]  \n", cmd->fd[0], cmd->fd[1]);
 	pid = fork();
 	if (pid < 0)
 		return(err_msg(RED"errrr fork"RESET));
 	if (!pid)
 	{
+//		close (cmd->fd[0]); //cierra lectura en el hijo 
+//		dup2 (cmd->fd[1], 1); // escritura en el hijo
 		if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 		{
 			error = execve(cmd->cmd[0], cmd->cmd, data->env);
@@ -74,7 +81,12 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		exit (EXIT_SUCCESS);
 	}
 	else
-		wait(NULL);
+	{
+		waitpid(pid, &error, 0);
+	//	close (cmd->fd[1]); // close write father
+//		dup2 (cmd->fd[0], 0); // read father
+	}
+
   return (0);
 }
 

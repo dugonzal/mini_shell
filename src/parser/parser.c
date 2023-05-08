@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/08 12:34:40 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:56:10 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,14 @@ int	size_cmd(char **str)
 {
   int	i;
 
-  i = 0;
-  while (str[i] && !search("|;", str[i][0]))
-	i++;
+  i = -1;
+  while (str[++i] && !search("|;", str[i][0]))
+	;
   return (i);
 }
 
 int type(char *str)
 {
-  printf ("type ->[%s]<--\n", str);
 	if (!str) // end
 	  return (3);
 	else if (search(str, ';')) // break
@@ -66,7 +65,6 @@ t_cmd	*new_cmd(char **str, int size)
   cmd->cmd = (char **)ft_calloc(size + 1, sizeof(char *));
   if (cmd->cmd == NULL || cmd == NULL)
 	return (NULL);
-  cmd->cmd[size] = NULL;
   i = -1;
   while (++i < size)
 	cmd->cmd[i] = str[i];
@@ -74,6 +72,7 @@ t_cmd	*new_cmd(char **str, int size)
   cmd->type = type(str[size]);
   cmd->next = NULL;
   cmd->prev = NULL;
+  cmd->cmd[size] = NULL;
   return (cmd);
 }
 
@@ -88,13 +87,9 @@ int parser_cmds(char **bufer, t_cmd **cmd)
   return (size);
 }
 
-void exec(t_cmd *cmd)
+void exec(t_cmd *data)
 {
-  t_cmd *tmp;
-
-  tmp = cmd;
-  print (tmp->cmd);
-
+  print (data->cmd);
 }
 
 int	parser(t_data *data)
@@ -119,10 +114,11 @@ int	parser(t_data *data)
 	{
 	  ft_putstr_fd("error en el parser no esperado\n", 2);
 		break;
-
   }
+  free (data->bufer);
+  data->cmd = cmd;
  if (cmd)
-	 exec(cmd);
+	exec(cmd);
 else
 	printf("no hay comandos\n");
   return (0);

@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 17:27:23 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/05/08 17:42:48 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/08 17:45:55 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@
 
 make
 
+rm -rf logm.log logb.log diff.bm
 function tester() {
 	minishell=$(echo $@ | ./minishell)
 	test=$(echo $@ | bash)
@@ -41,4 +42,7 @@ tester "echo $PATH"
 tester "ls .."
 tester "exit"
 
-exec ./minishell <command
+exec ./minishell <command >logm.log
+bash <command >logb.log
+diff logm.log logb.log >diff.bm
+bat diff.bm

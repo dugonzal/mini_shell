@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/08 14:46:42 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:02:53 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	*prompt(void)
 	char	*prompt;
 	char	*user;
 	char	*anfitrion;
-
+  
+	printf ("\n");
 	if (!(user = getenv("USER")))
 		user = ft_strdup("\033[1;31mAnonimo\033[0m");
 	user[0] = ft_toupper(user[0]);

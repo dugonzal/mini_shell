@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/07 13:26:02 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:08:27 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,9 @@ char *ft_getenv(char *str)
   if (!str)
 	return (NULL);
   tmp = getenv(str);
-  if (tmp)
-  {
-	free (str);
-	return (ft_strdup(tmp));
-  }
   free (str);
+  if (tmp)
+	return (ft_strdup(tmp));
   return (NULL);
 }
 

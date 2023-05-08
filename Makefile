@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/05/08 18:07:36 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/08 22:06:07 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ INC_DIR		:= include/
 
 # folders for sources
 parser_dir 	:= parser/
-parser		:= split_token split_token_utils parser parser_utils lexer lexer_utils
+parser		:= split_token split_token_utils parser parser_utils lexer lexer_utils utils
 
 builtins_dir 	:= builtins/
 builtins		:= exit

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/08 18:58:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:06:53 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 
 typedef struct s_cmd
 {
@@ -85,5 +86,6 @@ t_cmd	*new_node(char **str, int size);
 int		size_node(char **str);
 int		type(char *str);
 void	quotes_quit(char **str, char *quotes);
+int		ft_open(char *str, int i);
 
 #endif

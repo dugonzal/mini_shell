@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/08 13:05:00 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:06:54 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int parser_cmds(char **bufer, t_cmd **cmd)
 void execute(t_cmd *data)
 {
   print (data->cmd);
+  printf ("type: %d\n", data->type);
 }
 
 void exec(t_cmd *data)

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/08 17:28:35 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:34:06 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,10 @@ void exec(t_cmd *cmd, t_data *data)
 
 int	parser(t_data *data)
 {
-  t_cmd	*cmd;
-  int  i;
-/// necesito varias funcione para pasar los argumentos a la lista enlzadad pero no quiero xd
-  /// muchas funciones hacen que sea maas largo, y literal no hay opcion
-  i = 0 ;
+  t_cmd		*cmd;
+  int		i;
+
+  i = 0;
   print (data->bufer);
   ft_bzero (&cmd, sizeof(cmd));
   while (data->bufer[i])

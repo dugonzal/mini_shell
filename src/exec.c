@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/06 10:50:19 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:31:40 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,33 @@ char	*check_access(char *path, char *bin)
 
 /// @brief
 /// @param mini
-int	bin_execute(t_data *mini)
+int	bin_execute(t_cmd *cmd, t_data *data)
 {
 	int		error;
 	int		i;
 	char	*tmp;
+	pid_t	pid;
 
 	error = 0;
-	mini->pid = fork();
-	if (mini->pid < 0)
+	pid = fork();
+	if (pid < 0)
 		return(err_msg(RED"errrr fork"RESET));
-	if (!mini->pid)
+	if (!pid)
 	{
-		if (mini->bufer[0][0] == '.' || mini->bufer[0][0] == '/')
+		if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 		{
-			error = execve(mini->bufer[0], mini->bufer, mini->env);
+			error = execve(cmd->cmd[0], cmd->cmd, data->env);
 			if (error == -1)
 				ft_putstr_fd (RED"Error : comand no found\n"RESET, 2);
 		}
 		else
 		{
 			i = -1;
-			while (mini->path[++i] != 0)
+			while (data->path[++i] != 0)
 			{
 				tmp = NULL;
-				tmp = check_access(mini->path[i], mini->bufer[0]);
-				error = execve(tmp, mini->bufer, mini->env);
+				tmp = check_access(data->path[i], cmd->cmd[0]);
+				error = execve(tmp, cmd->cmd, data->env);
 			}
 			if (error)
 				ft_putstr_fd( RED"Error : comand no found\n"RESET, 2);
@@ -77,20 +78,12 @@ int	bin_execute(t_data *mini)
   return (0);
 }
 
-int builtins(t_data *data)
+int builtins(t_cmd *cmd, t_data *data)
 {
-  if (!ft_strncmp(data->bufer[0], "exit", 4))
+  if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen(cmd->cmd[0])) && !cmd->cmd[1])
   {
 	ft_exit(data);
 	return (1);
   }
   return (0);
-}
-
-void	handler_execute(t_data *data)
-{
-  if (builtins(data))
-	return ;
-  else
-	bin_execute(data);
 }

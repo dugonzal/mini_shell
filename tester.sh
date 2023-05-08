@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 17:27:23 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/05/04 18:10:02 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/07 18:08:35 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,27 @@
 make
 
 function tester() {
-	test=$(echo $@"; exit" | ./minishell 2>&1)
-	test2=$(echo $@"; exit" | bash 2>&1)
-	if [ test != test2 ]; then
-		echo "Error: $1"
-		echo "Expected: $test2"
-		echo "Got: $test"
-		exit 1
+	minishell=$(echo $@ | ./minishell >>logm)
+	test=$(echo $@ | bash >>logb)
+	if [ "$minishell" == "$test" ]; then
+		echo "ok:"
+	elif [ "$minishell" != "$test" ]; then
+		echo "Error:$test"
 	else
-		echo "OK:"
+		echo "·----pmpmpm---"
 	fi
-}
 
-tester "echo hello world"
+	#	exit 1
+}
+tester "pwd"
+tester "echo -n \"pasaje sin pasajero \"  "
+tester "ls"
+rm -r result.log
+diff logm logb >result.log | bat result.log
+tester "ls -l"
+tester "ls -l -a"
+tester "echo $HOME"
+tester "echo $PWD"
+tester "echo $PATH"
+tester "ls .."
+tester "exit"

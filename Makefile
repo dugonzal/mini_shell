@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/05/03 17:04:20 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/08 10:02:46 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ endif
 
 $(NAME): $(OBJ)
 	make -C libft && mkdir -p bin && mv libft/libft.a bin
-	$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft -I $(INC_DIR)*
+	$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft -I $(INC_DIR)* 
 	printf	"$(BLUE) 🚀 $@ $(DEFAULT)\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
@@ -77,7 +77,7 @@ all: $(NAME)
 
 clean:
 	make -C libft clean
-	rm -rf $(NAME)
+	rm -rf $(NAME) logm logb
 	printf "$(YELLOW) Cleaning $(NAME) $(DEFAULT)"
 
 fclean: clean
@@ -85,9 +85,12 @@ fclean: clean
 	make -C libft fclean
 	printf "$(BLUE)Cleaning $(OBJ_DIR) and bin $(DEFAULT)\n"
 
+t:
+	bash tester.sh
+
 val:
 	 valgrind --track-origins=yes \
 	 --leak-check=full --show-leak-kinds=all \
 	 --log-file=valgrind.log ./$(NAME) < test
 
-re: fclean all
+re: fclean all t

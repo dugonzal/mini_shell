@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:48:17 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/05 21:00:06 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:16:21 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@ int check_redir(char **prompt, char redir)
   return (0);
 }
 
+int check_semicolon(char **prompt, char c)
+{
+	int i;
+
+	i = -1;
+	while (prompt[++i])
+	if (prompt[i] && prompt[i][0] == c && prompt[i][1] == c)
+	  return (1);
+	return (0);
+}
 
 
 

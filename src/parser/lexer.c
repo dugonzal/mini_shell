@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/06 10:53:08 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/07 13:29:14 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,21 @@ int	lexer(t_data *data)
   if (!data->line[0])
 	return (1);
  data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
- if (!data->line[0]) return (1); data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'"); if (!data->bufer) { free (data->line); return (1); } else if (lexer_errors(data) || expanser(data)) { free (data->line); free_array(data->bufer); return (1); } add_history (data->line); free (data->line); return (0); }
+ if (!data->line[0])
+	return (1);
+  data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
+  if (!data->bufer)
+  { 
+	  free (data->line);
+	  return (1);
+  }
+  else if (lexer_errors(data) || expanser(data)) 
+  {
+	free (data->line);
+	free_array(data->bufer);
+	return (1);
+  }
+  add_history (data->line); 
+  free (data->line);
+  return (0);
+}

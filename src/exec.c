@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/04 15:16:50 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/06 10:50:19 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*check_access(char *path, char *bin)
 
 /// @brief
 /// @param mini
-void	bin_execute(t_data *mini)
+int	bin_execute(t_data *mini)
 {
 	int		error;
 	int		i;
@@ -48,13 +48,15 @@ void	bin_execute(t_data *mini)
 
 	error = 0;
 	mini->pid = fork();
+	if (mini->pid < 0)
+		return(err_msg(RED"errrr fork"RESET));
 	if (!mini->pid)
 	{
 		if (mini->bufer[0][0] == '.' || mini->bufer[0][0] == '/')
 		{
 			error = execve(mini->bufer[0], mini->bufer, mini->env);
 			if (error == -1)
-				printf  (RED"Error : comand no found\n"RESET);
+				ft_putstr_fd (RED"Error : comand no found\n"RESET, 2);
 		}
 		else
 		{
@@ -72,6 +74,7 @@ void	bin_execute(t_data *mini)
 	}
 	else
 		wait(NULL);
+  return (0);
 }
 
 int builtins(t_data *data)

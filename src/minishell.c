@@ -6,15 +6,15 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/04 18:49:49 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/06 10:34:33 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// lexer -> parser -> expanser -> builtins -> bin_execute -> waitpid
-// whitespaces = " \t\v\f\r\n"
 // quotes = "\"\'"
+// whitespaces = " \t\v\f\r\n"
+// lexer -> parser -> expanser -> builtins -> bin_execute -> waitpid
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
@@ -25,9 +25,9 @@ int	main(int ac, char **av, char **env)
 	ft_bzero (&data, sizeof(t_data));
 	data.status = 1;
 	data.path = ft_split(getenv("PATH"), ':');
+	signals();
 	while (data.status)
 	{
-		signals();
 		data.line = readline (prompt());
 		if (!data.line)
 			break;

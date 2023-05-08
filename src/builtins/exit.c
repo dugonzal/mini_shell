@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 14:04:21 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/05 19:04:16 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 21:35:08 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	ft_exit(t_data  *data)
 {
 	data->status = 0;
-	printf (BLUE" Goodbye :D\n");
+	ft_putstr_fd (BLUE" Goodbye :D\n"RESET, 0);
 	return ;
-	// habra que liberar la memoria xd;
+	// habra que liberar la memoria xd; aunque se libera parte ha habra
 }

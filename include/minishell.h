@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/05 18:03:13 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/05 21:10:33 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ typedef struct s_data
 	int				*fd;
 	int				status;
 	pid_t 			pid; // temporal
-	//struct s_cmd	s_cmd;
+	//struct s_cmd	**cmd;
 } t_data;
 
 void	handler(int sig, siginfo_t *info, void *context);
 void	signals(void);
 char	*prompt(void);
-void	bin_execute(t_data *mini);
+int		bin_execute(t_data *mini);
 // builtins
 int		verify_quotes(t_data *data);
 void	ft_exit(t_data  *data);

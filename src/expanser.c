@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/07 10:26:11 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/07 13:26:02 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	expanser(t_data *data)
   char	*env;
   int	size;
 
-  i = -1;
   if (!data->bufer)
 	return (1);
+  i = -1;
   while (data->bufer[++i])
 	if (data->bufer[i] && search(data->bufer[i], '$') \
 	  && !search(data->bufer[i], '\''))
@@ -71,8 +71,6 @@ int	expanser(t_data *data)
 		data->bufer[i] = env;
 		if (search(data->bufer[i], '$'))
 		  expanser(data);
-		else
-			continue;
 	  }
 	}
   return (0);

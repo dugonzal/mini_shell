@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/04/26 16:49:30 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/06 10:39:38 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	handler(int sig, siginfo_t *info, void *context)
 		rl_on_new_line();
 		rl_replace_line("\n", 1); // handle signal ctrl + c
 		rl_redisplay();
+		ft_putstr_fd(RED"hola\n"RESET, 2);
 	}
 	else if (sig == SIGQUIT)
 	{

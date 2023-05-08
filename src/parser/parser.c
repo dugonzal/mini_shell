@@ -6,25 +6,26 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/06 19:56:37 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 10:19:26 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	size_argv(char **str)
+int	size_cmd(char **str)
 {
   int	i;
 
   i = 0;
-  while (str[i] && !search("|;", str[i - 1][0])) // intento copiar tambienl el type
+  while (str[i] && !search("|;", str[i][0])) // intento copiar tambienl el type
 	i++;
-  printf ("[%d] <--> [%s]\n", i, str[i]);
+  //printf ("[%d] <--> [%s]\n", i, str[i]);
   return (i);
 }
 
 int type(char *str)
 {
+ // printf ("type ->[%s]\n", str);
 	if (!str) // end
 	  return (3);
 	else if (search(str, ';')) // break
@@ -43,13 +44,11 @@ t_cmd **last_back(t_cmd **cmd, t_cmd *new)
   if (!new)
 	return (cmd);
   tmp = *cmd;
-  if (!*cmd)
-  {
-	*cmd = new;
+  if (!tmp)
 	return (cmd);
-  }
   while (tmp->next)
 	  tmp = tmp->next;
+  return (cmd);
   tmp->next = new;
   new->prev = tmp;
   return (cmd);
@@ -66,29 +65,34 @@ t_cmd	*new_cmd(char **str, int size)
   cmd->cmd = (char **)ft_calloc(size + 1, sizeof(char *));
   if (cmd->cmd == NULL || cmd == NULL)
 	return (NULL);
-  i = 0;
-  while (i < size)
-  {
+  i = -1;
+  while (++i <= size)
 	cmd->cmd[i] = str[i];
-	i++;
-  }
+  cmd->type = type(cmd->cmd[size]);
   cmd->cmd[size] = NULL;
+  printf ("type ->[%d] ultimo arrray ->[%s] \n", cmd->type, cmd->cmd[size]);
   cmd->next = NULL;
   cmd->prev = NULL;
- // cmd->type = type(str[i]);
- // printf ("cmd->type = %d\n", cmd->type);
-  //cmd->size = size;
-  //printf (" = %d\n", cmd->size);
+  cmd->size = size;
   return (cmd);
 }
 
 // quiero ir metiendo los comandos primero en una arrray y
 // luego a un puntero puntero
-int lista_lists(t_data *data, t_cmd **cmd)
+int parser_cmds(char **bufer, t_cmd **cmd)
 {
-  (void)data;
-  (void)cmd;
-  return (1);
+  t_cmd *tmp;
+  int	size;
+
+  tmp = *cmd; 
+  size = 0;
+  size = size_cmd(bufer);
+  //printf ("%d", size);
+  tmp = new_cmd(bufer, size);
+  //printf ("%s]]\n",tmp->cmd[0]);
+  //cmd = last_back(cmd, tmp);
+  (void)tmp;
+  return (size);
 }
 
 
@@ -96,9 +100,16 @@ int lista_lists(t_data *data, t_cmd **cmd)
 int	parser(t_data *data)
 {
   t_cmd	*cmd;
+  int  i;
+
 /// necesito varias funcione para pasar los argumentos a la lista enlzadad pero no quiero xd
   /// muchas funciones hacen que sea maas largo, y literal no hay opcion
-  lista_lists(data, &cmd);
-	return(1);
+  i = -1 ;
+  cmd = NULL;
+  while (data->bufer[++i])
+	if (data->bufer[i])
+	  i += parser_cmds(&data->bufer[i], &cmd);
+  else	if (!data->bufer[i])
+	  break;
   return (0);
 }

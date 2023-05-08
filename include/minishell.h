@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/05 21:10:33 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:54:21 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ typedef struct s_data
 {
 	char			*line;
 	char			**bufer;
-	char			**cmd;
 	char			**path;
 	char			**env;
-	int				*fd;
 	int				status;
 	pid_t 			pid; // temporal
-	//struct s_cmd	**cmd;
+	struct s_cmd	*cmd;
 } t_data;
 
 void	handler(int sig, siginfo_t *info, void *context);

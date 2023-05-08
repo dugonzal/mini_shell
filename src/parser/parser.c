@@ -6,13 +6,13 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/08 12:56:10 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:05:00 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	size_cmd(char **str)
+int	size_node(char **str)
 {
   int	i;
 
@@ -54,26 +54,26 @@ t_cmd **last_back(t_cmd **cmd, t_cmd *new)
   return (cmd);
 }
 
-t_cmd	*new_cmd(char **str, int size)
+t_cmd	*new_node(char **str, int size)
 {
-  t_cmd		*cmd;
+  t_cmd		*tmp;
   int		i;
 
   if (!str)
 	return (NULL);
-  cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-  cmd->cmd = (char **)ft_calloc(size + 1, sizeof(char *));
-  if (cmd->cmd == NULL || cmd == NULL)
+  tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+  tmp->cmd = (char **)ft_calloc(size + 1, sizeof(char *));
+  if (tmp->cmd == NULL || tmp == NULL)
 	return (NULL);
   i = -1;
   while (++i < size)
-	cmd->cmd[i] = str[i];
-  cmd->size = size;
-  cmd->type = type(str[size]);
-  cmd->next = NULL;
-  cmd->prev = NULL;
-  cmd->cmd[size] = NULL;
-  return (cmd);
+	tmp->cmd[i] = str[i];
+  tmp->size = size;
+  tmp->type = type(str[size]);
+  tmp->next = NULL;
+  tmp->prev = NULL;
+  tmp->cmd[size] = NULL;
+  return (tmp);
 }
 
 // quiero ir metiendo los comandos primero en una arrray y
@@ -82,14 +82,26 @@ int parser_cmds(char **bufer, t_cmd **cmd)
 {
   int	size;
 
-  size = size_cmd(bufer);
-  last_back(cmd, new_cmd(bufer, size));
+  size = size_node(bufer);
+  last_back(cmd, new_node(bufer, size));
   return (size);
+}
+
+void execute(t_cmd *data)
+{
+  print (data->cmd);
 }
 
 void exec(t_cmd *data)
 {
-  print (data->cmd);
+  t_cmd *tmp;
+
+  tmp = data;
+  while (tmp)
+  {
+	execute(tmp);
+	tmp = tmp->next;
+  }
 }
 
 int	parser(t_data *data)
@@ -117,7 +129,7 @@ int	parser(t_data *data)
   }
   free (data->bufer);
   data->cmd = cmd;
- if (cmd)
+  if (data->cmd)
 	exec(cmd);
 else
 	printf("no hay comandos\n");

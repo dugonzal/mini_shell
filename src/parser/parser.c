@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/08 13:06:54 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:29:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,24 +83,28 @@ int parser_cmds(char **bufer, t_cmd **cmd)
   int	size;
 
   size = size_node(bufer);
+  if (!size)
+	return (0);
   last_back(cmd, new_node(bufer, size));
   return (size);
 }
 
-void execute(t_cmd *data)
+int execute(t_cmd *cmd, t_data *data)
 {
-  print (data->cmd);
-  printf ("type: %d\n", data->type);
+  if (builtins(cmd, data))
+	return (1);
+  return (0);
 }
 
-void exec(t_cmd *data)
+void exec(t_cmd *cmd, t_data *data)
 {
   t_cmd *tmp;
 
-  tmp = data;
+  tmp = cmd;
   while (tmp)
   {
-	execute(tmp);
+	print (tmp->cmd);
+	execute(tmp, data);
 	tmp = tmp->next;
   }
 }
@@ -115,23 +119,15 @@ int	parser(t_data *data)
   cmd = NULL;
   while (data->bufer[i])
 	if (search("|;" ,data->bufer[i][0]))
-	{
 	  i++;
-	  continue;
-	}
-	else if (!data->bufer[i])
-		break;
 	else if (data->bufer[i])
 	  i += parser_cmds(&data->bufer[i], &cmd);
-	else
-	{
-	  ft_putstr_fd("error en el parser no esperado\n", 2);
+	else if (!data->bufer[i])
 		break;
-  }
+  data->bufer = NULL;
   free (data->bufer);
-  data->cmd = cmd;
-  if (data->cmd)
-	exec(cmd);
+  if (cmd)
+	exec(cmd, data);
 else
 	printf("no hay comandos\n");
   return (0);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/08 14:29:49 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:28:35 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_cmd	*new_node(char **str, int size)
   i = -1;
   while (++i < size)
 	tmp->cmd[i] = str[i];
-  tmp->size = size;
   tmp->type = type(str[size]);
   tmp->next = NULL;
   tmp->prev = NULL;
@@ -93,6 +92,8 @@ int execute(t_cmd *cmd, t_data *data)
 {
   if (builtins(cmd, data))
 	return (1);
+  else
+	  bin_execute (cmd, data);
   return (0);
 }
 
@@ -103,6 +104,8 @@ void exec(t_cmd *cmd, t_data *data)
   tmp = cmd;
   while (tmp)
   {
+	printf ("type: [%d]  ", tmp->type);
+	lexer_errors(tmp->cmd);
 	print (tmp->cmd);
 	execute(tmp, data);
 	tmp = tmp->next;
@@ -116,7 +119,8 @@ int	parser(t_data *data)
 /// necesito varias funcione para pasar los argumentos a la lista enlzadad pero no quiero xd
   /// muchas funciones hacen que sea maas largo, y literal no hay opcion
   i = 0 ;
-  cmd = NULL;
+  print (data->bufer);
+  ft_bzero (&cmd, sizeof(cmd));
   while (data->bufer[i])
 	if (search("|;" ,data->bufer[i][0]))
 	  i++;
@@ -124,11 +128,8 @@ int	parser(t_data *data)
 	  i += parser_cmds(&data->bufer[i], &cmd);
 	else if (!data->bufer[i])
 		break;
-  data->bufer = NULL;
   free (data->bufer);
   if (cmd)
 	exec(cmd, data);
-else
-	printf("no hay comandos\n");
   return (0);
 }

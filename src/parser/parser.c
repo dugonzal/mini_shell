@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/09 11:54:06 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:15:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int parser_cmds(char **bufer, t_cmd **cmd)
   return (size);
 }
 
-void exec(t_cmd *cmd, t_data *data)
+int exec(t_cmd *cmd, t_data *data)
 {
   t_cmd *tmp;
 
@@ -56,9 +56,10 @@ void exec(t_cmd *cmd, t_data *data)
 	//lexer_errors(tmp->cmd);
 	quotes_quit(tmp->cmd, "\"\'");
 	//print (tmp->cmd);
-	execute(tmp, data);
+	 execute(tmp, data);
 	tmp = tmp->next;
   }
+  return (0);
 }
 
 int  redir(t_cmd *cmd, char **str)
@@ -70,18 +71,17 @@ int  redir(t_cmd *cmd, char **str)
   if (search(">", str[i][0]) && !str[i][1])
   {
 	  cmd->io = 1; //out
-	  cmd->file = ft_strdup(str[i + 1]);
+	  cmd->file = ft_strdup (str[i + 1]);
 	  str[i] = NULL;
 	  str[i + 1] = NULL;
-	  printf ("file: [%s]\n", cmd->file);
+	  break ;
   }
   else if (search("<", str[i][0]) && !str[i][1])
   {
 	cmd->io = 0; //in 
-	cmd->file = ft_strdup(str[i + 1]);
+	cmd->file = ft_strdup (str[i + 1]);
 	str[i] = NULL;
 	str[i + 1] = NULL;
-	printf ("file: [%s]\n", cmd->file);
   }
   return (0);
 }
@@ -95,11 +95,12 @@ int parser_cmd(t_cmd *cmd, t_data *data)
   {
 	if (redir(cmd ,tmp->cmd))
 	  return (1);
-	print (tmp->cmd);
+	//print (tmp->cmd);
 	tmp = tmp->next;
   }
   //(void)data;
-  exec (cmd, data);
+  if (exec (cmd, data))
+	return (1);
   return (0);
 }
 

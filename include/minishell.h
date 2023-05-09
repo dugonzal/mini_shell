@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/09 12:27:51 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:14:21 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,7 @@ int		size_node(char **str);
 int		type(char *str);
 void	quotes_quit(char **str, char *quotes);
 int		ft_open(char *str, int i);
+void	exec_redir(t_cmd *cmd);
+int		ft_echo(char **str);
 
 #endif

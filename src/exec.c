@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/09 11:54:39 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:38:57 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	exec_redir(t_cmd *cmd)
 {
-  if (cmd->file != NULL) 
-  {
     // Redirigir la salida al archivo
     cmd->fd[cmd->io] = ft_open(cmd->file, cmd->io);
     if (cmd->fd[cmd->io] < 0)
@@ -28,7 +26,6 @@ void	exec_redir(t_cmd *cmd)
       dup2(cmd->fd[cmd->io], cmd->io);
       close(cmd->fd[cmd->io]);
 	  free(cmd->file);
-  }
 }
 
 char	*check_access(char *path, char *bin)
@@ -57,8 +54,6 @@ char	*check_access(char *path, char *bin)
 	return (NULL);
 }
 
-/// @brief
-/// @param mini
 int	bin_execute(t_cmd *cmd, t_data *data)
 {
 	int		error;
@@ -76,6 +71,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		return(err_msg(RED"errrr fork"RESET));
 	if (!pid)
 	{
+	  if (cmd->dir)
 		exec_redir(cmd);
 		if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 		{
@@ -85,8 +81,8 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		}
 		else
 		{
-		    dup2 (cmd->fd[1], 1); // escritura en el hijo
-		 	close (cmd->fd[0]); //cierra lectura en el hijo
+		    //dup2 (cmd->fd[1], 1); // escritura en el hijo
+		 	//close (cmd->fd[0]); //cierra lectura en el hijo
 			i = -1;
 			while (data->path[++i] != 0)
 			{

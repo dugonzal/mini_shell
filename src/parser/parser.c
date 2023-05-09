@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/09 10:21:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/09 11:54:06 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int execute(t_cmd *cmd, t_data *data)
   if (builtins(cmd, data))
 	return (1);
   else
-	  bin_execute (cmd);
+	  bin_execute (cmd, data);
   return (0);
 }
 
@@ -69,10 +69,19 @@ int  redir(t_cmd *cmd, char **str)
   while (str[++i])
   if (search(">", str[i][0]) && !str[i][1])
   {
-	  cmd->file = str[i + 1];
+	  cmd->io = 1; //out
+	  cmd->file = ft_strdup(str[i + 1]);
 	  str[i] = NULL;
 	  str[i + 1] = NULL;
 	  printf ("file: [%s]\n", cmd->file);
+  }
+  else if (search("<", str[i][0]) && !str[i][1])
+  {
+	cmd->io = 0; //in 
+	cmd->file = ft_strdup(str[i + 1]);
+	str[i] = NULL;
+	str[i + 1] = NULL;
+	printf ("file: [%s]\n", cmd->file);
   }
   return (0);
 }
@@ -109,7 +118,6 @@ int parser(t_data *data)
   free (data->bufer);
   if (cmd)
 	parser_cmd(cmd, data);
-  printf ("parser\n");
   free_cmd(cmd);
   return (0);
 }

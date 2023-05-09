@@ -6,11 +6,30 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/08 19:22:38 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/09 11:54:39 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	exec_redir(t_cmd *cmd)
+{
+  if (cmd->file != NULL) 
+  {
+    // Redirigir la salida al archivo
+    cmd->fd[cmd->io] = ft_open(cmd->file, cmd->io);
+    if (cmd->fd[cmd->io] < 0)
+	{
+        // Error al abrir el archivo de redirección
+        perror("open");
+        exit(EXIT_FAILURE);
+    }
+      // Redirigir io archivo
+      dup2(cmd->fd[cmd->io], cmd->io);
+      close(cmd->fd[cmd->io]);
+	  free(cmd->file);
+  }
+}
 
 char	*check_access(char *path, char *bin)
 {
@@ -52,14 +71,12 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 //	  if (pipe (cmd->fd) == -1)
 //		  return (err_msg(RED"Error : pipe"RESET));
 
-  printf ("fd[0] = %d  fd[1] [%d]  \n", cmd->fd[0], cmd->fd[1]);
 	pid = fork();
 	if (pid < 0)
 		return(err_msg(RED"errrr fork"RESET));
 	if (!pid)
 	{
-//		close (cmd->fd[0]); //cierra lectura en el hijo 
-//		dup2 (cmd->fd[1], 1); // escritura en el hijo
+		exec_redir(cmd);
 		if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 		{
 			error = execve(cmd->cmd[0], cmd->cmd, data->env);
@@ -68,6 +85,8 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		}
 		else
 		{
+		    dup2 (cmd->fd[1], 1); // escritura en el hijo
+		 	close (cmd->fd[0]); //cierra lectura en el hijo
 			i = -1;
 			while (data->path[++i] != 0)
 			{
@@ -76,17 +95,16 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 				error = execve(tmp, cmd->cmd, data->env);
 			}
 			if (error)
-				ft_putstr_fd( RED"Error : comand no found\n"RESET, 2);
+				ft_putendl_fd( RED"Error : comand no found"RESET, 2);
 		}
 		exit (EXIT_SUCCESS);
 	}
 	else
 	{
 		waitpid(pid, &error, 0);
-	//	close (cmd->fd[1]); // close write father
-//		dup2 (cmd->fd[0], 0); // read father
+		//close (cmd->fd[1]); // close write father
+		//dup2 (cmd->fd[0], 0); // read father
 	}
-
   return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/08 22:06:53 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/09 11:53:56 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_cmd
 	int				fd[2];// in out I/O
 	char			**cmd;
 	int				type;
+	char 			*file;
+	int				io;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 

@@ -6,18 +6,33 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/08 19:00:34 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/09 10:21:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void free_cmd(t_cmd *cmd)
+{
+  t_cmd *tmp;
+  
+  tmp = NULL;
+  while (tmp)
+  {
+	cmd = tmp;
+	free_array(tmp->cmd);
+	free (tmp);
+	tmp = cmd->next;
+  }
+  cmd = NULL;
+}
 
 int execute(t_cmd *cmd, t_data *data)
 {
   if (builtins(cmd, data))
 	return (1);
   else
-	  bin_execute (cmd, data);
+	  bin_execute (cmd);
   return (0);
 }
 
@@ -38,7 +53,7 @@ void exec(t_cmd *cmd, t_data *data)
   while (tmp)
   {
 	//printf ("type: [%d]  ", tmp->type);
-	lexer_errors(tmp->cmd);
+	//lexer_errors(tmp->cmd);
 	quotes_quit(tmp->cmd, "\"\'");
 	//print (tmp->cmd);
 	execute(tmp, data);
@@ -46,7 +61,40 @@ void exec(t_cmd *cmd, t_data *data)
   }
 }
 
-int	parser(t_data *data)
+int  redir(t_cmd *cmd, char **str)
+{
+  int i;
+  
+  i = -1;
+  while (str[++i])
+  if (search(">", str[i][0]) && !str[i][1])
+  {
+	  cmd->file = str[i + 1];
+	  str[i] = NULL;
+	  str[i + 1] = NULL;
+	  printf ("file: [%s]\n", cmd->file);
+  }
+  return (0);
+}
+
+int parser_cmd(t_cmd *cmd, t_data *data)
+{
+ t_cmd *tmp;
+ 
+  tmp = cmd;
+  while (tmp)
+  {
+	if (redir(cmd ,tmp->cmd))
+	  return (1);
+	print (tmp->cmd);
+	tmp = tmp->next;
+  }
+  //(void)data;
+  exec (cmd, data);
+  return (0);
+}
+
+int parser(t_data *data)
 {
   t_cmd		*cmd;
   int		i;
@@ -54,14 +102,16 @@ int	parser(t_data *data)
   i = 0;
   ft_bzero (&cmd, sizeof(cmd));
   while (data->bufer[i])
-	if (search("|;" ,data->bufer[i][0]))
-	  i++;
+	 if (search("|;", data->bufer[i][0]))
+		i++;
 	else if (data->bufer[i])
-	  i += parser_cmds(&data->bufer[i], &cmd);
-	else if (!data->bufer[i])
-		break;
+		i += parser_cmds(&data->bufer[i], &cmd);
   free (data->bufer);
   if (cmd)
-	exec(cmd, data);
+	parser_cmd(cmd, data);
+  printf ("parser\n");
+  free_cmd(cmd);
   return (0);
 }
+
+

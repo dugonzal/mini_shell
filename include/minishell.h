@@ -6,7 +6,7 @@
 /*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/10 20:00:34 by sizquier         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:14:55 by sizquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*prompt(void);
 int		bin_execute(t_cmd *cmd, t_data *data);
 // builtins
 int		verify_quotes(t_data *data);
-void	ft_exit(t_data  *data);
 void	print(char **str);
 
 // utils
@@ -96,5 +95,6 @@ int		ft_echo(char **str);
 int		ft_pwd(void);
 void	ft_execute_echo(char **cmd);
 void	ft_echo_builtin(t_cmd *cmd);
+int	ft_exit(t_cmd  *cmd);
 
 #endif

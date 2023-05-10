@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
+#    By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/05/09 13:42:55 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/10 18:33:07 by dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ parser_dir 	:= parser/
 parser		:= split_token split_token_utils parser parser_utils lexer lexer_utils utils
 
 builtins_dir 	:= builtins/
-builtins		:= exit echo 
+builtins		:= exit echo
 
 SRC_FILES 	+= $(addprefix $(parser_dir),$(parser))
 SRC_FILES 	+= $(addprefix $(builtins_dir),$(builtins))
@@ -50,7 +50,8 @@ WHITE 	= \033[0;97m
 OS := $(shell uname)
 
 ifeq ($(OS), Darwin)
-	readline :=  -lreadline
+	readline := -lreadline -L${HOME}/.brew/opt/readline/lib
+
 #-I/usr/local/opt/readline/include -L/usr/local/opt/readline/libelse
 else
 	readline :=	-L/usr/include -lreadline
@@ -62,7 +63,7 @@ endif
 
 $(NAME): $(OBJ)
 	make -C libft && mkdir -p bin && mv libft/libft.a bin
-	$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft -I $(INC_DIR)* 
+	$(CC) $(CFLAGS) $(OBJ) $(readline) -o $@ -L bin -lft -I $(INC_DIR)*
 	printf	"$(BLUE) 🚀 $@ $(DEFAULT)\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c

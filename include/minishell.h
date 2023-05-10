@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/09 19:14:21 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:11:00 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct s_data
 	int				status;
 } t_data;
 
+int g_status;
+
 void	handler(int sig, siginfo_t *info, void *context);
 void	signals(void);
 char	*prompt(void);
@@ -59,7 +61,7 @@ void	print(char **str);
 char	*fun_check(char *str);
 int		search(char *set, char c);
 
-//lexer 
+//lexer
 int		lexer(t_data *data);
 char	**split_token(const char *prompt, char *set, char *quotes, char *special);
 int		count_word(const char *prompt, char *set, char *quotes, char *specials);

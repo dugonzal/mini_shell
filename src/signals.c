@@ -3,34 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/10 17:45:42 by sizquier         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:11:27 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+
+void	sig_handler(int signum)
+{
+	/*bash-3.2$ hola
+	bash-3.2$
+	bash-3.2$ echo $?
+	1-> es el valor que le doy a g_exit_status.*/
+	if (signum == SIGINT)
+	{
+		if (rl_on_new_line() == -1) // si la nueva linea está creada, no la crees
+			exit(-1); //salgo de la función
+		g_status = 1; // el valor de salida en este caso es 1
+		printf("\n");
+	//	rl_replace_line("", 0); // creame una nueva linea vacia
+		rl_redisplay();// muestramela.
+	}
+	if (signum == SIGQUIT)
+	{
+		if (rl_on_new_line() == -1)
+			exit(-1);
+		rl_redisplay();//muestrame la linea, no la crees porque sigquit no la necesita.
+	}
+
+}
+
+
+void	sig_handler_child_input(int signum)
+{
+	if (signum == SIGQUIT)
+	{
+		printf ("Quit: 3\n");
+	}
+	/*bash-3.2$ cat
+	^C
+	bash-3.2$ echo $?
+	130-> esto va al else if
+*/
+	else if (signum == SIGINT)
+	{
+		g_status = 130;
+		printf("\n");
+	}
+}
+
 void	handler(int sig, siginfo_t *info, void *context)
 {
 	(void)context;
 	(void)info;
-	if (sig == SIGINT)
-	{
-		rl_on_new_line();
-		//rl_replace_line("\n", 1); // handle signal ctrl + c
-		rl_redisplay();
-		ft_putstr_fd(RED"hola\n"RESET, 2);
-	}
-	else if (sig == SIGQUIT)
-	{
-		rl_redisplay();
-		printf ("recibido ctrl + d");
-		//exit(0); // handle signal ctrl + d
-
-	}
-	// handle signal ctrl + c and ctrl + d
+	sig_handler(sig);
+	sig_handler_child_input(sig);
 
 }
 

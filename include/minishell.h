@@ -6,7 +6,7 @@
 /*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/10 19:32:48 by sizquier         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:00:34 by sizquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@ int		ft_open(char *str, int i);
 void	exec_redir(t_cmd *cmd);
 int		ft_echo(char **str);
 int		ft_pwd(void);
+void	ft_execute_echo(char **cmd);
+void	ft_echo_builtin(t_cmd *cmd);
 
 #endif

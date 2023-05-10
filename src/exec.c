@@ -6,7 +6,7 @@
 /*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/10 19:36:48 by sizquier         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:03:16 by sizquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int builtins(t_cmd *cmd, t_data *data)
   }
   else if (!ft_strncmp(cmd->cmd[0], "echo", ft_strlen(cmd->cmd[0])))
   {
-    ft_echo(&cmd->cmd[1]);
+    ft_echo_builtin(cmd);
     return (1);
   }
 

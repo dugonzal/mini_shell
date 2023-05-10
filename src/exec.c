@@ -6,7 +6,7 @@
 /*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/10 17:48:53 by sizquier         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:36:48 by sizquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,16 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 }
 
 int builtins(t_cmd *cmd, t_data *data)
-{
+{	
+
   if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen(cmd->cmd[0])) && !cmd->cmd[1])
   {
     ft_exit(data);
+    return (1);
+  }
+  else if (!ft_strncmp(cmd->cmd[0], "pwd", ft_strlen(cmd->cmd[0])))
+  {
+    ft_pwd();
     return (1);
   }
   else if (!ft_strncmp(cmd->cmd[0], "echo", ft_strlen(cmd->cmd[0])))

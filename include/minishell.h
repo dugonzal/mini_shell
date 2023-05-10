@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/10 19:11:00 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:32:48 by sizquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void	quotes_quit(char **str, char *quotes);
 int		ft_open(char *str, int i);
 void	exec_redir(t_cmd *cmd);
 int		ft_echo(char **str);
+int		ft_pwd(void);
 
 #endif

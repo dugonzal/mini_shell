@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/09 19:55:02 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:48:53 by sizquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,29 +118,6 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 
 int builtins(t_cmd *cmd, t_data *data)
 {
-  int fd;
-  int stdout_copy;
-
-  if (cmd->file != NULL)
-  {
-    fd = open(cmd->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd < 0)
-    {
-      perror("open");
-      return 1;
-    }
-
-    stdout_copy = dup(STDOUT_FILENO);  // Hacer una copia del descriptor de archivo STDOUT_FILENO
-
-    if (dup2(fd, STDOUT_FILENO) == -1)  // Redirigir la salida estándar al archivo
-    {
-      perror("dup2");
-      return 1;
-    }
-
-    close(fd);
-  }
-
   if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen(cmd->cmd[0])) && !cmd->cmd[1])
   {
     ft_exit(data);
@@ -150,16 +127,6 @@ int builtins(t_cmd *cmd, t_data *data)
   {
     ft_echo(&cmd->cmd[1]);
     return (1);
-  }
-
-  if (cmd->file != NULL)
-  {
-    if (dup2(stdout_copy, STDOUT_FILENO) == -1)  // Restaurar el descriptor de archivo original de la salida estándar
-    {
-      perror("dup2");
-      return 1;
-    }
-    close(stdout_copy);
   }
 
   return (0);

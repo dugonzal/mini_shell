@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/08 19:08:27 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:00:12 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ int	expanser(t_data *data)
 			env = ft_strjoin(ft_strndup(data->bufer[i], j - 1), env, 1);//antes
 		if (data->bufer[i][j + size] != 0)
 			env = ft_strjoin(env, &data->bufer[i][j + size], 1);
-		if (!j)
-		  free (data->bufer[i]);
+		free (data->bufer[i]);
 		data->bufer[i] = env;
 		if (search(data->bufer[i], '$'))
 		  expanser(data);

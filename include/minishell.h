@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/09 19:14:21 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:49:56 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ typedef struct s_data
 	int				status;
 } t_data;
 
+static int g_status;
+
 void	handler(int sig, siginfo_t *info, void *context);
 void	signals(void);
 char	*prompt(void);
 int		bin_execute(t_cmd *cmd, t_data *data);
 // builtins
 int		verify_quotes(t_data *data);
-void	ft_exit(t_data  *data);
 void	print(char **str);
 
 // utils
@@ -59,7 +60,7 @@ void	print(char **str);
 char	*fun_check(char *str);
 int		search(char *set, char c);
 
-//lexer 
+//lexer
 int		lexer(t_data *data);
 char	**split_token(const char *prompt, char *set, char *quotes, char *special);
 int		count_word(const char *prompt, char *set, char *quotes, char *specials);
@@ -91,5 +92,11 @@ void	quotes_quit(char **str, char *quotes);
 int		ft_open(char *str, int i);
 void	exec_redir(t_cmd *cmd);
 int		ft_echo(char **str);
+int		ft_pwd(void);
+void	ft_execute_echo(char **cmd);
+void	ft_echo_builtin(t_cmd *cmd);
+int		ft_exit(t_cmd  *cmd);
+void	ft_env_builtin(char **envp);
+
 
 #endif

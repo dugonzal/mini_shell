@@ -6,20 +6,55 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 14:04:21 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/08 13:25:03 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:48:16 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-//Exit status:
+//Exit g_status:
 //  125  if the env command itself fails
 //  126  if COMMAND is found but cannot be invoked
 //  127  if COMMAND cannot be found
-//  -    the exit status of COMMAND otherwise
-void	ft_exit(t_data  *data)
+//  -    the exit g_status of COMMAND otherwise
+
+int	ft_numeric_error(t_cmd	*cmd)
 {
-	data->status = 0;
-	ft_putstr_fd (BLUE" Goodbye :D\n"RESET, 0);
-	return ;
-	// habra que liberar la memoria xd; aunque se libera parte ha habra
+	g_status = 255;
+	printf("exit: %s: numeric argument required\n", \
+			cmd->cmd[1]);
+	return (0);
+}
+/*bash-3.2$ exit 12 23 (mas de un argumento)
+exit
+bash: exit: too many cmd (printf sin salto de linea)
+bash-3.2$ echo $?
+1
+bash-3.2$
+*/
+int	ft_exit(t_cmd *cmd)
+{
+	int	i;
+
+	i = -1;
+	if (cmd->cmd[1] && cmd->cmd[2])
+	{
+		g_status = 1;
+		ft_printf("exit: too many cmd\n");
+		return (1); // es el valor que devuelve tras echo $?
+	}
+	if (cmd->cmd[1])
+	{
+		while (cmd->cmd[1][++i])
+		{
+			if (ft_isalpha(cmd->cmd[1][i]))
+				return (ft_numeric_error(cmd));
+		}
+		g_status = ft_atoi(cmd->cmd[1]);
+	}
+	else
+	{
+		g_status = 0;
+		printf("%d", g_status);
+	}
+	return (0);
 }

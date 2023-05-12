@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/12 10:12:09 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:46:07 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,17 +105,27 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 
 int builtins(t_cmd *cmd, t_data *data)
 {
-  if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen(cmd->cmd[0])) && !cmd->cmd[1])
+  if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen(cmd->cmd[0])) )
   {
-    ft_exit(data);
+    ft_exit(cmd);
+    return (1);
+  }
+  else if (!ft_strncmp(cmd->cmd[0], "pwd", ft_strlen(cmd->cmd[0])))
+  {
+    ft_pwd();
     return (1);
   }
   else if (!ft_strncmp(cmd->cmd[0], "echo", ft_strlen(cmd->cmd[0])))
   {
-    ft_echo(&cmd->cmd[1]);
+    ft_echo_builtin(cmd);
+    return (1);
+  }
+   else if (!ft_strncmp(cmd->cmd[0], "env", ft_strlen(cmd->cmd[0])))
+  {
+    ft_env_builtin(data->env);
     return (1);
   }
 
-   return (0);
+  return (0);
 }
 

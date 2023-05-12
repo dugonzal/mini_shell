@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/09 19:12:11 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:07:52 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ int	main(int ac, char **av, char **env)
 	if (ac > 1 && arr_size(av) > 1)
 	  err("minishell: too many arguments");
 	ft_bzero (&data, sizeof(t_data));
-	data.status = 1;
-	data.path = ft_split(getenv("PATH"), ':');
-	signals();
+	data.path = ft_split(getenv("PATH"), ':', 0);
 	user = prompt();
-	while (data.status)
+	while (42)
 	{
+		signals();
 		data.line = readline (user);
 		if (!data.line)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/09 19:55:02 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:12:09 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	char	*tmp;
 	pid_t	pid;
 
-	if (cmd->type == 5)
-	  if (pipe (cmd->fd) == -1)
-		  return (err_msg(RED"Error : pipe"RESET));
 	status = 0;
 	pid = fork();
 	if (pid < 0)
@@ -86,12 +83,6 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		}
 		else
 		{
-			if (cmd->type == 5 && dup2 (cmd->fd[1], 1) != -1)
-			{
-				err_msg(RED"Error : dup2"RESET);
-			}
-			if 	(cmd->type == 5)
-				close (cmd->fd[0]);
 			i = -1;
 			while (data->path[++i] != 0)
 			{
@@ -107,40 +98,13 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	}
 	else
 	{
-		if (cmd->type == 5 && dup2 (cmd->fd[0], 0) != -1)
-		  err_msg(RED"Error : dup2"RESET);	
-	  if (cmd->type == 5)
-		close (cmd->fd[1]);
-	  waitpid(pid, &status, 0);
+		  waitpid(pid, &status, 0);
 	}
   return (0);
 }
 
 int builtins(t_cmd *cmd, t_data *data)
 {
-  int fd;
-  int stdout_copy;
-
-  if (cmd->file != NULL)
-  {
-    fd = open(cmd->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd < 0)
-    {
-      perror("open");
-      return 1;
-    }
-
-    stdout_copy = dup(STDOUT_FILENO);  // Hacer una copia del descriptor de archivo STDOUT_FILENO
-
-    if (dup2(fd, STDOUT_FILENO) == -1)  // Redirigir la salida estándar al archivo
-    {
-      perror("dup2");
-      return 1;
-    }
-
-    close(fd);
-  }
-
   if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen(cmd->cmd[0])) && !cmd->cmd[1])
   {
     ft_exit(data);
@@ -152,16 +116,6 @@ int builtins(t_cmd *cmd, t_data *data)
     return (1);
   }
 
-  if (cmd->file != NULL)
-  {
-    if (dup2(stdout_copy, STDOUT_FILENO) == -1)  // Restaurar el descriptor de archivo original de la salida estándar
-    {
-      perror("dup2");
-      return 1;
-    }
-    close(stdout_copy);
-  }
-
-  return (0);
+   return (0);
 }
 

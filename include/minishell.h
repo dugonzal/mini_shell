@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/12 10:49:56 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:50:00 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	*free_array(char **array);
 void	print(char **str);
 char	*fun_check(char *str);
 int		search(char *set, char c);
+void	free_cmd(t_cmd *cmd);
 
 //lexer
 int		lexer(t_data *data);
@@ -97,6 +98,6 @@ void	ft_execute_echo(char **cmd);
 void	ft_echo_builtin(t_cmd *cmd);
 int		ft_exit(t_cmd  *cmd);
 void	ft_env_builtin(char **envp);
-
+int		redir(t_cmd *cmd, char **str);
 
 #endif

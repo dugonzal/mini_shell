@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/10 19:11:09 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:48:57 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	main(int ac, char **av, char **env)
 	  err("minishell: too many arguments");
 	ft_bzero (&data, sizeof(t_data));
 	data.status = 1;
-	data.path = ft_split(getenv("PATH"), ':');
-	signals();
+	data.path = ft_split(getenv("PATH"), ':', 0);
 	user = prompt();
 	while (42)
 	{
+		signals();
 		data.line = readline (user);
 		if (!data.line)
 			break ;

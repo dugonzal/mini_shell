@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/10 19:40:00 by sizquier         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:50:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	sig_handler(int signum)
 			exit(-1); //salgo de la función
 		g_status = 1; // el valor de salida en este caso es 1
 		printf("\n");
-		ft_printf("%s\n", prompt());
 	//	rl_replace_line("", 0); // creame una nueva linea vacia
 		rl_redisplay();// muestramela.
 	}

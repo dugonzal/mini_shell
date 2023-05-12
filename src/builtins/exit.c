@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 14:04:21 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/10 20:16:00 by sizquier         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:48:16 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ int	ft_exit(t_cmd *cmd)
 		g_status = ft_atoi(cmd->cmd[1]);
 	}
 	else
+	{
 		g_status = 0;
 		printf("%d", g_status);
+	}
 	return (0);
 }

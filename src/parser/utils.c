@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 22:05:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/08 22:08:09 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:22:44 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,19 @@ int ft_open(char *str, int i)
 	if (fd == -1)
 	  ft_putstr_fd("Error: No such file or directory\n", 2);
 	return (fd);
+}
+
+void free_cmd(t_cmd *cmd)
+{
+  t_cmd *tmp;
+  
+  tmp = NULL;
+  while (tmp)
+  {
+	cmd = tmp;
+	free_array(tmp->cmd);
+	free (tmp);
+	tmp = cmd->next;
+  }
+  cmd = NULL;
 }

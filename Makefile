@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+         #
+#    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/05/11 20:36:25 by sizquier         ###   ########.fr        #
+#    Updated: 2023/05/12 13:05:55 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ builtins		:= exit echo pwd env
 SRC_FILES 	+= $(addprefix $(parser_dir),$(parser))
 SRC_FILES 	+= $(addprefix $(builtins_dir),$(builtins))
 
-SRC_FILES	+=	minishell  utils signals exec expanser
+SRC_FILES	+=	minishell  utils signals exec expanser redirect
 
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -47,46 +47,36 @@ MAGENTA = \033[0;95m
 CYAN 	= \033[0;96m
 WHITE 	= \033[0;97m
 
-READLINE_DIR = ${HOME}/.brew/opt/readline
-
-
-F_READLINE = -I$(READLINE_DIR)/include
-COMPILE = -lreadline -L$(READLINE_DIR)/lib
-
 OS := $(shell uname)
 
 ifeq ($(OS), Darwin)
-	readline := -lreadline -L${HOME}/.brew/opt/readline/lib
-
-#-I/usr/local/opt/readline/include -L/usr/local/opt/readline/libelse
-
+	readline := -lreadline -L${HOME}/.brew/opt/readline/lib  -I${HOME}/.brew/opt/readline/lib/include
 else
 	readline :=	-L/usr/include -lreadline 
-
 endif
 
-#ifndef verbose
-#.SILENT:
-#endif
+ifndef verbose
+.SILENT:
+endif
 
 $(NAME): $(OBJ)
 	make -C libft && mkdir -p bin && mv libft/libft.a bin
-	$(CC) $(CFLAGS) $(OBJ) -o $@ -L bin -lft -I $(INC_DIR)* $(COMPILE)
-	#printf	"$(BLUE) 🚀 $@ $(DEFAULT)\n"
+	$(CC) $(CFLAGS) $(OBJ) -o $@ -L bin -lft -I $(INC_DIR) $(readline)
+	printf	"$(BLUE) 🚀 $@ $(DEFAULT)\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR)$(parser_dir)
-	@mkdir -p $(OBJ_DIR)$(builtins_dir)
-	@if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git; fi
-	$(CC) $(CFLAGS) $(F_READLINE) -c $< -o $@ -I $(INC_DIR)*
-	@#printf  "$(GREEN) 🚀  $< $(DEFAULT)\n"
+	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)$(parser_dir)
+	mkdir -p $(OBJ_DIR)$(builtins_dir)
+	if [ ! -d "libft" ]; then git clone https://github.com/dugonzal/libft.git; fi
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)* -I libft 
+	printf  "$(GREEN) 🚀  $< $(DEFAULT)\n"
 
 all: $(NAME)
 
 clean:
 	make -C libft clean
-	rm -rf $(NAME) logm logb
+	rm -rf $(NAME)
 	printf "$(YELLOW) Cleaning $(NAME) $(DEFAULT)"
 
 fclean: clean

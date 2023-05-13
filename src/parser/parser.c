@@ -6,26 +6,11 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/09 19:15:24 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/13 12:58:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void free_cmd(t_cmd *cmd)
-{
-  t_cmd *tmp;
-  
-  tmp = NULL;
-  while (tmp)
-  {
-	cmd = tmp;
-	free_array(tmp->cmd);
-	free (tmp);
-	tmp = cmd->next;
-  }
-  cmd = NULL;
-}
 
 int execute(t_cmd *cmd, t_data *data)
 {
@@ -45,63 +30,33 @@ int parser_cmds(char **bufer, t_cmd **cmd)
   return (size);
 }
 
-int exec(t_cmd *cmd, t_data *data)
+void copy_fd(t_data *data)
+{
+  data->file_in = dup(STDIN_FILENO); // copy file descriptor i\o
+  data->file_in = dup(STDOUT_FILENO); // copy file descriptor i\o
+}
+
+void reset_fd(t_data *data)
+{
+	dup2(data->file_in, STDIN_FILENO); // copy file descriptor i\o
+	dup2(data->file_out, STDOUT_FILENO); // copy file descriptor i\o
+}
+
+void exec(t_cmd *cmd, t_data *data)
 {
   t_cmd *tmp;
 
   tmp = cmd;
+  copy_fd(data);
   while (tmp)
   {
-	//printf ("type: [%d]  ", tmp->type);
-	//lexer_errors(tmp->cmd);
+	print(cmd->cmd);
+	redir(tmp, tmp->cmd);
 	quotes_quit(tmp->cmd, "\"\'");
-	//print (tmp->cmd);
-	 execute(tmp, data);
+	execute(tmp, data);
+	reset_fd(data);
 	tmp = tmp->next;
   }
-  return (0);
-}
-
-int  redir(t_cmd *cmd, char **str)
-{
-  int i;
-  
-  i = -1;
-  while (str[++i])
-  if (search(">", str[i][0]) && !str[i][1])
-  {
-	  cmd->io = 1; //out
-	  cmd->file = ft_strdup (str[i + 1]);
-	  str[i] = NULL;
-	  str[i + 1] = NULL;
-	  break ;
-  }
-  else if (search("<", str[i][0]) && !str[i][1])
-  {
-	cmd->io = 0; //in 
-	cmd->file = ft_strdup (str[i + 1]);
-	str[i] = NULL;
-	str[i + 1] = NULL;
-  }
-  return (0);
-}
-
-int parser_cmd(t_cmd *cmd, t_data *data)
-{
- t_cmd *tmp;
- 
-  tmp = cmd;
-  while (tmp)
-  {
-	if (redir(cmd ,tmp->cmd))
-	  return (1);
-	//print (tmp->cmd);
-	tmp = tmp->next;
-  }
-  //(void)data;
-  if (exec (cmd, data))
-	return (1);
-  return (0);
 }
 
 int parser(t_data *data)
@@ -118,7 +73,7 @@ int parser(t_data *data)
 		i += parser_cmds(&data->bufer[i], &cmd);
   free (data->bufer);
   if (cmd)
-	parser_cmd(cmd, data);
+	exec(cmd, data);
   free_cmd(cmd);
   return (0);
 }

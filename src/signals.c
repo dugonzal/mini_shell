@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/12 10:50:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/13 09:59:48 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sig_handler(int signum)
 	{
 		if (rl_on_new_line() == -1) // si la nueva linea está creada, no la crees
 			exit(-1); //salgo de la función
-		g_status = 1; // el valor de salida en este caso es 1
+	//	g_status = 1; // el valor de salida en este caso es 1
 		printf("\n");
 	//	rl_replace_line("", 0); // creame una nueva linea vacia
 		rl_redisplay();// muestramela.
@@ -51,7 +51,7 @@ void	sig_handler_child_input(int signum)
 */
 	else if (signum == SIGINT)
 	{
-		g_status = 130;
+	//	g_status = 130;
 		printf("\n");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/12 11:46:07 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:03:58 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,15 @@
 
 void	exec_redir(t_cmd *cmd)
 {
-	int copy_fd;
-    // Redirigir la salida al archivo
     cmd->fd[cmd->io] = ft_open(cmd->file, cmd->io);
-    if (cmd->fd[cmd->io] < 0)
+    if (cmd->fd[cmd->io] < 0 || \
+	dup2(cmd->fd[cmd->io], cmd->io) == -1)
 	{
-        // Error al abrir el archivo de redirección
-        perror("open");
-        exit(EXIT_FAILURE);
-    }
-	copy_fd = dup(cmd->io);
-      // Redirigir io archivo
-      dup2(cmd->fd[cmd->io], cmd->io);
-      close(cmd->fd[cmd->io]);
-  if (cmd->file != NULL)
-  {
-	free(cmd->file);
-	dup2 (copy_fd, cmd->io);  
-	close (copy_fd);
-  }
+		perror ("dup2");
+		return ;
+	}
+    close(cmd->fd[cmd->io]);
+
 }
 
 char	*check_access(char *path, char *bin)
@@ -65,7 +55,6 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 {
 	int		status;
 	int		i;
-	char	*tmp;
 	pid_t	pid;
 
 	status = 0;
@@ -74,58 +63,22 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		return(err_msg(RED"errrr fork"RESET));
 	if (!pid)
 	{
-		if (cmd->file)
-		  exec_redir(cmd);
 		if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 		{
-			 execve(cmd->cmd[0], cmd->cmd, data->env);
-			  ft_putstr_fd (RED"Error : comand no found\n"RESET, 2);
+			execve(cmd->cmd[0], cmd->cmd, data->env);
+			ft_putendl_fd(RED"Error : comand no found"RESET, 2);
 		}
 		else
 		{
 			i = -1;
 			while (data->path[++i] != 0)
-			{
-				tmp = NULL;
-				tmp = check_access(data->path[i], cmd->cmd[0]);
-				execve(tmp, cmd->cmd, data->env);
-				free (tmp);
-			}
-			ft_putendl_fd( RED"Error : comand no found"RESET, 2);
+				execve(check_access(data->path[i], cmd->cmd[0]), \
+		   cmd->cmd, data->env);
+			ft_putendl_fd(RED"Error : comand no found"RESET, 2);
 		}
-	  printf ("Error : comand no found\n");
-	  exit (EXIT_SUCCESS);
+		ft_putendl_fd(RED"Error : comand no found"RESET, 2);
 	}
 	else
-	{
-		  waitpid(pid, &status, 0);
-	}
+	  waitpid(pid, &status, 0);
   return (0);
 }
-
-int builtins(t_cmd *cmd, t_data *data)
-{
-  if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen(cmd->cmd[0])) )
-  {
-    ft_exit(cmd);
-    return (1);
-  }
-  else if (!ft_strncmp(cmd->cmd[0], "pwd", ft_strlen(cmd->cmd[0])))
-  {
-    ft_pwd();
-    return (1);
-  }
-  else if (!ft_strncmp(cmd->cmd[0], "echo", ft_strlen(cmd->cmd[0])))
-  {
-    ft_echo_builtin(cmd);
-    return (1);
-  }
-   else if (!ft_strncmp(cmd->cmd[0], "env", ft_strlen(cmd->cmd[0])))
-  {
-    ft_env_builtin(data->env);
-    return (1);
-  }
-
-  return (0);
-}
-

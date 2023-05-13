@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    tester.sh                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+         #
+#    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 17:27:23 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/05/10 17:44:51 by sizquier         ###   ########.fr        #
+#    Updated: 2023/05/13 13:38:16 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

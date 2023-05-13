@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/05/12 13:05:55 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/13 13:06:38 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ parser_dir 	:= parser/
 parser		:= split_token split_token_utils parser parser_utils lexer lexer_utils utils
 
 builtins_dir 	:= builtins/
-builtins		:= exit echo pwd env
+builtins		:= builtins exit echo pwd env
 
 SRC_FILES 	+= $(addprefix $(parser_dir),$(parser))
 SRC_FILES 	+= $(addprefix $(builtins_dir),$(builtins))

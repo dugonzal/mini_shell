@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/13 12:58:49 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/13 14:20:00 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int execute(t_cmd *cmd, t_data *data)
 {
+  if (cmd->file)
+	exec_redir(cmd);
   if (builtins(cmd, data))
 	return (1);
   else
@@ -32,14 +34,44 @@ int parser_cmds(char **bufer, t_cmd **cmd)
 
 void copy_fd(t_data *data)
 {
-  data->file_in = dup(STDIN_FILENO); // copy file descriptor i\o
-  data->file_in = dup(STDOUT_FILENO); // copy file descriptor i\o
+  int fd;
+
+  fd = dup(STDIN_FILENO);
+  if (fd == -1)
+  {
+	perror("dup");
+	data->status = 1; // error
+  }
+  data->file_in = fd;
+  fd = dup(STDOUT_FILENO);
+  if (fd == -1)
+  {
+	perror("dup");
+	close(data->file_in);
+	data->status = 1; // error
+  }
+  data->file_out = fd;
 }
 
 void reset_fd(t_data *data)
 {
-	dup2(data->file_in, STDIN_FILENO); // copy file descriptor i\o
-	dup2(data->file_out, STDOUT_FILENO); // copy file descriptor i\o
+	if (dup2(data->file_in, STDIN_FILENO) == -1)
+	{
+	  perror("dup2");
+	  data->status = 1; // error
+	  close(data->file_in);
+	  close(data->file_out);
+	  return ;
+	}
+	close (data->file_in);
+  	if (dup2(data->file_out, STDOUT_FILENO) == -1)
+	{
+	  perror("dup2");
+	  data->status = 1; // error
+	  close(data->file_out);
+	  return ;
+	}// copy file descriptor i\o
+	close (data->file_out);
 }
 
 void exec(t_cmd *cmd, t_data *data)
@@ -50,7 +82,7 @@ void exec(t_cmd *cmd, t_data *data)
   copy_fd(data);
   while (tmp)
   {
-	print(cmd->cmd);
+	//print(cmd->cmd);
 	redir(tmp, tmp->cmd);
 	quotes_quit(tmp->cmd, "\"\'");
 	execute(tmp, data);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 14:04:21 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/12 10:48:16 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/13 09:57:44 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 //  127  if COMMAND cannot be found
 //  -    the exit g_status of COMMAND otherwise
 
-int	ft_numeric_error(t_cmd	*cmd)
+int	ft_numeric_error(t_cmd	*cmd, t_data *data)
 {
-	g_status = 255;
+	data->status = 255;
 	printf("exit: %s: numeric argument required\n", \
 			cmd->cmd[1]);
 	return (0);
@@ -31,14 +31,14 @@ bash-3.2$ echo $?
 1
 bash-3.2$
 */
-int	ft_exit(t_cmd *cmd)
+int	ft_exit(t_cmd *cmd, t_data *data)
 {
 	int	i;
 
 	i = -1;
 	if (cmd->cmd[1] && cmd->cmd[2])
 	{
-		g_status = 1;
+		data->status = 1;
 		ft_printf("exit: too many cmd\n");
 		return (1); // es el valor que devuelve tras echo $?
 	}
@@ -47,14 +47,14 @@ int	ft_exit(t_cmd *cmd)
 		while (cmd->cmd[1][++i])
 		{
 			if (ft_isalpha(cmd->cmd[1][i]))
-				return (ft_numeric_error(cmd));
+				return (ft_numeric_error(cmd, data));
 		}
-		g_status = ft_atoi(cmd->cmd[1]);
+		data->status = ft_atoi(cmd->cmd[1]);
 	}
 	else
 	{
-		g_status = 0;
-		printf("%d", g_status);
+		data->status = 0;
+		printf("%d", data->status);
 	}
 	return (0);
 }

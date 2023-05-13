@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/12 12:00:12 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/13 09:12:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,19 @@ int	expanser(t_data *data)
 	  j = 0;
 	  while (data->bufer[i][j] != '$')
 		  j++;
+	  if (data->bufer[i][j + 1] == '?')
+	  {
+		j++;
+		env = ft_itoa(data->status);
+		if (j > 1)
+			env = ft_strjoin(ft_strndup(data->bufer[i], j - 1), env, 1);
+		if (data->bufer[i][j + 1] != 0)
+		  env = ft_strjoin(env, &data->bufer[i][j + 1], 1);
+		free (data->bufer[i]);
+		data->bufer[i] = env;
+		if (search(data->bufer[i], '$'))
+		  expanser(data);
+	  }
 	  if (data->bufer[i][j] == '$' && !search(" \t\v\f\r\"\'", data->bufer[i][j + 1]))
 	  {
 		j++;

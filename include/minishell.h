@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/12 13:50:00 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:08:46 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_cmd
 	int				io;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
-
 } t_cmd;
 
 typedef struct s_data
@@ -41,18 +40,28 @@ typedef struct s_data
 	char			**bufer;
 	char			**path;
 	char			**env;
-	int				status;
+	int 			file_out;
+	int 			file_in;
+	int 			status;
 } t_data;
 
-static int g_status;
 
 void	handler(int sig, siginfo_t *info, void *context);
 void	signals(void);
 char	*prompt(void);
 int		bin_execute(t_cmd *cmd, t_data *data);
-// builtins
-int		verify_quotes(t_data *data);
+
 void	print(char **str);
+int		verify_quotes(t_data *data);
+
+// builtins
+int builtins(t_cmd *cmd, t_data *data);
+int		ft_echo(char **str);
+int		ft_pwd(void);
+void	ft_execute_echo(char **cmd);
+void	ft_echo_builtin(t_cmd *cmd, t_data *data);
+int		ft_exit(t_cmd  *cmd, t_data *data);
+void	ft_env_builtin(char **envp, t_data *data);
 
 // utils
 void	*free_array(char **array);
@@ -92,12 +101,6 @@ int		type(char *str);
 void	quotes_quit(char **str, char *quotes);
 int		ft_open(char *str, int i);
 void	exec_redir(t_cmd *cmd);
-int		ft_echo(char **str);
-int		ft_pwd(void);
-void	ft_execute_echo(char **cmd);
-void	ft_echo_builtin(t_cmd *cmd);
-int		ft_exit(t_cmd  *cmd);
-void	ft_env_builtin(char **envp);
 int		redir(t_cmd *cmd, char **str);
 
 #endif

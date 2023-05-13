@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/13 13:08:46 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:25:14 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ t_cmd	**last_back_node(t_cmd **cmd, t_cmd *new);
 t_cmd	*new_node(char **str, int size);
 int		size_node(char **str);
 int		type(char *str);
-void	quotes_quit(char **str, char *quotes);
 int		ft_open(char *str, int i);
 void	exec_redir(t_cmd *cmd);
 int		redir(t_cmd *cmd, char **str);
+void	quotes_quit(char **str, char *quotes);
 
 #endif

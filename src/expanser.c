@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/13 09:54:13 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:46:06 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	expanser(t_data *data)
 	return (1);
   i = -1;
   while (data->bufer[++i])
-	if (data->bufer[i] && search(data->bufer[i], '$') \
+	if (data->bufer[i] && ft_strlen(data->bufer[i]) > 1 && search(data->bufer[i], '$') \
 	  && !search(data->bufer[i], '\''))
 	{
 	  j = 0;
@@ -65,7 +65,7 @@ int	expanser(t_data *data)
 		if (search(data->bufer[i], '$'))
 		  expanser(data);
 	  }
-	  else if (data->bufer[i][j] == '$' && !search(" \t\v\f\r\"\'", data->bufer[i][j + 1]))
+	  else if (data->bufer[i][j] == '$' && ft_strlen(data->bufer[i]) > 1 && !search(" \t\v\f\r\"\'", data->bufer[i][j + 1]))
 	  {
 		j++;
 		size = count_expanser(&data->bufer[i][j]);

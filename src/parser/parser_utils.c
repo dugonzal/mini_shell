@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/14 12:13:02 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:47:27 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,36 @@ int type(char *str)
 	  return (-1); // no type
 }
 
-void quotes_quit(char **str, char *quotes)
+char **quite_zero(char **str)
+{
+  return (str);
+}
+
+// echo "hola""hola" -> echo holahola
+void seach_quotes(char **str, char *quotes)
 {
   int i;
+  char tmp;
 
   i = -1;
   while (str[++i])
 	if (search(quotes, str[i][0]))
-	  str[i] = ft_strtrim(str[i], "\"\'", 1);
+	{
+	  tmp = str[i][0];
+	  str[i] = ft_strtrim(str[i], &tmp, 1);
+	  if (str[i][0] == '\0')
+	  {
+		free(str[i]);
+		str[i] = NULL;	
+		str[i] = str[i - 1];
+		if (str[i + 1])
+		{
+		  str[i] = ft_strjoin(str[i], str[i + 1], 1);
+		  str[i - 1] = str[i];
+		  str[i + 1] = NULL;
+		  str[i] = NULL;
+		}
+	  }
+	}
+  print (str);
 }
-

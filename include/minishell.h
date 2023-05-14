@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/13 13:25:14 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:13:10 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_cmd
 	char 			*file;
 	int				io;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;
 } t_cmd;
 
 typedef struct s_data
@@ -40,13 +39,12 @@ typedef struct s_data
 	char			**bufer;
 	char			**path;
 	char			**env;
-	int 			file_out;
-	int 			file_in;
+	int 			fd_out;
+	int 			fd_in;
 	int 			status;
 } t_data;
 
 
-void	handler(int sig, siginfo_t *info, void *context);
 void	signals(void);
 char	*prompt(void);
 int		bin_execute(t_cmd *cmd, t_data *data);
@@ -103,4 +101,6 @@ void	exec_redir(t_cmd *cmd);
 int		redir(t_cmd *cmd, char **str);
 void	quotes_quit(char **str, char *quotes);
 
+void 	reset_fd(t_data *data);
+void 	copy_fd(t_data *data);
 #endif

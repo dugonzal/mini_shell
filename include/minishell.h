@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/14 12:13:10 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:19:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int		type(char *str);
 int		ft_open(char *str, int i);
 void	exec_redir(t_cmd *cmd);
 int		redir(t_cmd *cmd, char **str);
-void	quotes_quit(char **str, char *quotes);
 
+void	seach_quotes(char **str, char *quotes);
 void 	reset_fd(t_data *data);
 void 	copy_fd(t_data *data);
 #endif

@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/05/13 13:06:38 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/14 13:30:23 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,9 @@ fclean: clean
 	printf "$(BLUE)Cleaning $(OBJ_DIR) and bin $(DEFAULT)\n"
 
 t:
-	bash tester.sh
+	bash < command > testb; ./minishell < command > testa; diff testa testb > result.log; bat result.log; rm -rf testb testa 
+tm:
+	./minishell < command
 
 val:
 	 valgrind --track-origins=yes \

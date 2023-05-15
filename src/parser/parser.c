@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/13 16:16:43 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:10:04 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,50 +43,50 @@ void copy_fd(t_data *data)
 {
   int fd;
 
-  fd = dup(STDIN_FILENO);
+  fd = dup(0);
   if (fd == -1)
 	error_fd(data);
-  data->file_in = fd;
-  fd = dup(STDOUT_FILENO);
+  data->fd_in = fd;
+  fd = dup(1);
   if (fd == -1)
 	error_fd(data);
-  data->file_out = fd;
+  data->fd_out = fd;
 }
 
 void reset_fd(t_data *data)
 {
-	if (dup2(data->file_in, STDIN_FILENO) == -1)
+	if (dup2(data->fd_in, 0) == -1)
 	{
 	  perror("dup2");
 	  data->status = 1;
-	  close(data->file_in);
-	  close(data->file_out);
+	  close(data->fd_in);
+	  close(data->fd_out);
 	  return ;
 	}
-	close (data->file_in);
-  	if (dup2(data->file_out, STDOUT_FILENO) == -1)
+	close (data->fd_in);
+  	if (dup2(data->fd_out, 1) == -1)
 	{
 	  perror("dup2");
 	  data->status = 1;
-	  close(data->file_out);
+	  close(data->fd_out);
 	  return ;
 	}
-	close (data->file_out);
+	close (data->fd_out);
 }
 
 void exec(t_cmd *cmd, t_data *data)
 {
   t_cmd *tmp;
 
-  copy_fd(data);
   tmp = cmd;
+  copy_fd(data);
   while (tmp)
   {
-	//print(cmd->cmd);
 	redir(tmp, tmp->cmd);
-	quotes_quit(tmp->cmd, "\"\'");
+	seach_quotes(tmp->cmd, "\"\'");
 	execute(tmp, data);
-	reset_fd(data);
+	if (tmp->type != 5)
+	  reset_fd(data);
 	tmp = tmp->next;
   }
 }

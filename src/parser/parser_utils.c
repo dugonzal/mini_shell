@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/14 21:08:18 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/14 21:09:47 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,6 @@ void seach_quotes(char **str, char *quotes)
 		  str[i] = NULL;
 		}
 	  }
-	  else if (i > 0 && i > 1)
-	  {
-		printf ("str[%d] = %s\n", i, str[i]);
-		str[i - 1] = ft_strjoin(str[i - 1], str[i], 1);
-		str[i] = NULL;
-		seach_quotes(str, quotes);
-	  }
-	}
+  }
   print (str);
 }

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/13 09:32:18 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:29:47 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ int	lexer(t_data *data)
  data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
  if (!data->line[0])
 	return (1);
-  data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
+  if (search("\"\'", data->line[0]))
+  data->line = ft_strtrim(data->line, "\"\'", 1);
+data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
   if (!data->bufer)
   { 
 	  data->status = 127; // 127 es el error de comando no encontrado

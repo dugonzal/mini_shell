@@ -1,0 +1,59 @@
+1d0
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello world
+3,4d1
+< [echo] [hello] [world] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo "hello world"
+6,7d2
+< [echo] [hello world] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo 'hello world'
+9,13d3
+< [echo] [hello world] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello'world'
+< hello world
+< [echo] [hello] [world] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello""world
+15,19c5
+< [echo] [helloworld] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello world
+< hello world
+< [echo] [hello] [world] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo "hello world"
+---
+> helloworld
+21,22d6
+< [echo] [hello world] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo 'hello world'
+24,25d7
+< [echo] [hello world] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello'world'
+27,28d8
+< [echo] [hello] [world] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello""world
+30,34c10,11
+< [echo] [helloworld] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo ''
+< echo
+< [echo] [echo] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo "$PWD"
+---
+> helloworld
+> 
+36,37d12
+< [echo] [/home/ciclo/Documentos/42/minishell] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo '$PWD'
+39,40d13
+< [echo] [$PWD] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo "aspas ->'"
+42,43d14
+< [echo] [aspas ->'] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo "aspas -> ' "
+45,46d15
+< [echo] [aspas -> ' ] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo 'aspas ->"'
+48,49d16
+< [echo] [aspas ->"] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo 'aspas -> " '
+51,52d17
+< [echo] [aspas -> " ] 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> 
+\ No hay ningún carácter de nueva línea al final del archivo

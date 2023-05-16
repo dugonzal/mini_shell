@@ -1,0 +1,13 @@
+bin
+command
+include
+libft
+ls
+Makefile
+minishell
+obj
+README.md
+resources
+result.log
+src
+subject

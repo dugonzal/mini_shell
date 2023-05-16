@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/14 13:19:11 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:11:19 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-
+# include <errno.h>
 typedef struct s_cmd
 {
 	int				fd[2];// in out I/O
 	char			**cmd;
 	int				type;
 	char 			*file;
-	int				io;
+	int				fd_io[2];
 	struct s_cmd	*next;
 } t_cmd;
 

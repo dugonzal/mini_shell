@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/14 12:42:23 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:30:03 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	exec_redir(t_cmd *cmd)
 {
     cmd->fd[cmd->io] = ft_open(cmd->file, cmd->io);
-    if (cmd->fd[cmd->io] < 0 || \
-	dup2(cmd->fd[cmd->io], cmd->io) == -1)
+    if (cmd->fd[cmd->io] < 0)
+	  err_msg(RED"Error : open"RESET);
+	if (dup2(cmd->fd[cmd->io], cmd->io) == -1)
 	{
 		perror ("dup2");
 		return ;

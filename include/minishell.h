@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/16 10:11:19 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:31:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_cmd
 	char			**cmd;
 	int				type;
 	char 			*file;
-	int				fd_io[2];
+	int				io;
 	struct s_cmd	*next;
 } t_cmd;
 
@@ -98,7 +98,6 @@ int		size_node(char **str);
 int		type(char *str);
 int		ft_open(char *str, int i);
 void	exec_redir(t_cmd *cmd);
-int		redir(t_cmd *cmd, char **str);
 
 void	seach_quotes(char **str, char *quotes);
 void 	reset_fd(t_data *data);

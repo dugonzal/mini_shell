@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/16 10:34:17 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:31:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void exec(t_cmd *cmd, t_data *data)
   copy_fd(data);
   while (tmp)
   {
-	redir(tmp, tmp->cmd); // searria una solucion rapida // ? podran haber mas de 2 redirecciones
 	seach_quotes(tmp->cmd, "\"\'");
 	execute(tmp, data);
 	if (tmp->type != 5)
@@ -108,7 +107,6 @@ void exec(t_cmd *cmd, t_data *data)
  *
  * nese que pasa con esto xd
  * */
-	redir(tmp, tmp->cmd); // redir xd
 	
 /**
  * eso etenmos que redireccionar de entrada y salida

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/14 21:09:47 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:15:48 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,4 @@ void seach_quotes(char **str, char *quotes)
 		}
 	  }
   }
-  print (str);
 }

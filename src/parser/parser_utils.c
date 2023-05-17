@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/17 19:57:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/17 21:14:08 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ t_cmd	*new_node(char **str, int size)
   i = -1;
   while (++i < size)
 	tmp->cmd[i] = str[i];
+  tmp->cmd[size] = NULL;
   tmp->type = type(str[size]);
   tmp->next = NULL;
-  tmp->cmd[size] = NULL;
   return (tmp);
 }
 
@@ -80,6 +80,7 @@ void seach_quotes(char **str, char *quotes)
   int i;
   int j;
   char tmp;
+  char *str_tmp;
 
   i = -1;
   while (str[++i])
@@ -93,6 +94,19 @@ void seach_quotes(char **str, char *quotes)
 		while (str[i][++j])
 		  if (str[i][j] == tmp)
 			str[i] = ft_strjoin(ft_strndup(str[i], j), &str[i][j + 2], 1);
+		  else
+			if (search(quotes, str[i][j]))
+			{
+			  str[i] = ft_strndup(str[i], j);
+			  if (search(quotes, str[i][j]))
+			  {
+				str_tmp = ft_strjoin(str[i], &str[i][j + 1], 1);
+				(void)free(str[i]);
+				(void)str_tmp;
+				  printf ("--[%c]--\n", str[i][j]);
+			  }	
+				
+			}
 	  }
   }
   }

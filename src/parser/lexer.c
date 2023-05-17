@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/14 12:29:47 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/17 21:41:40 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,31 @@ int lexer_errors(char **str)
 	return (err_msg(RED"minishell: syntax error redir '<'"RESET));
   else if (check_redir(str, '>'))
 	return (err_msg(RED"minishell: syntax error redir '>'"RESET));
-  else if (check_semicolon(str, ';'))
+  else if (check_semicolon(str))
 	return (err_msg(RED"minishell: syntax error parse near ';;' "RESET));
   return (0);
 }
 
 int	lexer(t_data *data)
 {
+  int flag;
+
+  flag = 0;
   if (!data->line[0])
 	return (1);
- data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
+//  if (ft_strlen(data->line) > 1 &&  search("\"\'", data->line[0])) // segfoult
+  {
+//	flag = 1;
+//	add_history (data->line); 
+//	data->line = ft_strtrim(data->line, &data->line[0], 1);
+  }
  if (!data->line[0])
 	return (1);
-  if (search("\"\'", data->line[0]))
-  data->line = ft_strtrim(data->line, "\"\'", 1);
+ data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
+  if (!data->line[0])
+	return (1);
 data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
-  if (!data->bufer)
+ if (!data->bufer)
   { 
 	  data->status = 127; // 127 es el error de comando no encontrado
 	  free (data->line);
@@ -50,7 +59,9 @@ data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
 	data->status = 127; // 127 es el error de comando no encontrado
 	return (1);
   }
-  add_history (data->line); 
+  print (data->bufer);
+  if (!flag)
+	add_history (data->line); 
   free (data->line);
   return (0);
 }

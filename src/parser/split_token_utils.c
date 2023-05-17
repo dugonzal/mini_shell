@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/17 19:21:03 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/17 21:43:23 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	caracteres_token(const char *prompt, char *set, char *quotes, char *specials
 	return (i);
 }
 
-int	quotes_token(const char *str, char quote)
+int	quotes_token(const char *str, char quote, char *set)
 {
 	int	i;
 
@@ -48,12 +48,14 @@ int	quotes_token(const char *str, char quote)
 		i = 1;
 	else
 	  return (0);
-	while (str[i] && str[i] != (quote))
+	while (str[i] && str[i] != quote)
 		i++;
 	if (str[i] == quote)
 		i++;
+	while (str[i] && !search(set, str[i]))
+	  i++;
 	if (search("\'\"", str[i]))
-		i += quotes_token(str + i, str[i]);
+		i += quotes_token(str + i, str[i], set);
 	return (i);
 }
 
@@ -72,7 +74,7 @@ int	count_word(const char *prompt, char *set, char *quotes, char *specials)
 		&& !search(quotes, *tmp) && !search(set, *tmp))
 			tmp += caracteres_token(tmp, set, quotes, specials);
 		else if (*tmp && search(quotes, *tmp))
-			tmp += quotes_token(tmp, *tmp);
+			tmp += quotes_token(tmp, *tmp, set);
 		while (*tmp && search(set, *tmp))
 			tmp++;
 		count++;

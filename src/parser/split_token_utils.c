@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/08 22:45:37 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:21:03 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	quotes_token(const char *str, char quote)
 		i++;
 	if (str[i] == quote)
 		i++;
+	if (search("\'\"", str[i]))
+		i += quotes_token(str + i, str[i]);
 	return (i);
 }
 

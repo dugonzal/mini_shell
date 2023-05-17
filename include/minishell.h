@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/16 19:31:11 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/17 21:37:45 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	free_cmd(t_cmd *cmd);
 int		lexer(t_data *data);
 char	**split_token(const char *prompt, char *set, char *quotes, char *special);
 int		count_word(const char *prompt, char *set, char *quotes, char *specials);
-int		quotes_token(const char *str, char quote);
+int		quotes_token(const char *str, char quote, char *set);
 int		caracteres_token(const char *prompt, char *set, char *quotes, char *specials);
 int		specials_token(const char *prompt);
 
@@ -81,7 +81,7 @@ int		err_msg(char *str);
 int		check_redir(char **prompt, char redir);
 int		check_pipe(char **prompt, char pipe);
 int		check_quotes(char **prompt, char *quotes);
-int		check_semicolon(char **prompt, char );
+int 	check_semicolon(char **prompt);
 int		expanser(t_data *data);
 int		lexer_errors(char **str);
 

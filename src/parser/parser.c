@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/16 19:31:24 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:43:50 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,6 @@ void reset_fd(t_data *data)
 	close (data->fd_out);
 }
 
-int search_array(char **str)
-{
-  int i;
-
-  i = -1;
-  while (str[++i])
-  {
-	if (search(str[i], '<') || search(str[i], '>'))
-	{
-	  printf ("----- %s\n", str[i]);
-	  return (1);
-	}
-  }
-  return (0);
-}
 
 void exec(t_cmd *cmd, t_data *data)
 {
@@ -102,16 +87,6 @@ void exec(t_cmd *cmd, t_data *data)
 	execute(tmp, data);
 	if (tmp->type != 5)
 	  reset_fd(data);
-	
-/*
- *
- * nese que pasa con esto xd
- * */
-	
-/**
- * eso etenmos que redireccionar de entrada y salida
- **/
-
 	tmp = tmp->next;
   }
 }

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/13 13:53:30 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:36:37 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void print(char **str)
 
   i	= -1;
   while (str[++i])
-	printf ("[%s] ", str[i]);
+	ft_printf ("[%s] ", str[i]);
   printf ("\n");
 }
 

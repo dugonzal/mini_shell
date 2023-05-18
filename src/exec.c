@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/18 11:53:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:01:21 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ char	*check_access(char *path, char *bin)
 
 	if (!path || !bin)
 		return (NULL);
-	tmp = (char *)malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(bin) + 2));
+	tmp = (char *)ft_calloc((ft_strlen(path) + \
+	ft_strlen(bin) + 2), sizeof(char));
 	if (!tmp)
 		return (NULL);
 	i = -1;

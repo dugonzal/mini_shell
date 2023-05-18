@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/17 21:14:08 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:57:53 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ void seach_quotes(char **str, char *quotes)
 {
   int i;
   int j;
-  char tmp;
-  char *str_tmp;
 
   i = -1;
   while (str[++i])
@@ -89,24 +87,7 @@ void seach_quotes(char **str, char *quotes)
 	while (str[i][++j])
 	  if (search(quotes, str[i][j]))
 	  {
-		tmp = str[i][j];
-		str[i] = ft_strtrim(str[i], &tmp, 1);
-		while (str[i][++j])
-		  if (str[i][j] == tmp)
-			str[i] = ft_strjoin(ft_strndup(str[i], j), &str[i][j + 2], 1);
-		  else
-			if (search(quotes, str[i][j]))
-			{
-			  str[i] = ft_strndup(str[i], j);
-			  if (search(quotes, str[i][j]))
-			  {
-				str_tmp = ft_strjoin(str[i], &str[i][j + 1], 1);
-				(void)free(str[i]);
-				(void)str_tmp;
-				  printf ("--[%c]--\n", str[i][j]);
-			  }	
-				
-			}
+		  printf ("[%s]\n", str[i]);
 	  }
   }
   }

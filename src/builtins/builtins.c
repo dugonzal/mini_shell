@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 13:05:56 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/13 13:11:07 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:37:01 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int builtins(t_cmd *cmd, t_data *data)
   }
    else if (!ft_strncmp(cmd->cmd[0], "env", ft_strlen(cmd->cmd[0])))
   {
-    ft_env_builtin(data->env, data);
+    ft_env(data->env, data);
     return (1);
   }
   return (0);

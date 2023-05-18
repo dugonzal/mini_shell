@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/16 19:30:03 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:53:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,8 @@ void execute_path(t_cmd *cmd, t_data *data)
 
 int	bin_execute(t_cmd *cmd, t_data *data)
 {
-	int		status;
 	pid_t	pid;
 
-	status = 0;
 	if (cmd->type == 5)
 		pipe (cmd->fd);
 	pid = fork();
@@ -96,7 +94,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	}
 	else
 	{
-	  waitpid(pid, &status, 0);
+	  waitpid(pid, &data->status, 0);
 	  if (cmd->type == 5)
 	  {
 		  dup2(cmd->fd[0], 0);

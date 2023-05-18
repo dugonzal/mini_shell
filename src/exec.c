@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/18 12:03:10 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:55:03 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	exec_redir(t_cmd *cmd)
+int	exec_redir(t_cmd *cmd)
 {
-    cmd->fd[cmd->io] = ft_open(cmd->file, cmd->io);
-    if (cmd->fd[cmd->io] < 0)
-	  err_msg(RED"Error : open"RESET);
+	cmd->fd[cmd->io] = ft_open(cmd->file, cmd->io);
+	if (cmd->fd[cmd->io] < 0)
+		return (1);
 	if (dup2(cmd->fd[cmd->io], cmd->io) == -1)
 	{
-		perror ("dup2");
-		return ;
+		perror ("dup2222");
+		close(cmd->fd[cmd->io]);
+		return (1);
 	}
     close(cmd->fd[cmd->io]);
+	return (0);
 }
 
 char	*check_access(char *path, char *bin)
@@ -62,7 +64,7 @@ void execute_relative_or_absolute(t_cmd *cmd, t_data *data)
 void execute_path(t_cmd *cmd, t_data *data)
 {
 	int		i;
-	
+
 	i = -1;
 	while (data->path[++i] != 0)
 	  execve(check_access(data->path[i], cmd->cmd[0]), \

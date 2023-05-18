@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/18 11:31:13 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:53:38 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int execute(t_cmd *cmd, t_data *data)
 {
   if (cmd->file)
-	exec_redir(cmd);
+	if (exec_redir(cmd))
+	  return (1);
   if (builtins(cmd, data))
 	return (1);
   else
@@ -83,7 +84,8 @@ void exec(t_cmd *cmd, t_data *data)
   while (tmp)
   {
 	seach_quotes(tmp->cmd, "\"\'");
-	redir(cmd);
+	if (redir(cmd))
+	  return;
 	execute(tmp, data);
 	if (tmp->type != 5)
 	  reset_fd(data);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/17 19:15:13 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:31:13 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,33 @@ void copy_fd(t_data *data)
   fd = dup(0);
   if (fd == -1)
 	error_fd(data);
-  data->fd_in = fd;
+  data->fd[0] = fd;
   fd = dup(1);
   if (fd == -1)
 	error_fd(data);
-  data->fd_out = fd;
+  data->fd[1] = fd;
 }
 
 void reset_fd(t_data *data)
 {
-	if (dup2(data->fd_in, 0) == -1)
+	if (dup2(data->fd[0], 0) == -1)
 	{
 	  perror("dup2");
 	  data->status = 1;
-	  close(data->fd_in);
-	  close(data->fd_out);
+	  close(data->fd[0]);
+	  close(data->fd[1]);
 	  return ;
 	}
-	close (data->fd_in);
-  	if (dup2(data->fd_out, 1) == -1)
+	close (data->fd[0]);
+  	if (dup2(data->fd[1], 1) == -1)
 	{
 	  perror("dup2");
 	  data->status = 1;
-	  close(data->fd_out);
+	  close(data->fd[0]);
 	  return ;
 	}
-	close (data->fd_out);
+	close (data->fd[1]);
 }
-
 
 void exec(t_cmd *cmd, t_data *data)
 {
@@ -84,13 +83,13 @@ void exec(t_cmd *cmd, t_data *data)
   while (tmp)
   {
 	seach_quotes(tmp->cmd, "\"\'");
+	redir(cmd);
 	execute(tmp, data);
 	if (tmp->type != 5)
 	  reset_fd(data);
 	tmp = tmp->next;
   }
 }
-
 
 int parser(t_data *data)
 {

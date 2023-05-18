@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/17 21:37:45 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:29:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ typedef struct s_data
 	char			**bufer;
 	char			**path;
 	char			**env;
-	int 			fd_out;
-	int 			fd_in;
+	int 			fd[2];
 	int 			status;
 } t_data;
 
@@ -59,7 +58,7 @@ int		ft_pwd(void);
 void	ft_execute_echo(char **cmd);
 void	ft_echo_builtin(t_cmd *cmd, t_data *data);
 int		ft_exit(t_cmd  *cmd, t_data *data);
-void	ft_env_builtin(char **envp, t_data *data);
+void	ft_env(char **env, t_data *data);
 
 // utils
 void	*free_array(char **array);
@@ -102,4 +101,5 @@ void	exec_redir(t_cmd *cmd);
 void	seach_quotes(char **str, char *quotes);
 void 	reset_fd(t_data *data);
 void 	copy_fd(t_data *data);
+void 	redir(t_cmd *cmd);
 #endif

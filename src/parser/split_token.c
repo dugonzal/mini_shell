@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/17 21:47:45 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:50:19 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**split_token(const char *prompt, char *set, char *specials, char *quotes)
 	char	**tmp;
 	int		word;
 
-	tmp = (char **)ft_calloc((count_word(prompt, set, \
+	tmp = (char **)ft_calloc((count_tokens(prompt, set, \
 	quotes, specials) + 1), sizeof(char *));
 	if (!tmp)
 		return (NULL);

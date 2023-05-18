@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/18 11:29:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:50:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_data
 	char			**bufer;
 	char			**path;
 	char			**env;
-	int 			fd[2];
+	int 			fd[2]; // pointer copy_fd
 	int 			status;
 } t_data;
 
@@ -68,9 +68,9 @@ int		search(char *set, char c);
 void	free_cmd(t_cmd *cmd);
 
 //lexer
-int		lexer(t_data *data);
+int		lexer(t_data *data, char **env);
 char	**split_token(const char *prompt, char *set, char *quotes, char *special);
-int		count_word(const char *prompt, char *set, char *quotes, char *specials);
+int		count_tokens(const char *prompt, char *set, char *quotes, char *specials);
 int		quotes_token(const char *str, char quote, char *set);
 int		caracteres_token(const char *prompt, char *set, char *quotes, char *specials);
 int		specials_token(const char *prompt);
@@ -102,4 +102,7 @@ void	seach_quotes(char **str, char *quotes);
 void 	reset_fd(t_data *data);
 void 	copy_fd(t_data *data);
 void 	redir(t_cmd *cmd);
+
+
+void get_env_and_path(t_data *data, char **env);
 #endif

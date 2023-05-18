@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/18 10:50:00 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:49:53 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ int	quotes_token(const char *str, char quote, char *set)
 	return (i);
 }
 
-int	count_word(const char *prompt, char *set, char *quotes, char *specials)
+int	count_tokens(const char *prompt, char *set, char *quotes, char *specials)
 {
-	int		count;
 	char	*tmp;
-
+	int		count;
+	
 	count = 0;
 	tmp = (char *)prompt;
 	while (*tmp)

@@ -6,23 +6,11 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/21 09:14:49 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/21 12:49:13 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int execute(t_cmd *cmd, t_data *data)
-{
-  if (cmd->file)
-	if (exec_redir(cmd))
-	  return (1);
-  if (builtins(cmd, data))
-	return (1);
-  else
-	  bin_execute (cmd, data);
-  return (0);
-}
 
 int parser_cmds(char **bufer, t_cmd **cmd)
 {
@@ -84,7 +72,8 @@ void exec(t_cmd *cmd, t_data *data)
   while (tmp)
   {
 	seach_quotes(tmp->cmd, "\"\'");
-	execute(tmp, data);
+	redir (cmd);
+	bin_execute(tmp, data);
 	if (tmp->type != 5)
 	  reset_fd(data);
 	tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/21 09:14:05 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/21 18:34:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,16 @@
 
 int	exec_redir(t_cmd *cmd)
 {
-	cmd->fd[cmd->io] = ft_open(cmd->file, cmd->io);
+	if (cmd->in)
+	{
+	  cmd->fd[cmd->io] = ft_open(cmd->in, cmd->io);
+	  free (cmd->in);
+	}
+	if (cmd->out)
+	{
+	  cmd->fd[cmd->io] = ft_open(ft_strdup(cmd->out), cmd->io);
+	  free (cmd->out);
+	}
 	if (cmd->fd[cmd->io] < 0)
 		return (1);
 	if (dup2(cmd->fd[cmd->io], cmd->io) == -1)
@@ -24,6 +33,7 @@ int	exec_redir(t_cmd *cmd)
 		return (1);
 	}
     close(cmd->fd[cmd->io]);
+
 	return (0);
 }
 
@@ -87,6 +97,16 @@ void ft_dup2(int *fd, int io)
   close(fd[io ^ 1]);
 }
 
+void redirecciones(t_cmd *cmd)
+{
+  if (cmd->in && cmd->out)
+  {
+	printf ("[%s] [%s] \n", cmd->in, cmd->out);
+	ft_dup2(cmd->fd, 0);
+	ft_dup2(cmd->fd, 1);
+  }
+}
+
 int	bin_execute(t_cmd *cmd, t_data *data)
 {
 	pid_t	pid;
@@ -99,21 +119,28 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	if (!pid)
 	{
 		redir(cmd);
-		if (cmd->file)
-		  exec_redir(cmd);
-		if (cmd->type == 5)
+		if (cmd->in && cmd->out)
+		  redirecciones(cmd);
+		else if (cmd->in || cmd->out)
+		  if (exec_redir(cmd))
+			return(1);
+	  if (cmd->type == 5)
 		  ft_dup2(cmd->fd, 1);
-	 	if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
+		if (builtins(cmd, data))
+		  ;
+		else if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 		  execute_relative_or_absolute(cmd, data);
 		else
 		  execute_path(cmd, data);
 		exit (EXIT_SUCCESS);
 	}
-	else
+	if (pid > 0)
 	{
 	  waitpid(pid, &data->status, 0);
 	  if (cmd->type == 5)
 		ft_dup2(cmd->fd, 0);
-	}
+	  if (!cmd->next && cmd->type == 4)
+		close(cmd->fd[1]);
+  }
   return (0);
 }

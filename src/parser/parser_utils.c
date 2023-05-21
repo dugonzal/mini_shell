@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/18 10:57:53 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/21 17:47:22 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_cmd **last_back_node(t_cmd **cmd, t_cmd *new)
   while (tmp->next)
 	  tmp = tmp->next;
   tmp->next = new;
+  tmp->back = tmp;
   return (cmd);
 }
 
@@ -49,6 +50,7 @@ t_cmd	*new_node(char **str, int size)
   tmp->cmd[size] = NULL;
   tmp->type = type(str[size]);
   tmp->next = NULL;
+  tmp->back = NULL;
   return (tmp);
 }
 

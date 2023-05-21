@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/18 20:49:08 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/21 17:47:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ typedef struct s_cmd
 	int				fd[2];// in out I/O
 	char			**cmd;
 	int				type;
-	char 			*file;
+	char 			*in;
+	char 			*out;
 	int				io;
 	struct s_cmd	*next;
+	struct s_cmd	*back;
 } t_cmd;
 
 typedef struct s_data
@@ -51,6 +53,7 @@ int		bin_execute(t_cmd *cmd, t_data *data);
 void	print(char **str);
 int		verify_quotes(t_data *data);
 
+void ft_dup2(int *fd, int io);
 // builtins
 int builtins(t_cmd *cmd, t_data *data);
 int		ft_echo(char **str);

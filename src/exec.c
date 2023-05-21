@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/18 20:55:03 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:04:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,27 @@ void execute_relative_or_absolute(t_cmd *cmd, t_data *data)
 void execute_path(t_cmd *cmd, t_data *data)
 {
 	int		i;
-
+	char 	*tmp;
 	i = -1;
 	while (data->path[++i] != 0)
-	  execve(check_access(data->path[i], cmd->cmd[0]), \
-	 cmd->cmd, data->env);
+	{
+	  tmp = check_access(data->path[i], cmd->cmd[0]);
+	  execve(tmp, cmd->cmd, data->env);
+	  free (tmp);
+    }
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
 	data->status = 1;
+	free (tmp);
+}
+
+void ft_dup2(int *fd, int io)
+{
+  if (dup2(fd[io], io) < 0)
+  {
+	perror("dup2");
+	exit(EXIT_FAILURE);
+  }
+  close(fd[io ^ 1]);
 }
 
 int	bin_execute(t_cmd *cmd, t_data *data)
@@ -85,10 +99,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	if (!pid)
 	{
 		if (cmd->type == 5)
-		{
-		  dup2(cmd->fd[1], 1);
-		  close (cmd->fd[0]); // close read
-		}
+		  ft_dup2(cmd->fd, 1);
 	 	if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 		  execute_relative_or_absolute(cmd, data);
 		else
@@ -99,10 +110,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	{
 	  waitpid(pid, &data->status, 0);
 	  if (cmd->type == 5)
-	  {
-		  dup2(cmd->fd[0], 0);
-		  close (cmd->fd[1]); // close write
-	  }
+		ft_dup2(cmd->fd, 0);
 	}
   return (0);
 }

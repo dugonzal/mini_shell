@@ -1,4 +1,106 @@
-1,2d0
-< [1;31mCiclo[1;34m@MiniShell[0m🚀> 
+1,86c1,17
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello world
+< [echo] [hello] [world] hello world
+< 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo "hello world"
+< [echo] ["hello world"] "hello world"
+< 
+< ["hello world"]
+< ["hello world"]
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo 'hello world'
+< [echo] ['hello world'] 'hello world'
+< 
+< ['hello world']
+< ['hello world']
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello'world'
+< [echo] [hello'world'] hello'world'
+< 
+< [hello'world']
+< [hello'world']
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello""world
+< [echo] [hello""world] hello""world
+< 
+< [hello""world]
+< [hello""world]
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello world
+< [echo] [hello] [world] hello world
+< 
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo "hello world"
+< [echo] ["hello world"] "hello world"
+< 
+< ["hello world"]
+< ["hello world"]
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo 'hello world'
+< [echo] ['hello world'] 'hello world'
+< 
+< ['hello world']
+< ['hello world']
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello'world'
+< [echo] [hello'world'] hello'world'
+< 
+< [hello'world']
+< [hello'world']
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo hello""world
+< [echo] [hello""world] hello""world
+< 
+< [hello""world]
+< [hello""world]
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo ''
+< [echo] [''] ''
+< 
+< ['']
+< ['']
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo "$PWD"
+< [echo] ["/home/ciclo/Documentos/42/minishell"] "/home/ciclo/Documentos/42/minishell"
+< 
+< ["/home/ciclo/Documentos/42/minishell"]
+< ["/home/ciclo/Documentos/42/minishell"]
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo '$PWD'
+< [echo] ['$PWD'] '$PWD'
+< 
+< ['$PWD']
+< ['$PWD']
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo "aspas ->'"
+< [echo] ["aspas ->'"] "aspas ->'"
+< 
+< ["aspas ->'"]
+< ["aspas ->'"]
+< ["aspas ->'"]
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo "aspas -> ' "
+< [echo] ["aspas -> ' "] "aspas -> ' "
+< 
+< ["aspas -> ' "]
+< ["aspas -> ' "]
+< ["aspas -> ' "]
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo 'aspas ->"'
+< [echo] ['aspas ->"'] 'aspas ->"'
+< 
+< ['aspas ->"']
+< ['aspas ->"']
+< ['aspas ->"']
+< [1;31mCiclo[1;34m@MiniShell[0m🚀> echo 'aspas -> " '
+< [echo] ['aspas -> " '] 'aspas -> " '
+< 
+< ['aspas -> " ']
+< ['aspas -> " ']
+< ['aspas -> " ']
 < [1;31mCiclo[1;34m@MiniShell[0m🚀> 
 \ No hay ningún carácter de nueva línea al final del archivo
+---
+> hello world
+> hello world
+> hello world
+> helloworld
+> helloworld
+> hello world
+> hello world
+> hello world
+> helloworld
+> helloworld
+> 
+> /home/ciclo/Documentos/42/minishell
+> $PWD
+> aspas ->'
+> aspas -> ' 
+> aspas ->"
+> aspas -> " 

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/21 09:04:32 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:14:05 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	  return(err_msg(RED"errrr fork"RESET));
 	if (!pid)
 	{
+		redir(cmd);
+		if (cmd->file)
+		  exec_redir(cmd);
 		if (cmd->type == 5)
 		  ft_dup2(cmd->fd, 1);
 	 	if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/18 20:53:38 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/21 09:14:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void exec(t_cmd *cmd, t_data *data)
   while (tmp)
   {
 	seach_quotes(tmp->cmd, "\"\'");
-	if (redir(cmd))
-	  return;
 	execute(tmp, data);
 	if (tmp->type != 5)
 	  reset_fd(data);

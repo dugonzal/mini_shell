@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/18 20:48:07 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/21 08:57:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ int redir(t_cmd *cmd)
   while (cmd->cmd[++i])
 	if (search(cmd->cmd[i], '<'))
 		tmp_re (cmd, cmd->cmd, i, 0);
-	return (0);
+  return (0);
 }

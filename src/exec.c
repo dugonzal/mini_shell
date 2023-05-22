@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/21 18:34:24 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:32:19 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	exec_redir(t_cmd *cmd)
 	}
 	if (cmd->out)
 	{
-	  cmd->fd[cmd->io] = ft_open(ft_strdup(cmd->out), cmd->io);
+	  cmd->fd[cmd->io] = ft_open(cmd->out, cmd->io);
 	  free (cmd->out);
 	}
 	if (cmd->fd[cmd->io] < 0)
 		return (1);
 	if (dup2(cmd->fd[cmd->io], cmd->io) == -1)
 	{
-		perror ("dup2222");
+		perror (RED"dup2222"RESET);
 		close(cmd->fd[cmd->io]);
 		return (1);
 	}
@@ -45,7 +45,7 @@ char	*check_access(char *path, char *bin)
 
 	if (!path || !bin)
 		return (NULL);
-	tmp = (char *)ft_calloc((ft_strlen(path)  \
+	tmp = (char *)ft_calloc((ft_strlen(path) \
 	+ ft_strlen(bin) + 2), sizeof(char));
 	if (!tmp)
 		return (NULL);
@@ -80,7 +80,6 @@ void execute_path(t_cmd *cmd, t_data *data)
 	{
 	  tmp = check_access(data->path[i], cmd->cmd[0]);
 	  execve(tmp, cmd->cmd, data->env);
-	  free (tmp);
     }
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
 	data->status = 1;
@@ -91,7 +90,7 @@ void ft_dup2(int *fd, int io)
 {
   if (dup2(fd[io], io) < 0)
   {
-	perror("dup2");
+	perror(RED"dup2"RESET);
 	exit(EXIT_FAILURE);
   }
   close(fd[io ^ 1]);
@@ -126,8 +125,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 			return(1);
 	  if (cmd->type == 5)
 		  ft_dup2(cmd->fd, 1);
-		if (builtins(cmd, data))
-		  ;
+		if (builtins(cmd, data));
 		else if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 		  execute_relative_or_absolute(cmd, data);
 		else
@@ -139,8 +137,6 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	  waitpid(pid, &data->status, 0);
 	  if (cmd->type == 5)
 		ft_dup2(cmd->fd, 0);
-	  if (!cmd->next && cmd->type == 4)
-		close(cmd->fd[1]);
-  }
+	} 
   return (0);
 }

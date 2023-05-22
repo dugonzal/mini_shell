@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/05/14 13:30:23 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/22 13:44:49 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,8 +90,6 @@ tm:
 	./minishell < command
 
 val:
-	 valgrind --track-origins=yes \
-	 --leak-check=full --show-leak-kinds=all \
-	 --log-file=valgrind.log ./$(NAME) < test
+	 valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat command | ./minishell 
 
 re: fclean all t

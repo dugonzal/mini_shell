@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/21 18:39:41 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:18:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,16 @@ int redir(t_cmd *cmd)
   {
 	if (search(cmd->cmd[i], '<'))
 	  tmp_re (cmd, cmd->cmd, i, 0);
+	else if (search(cmd->cmd[i], '>') && cmd->cmd[i][1] == '>')
+	{
+	  cmd->fd[1] = ft_open(cmd->cmd[i + 1], 2);
+	  ft_dup2 (cmd->fd, 1);
+	  cmd->cmd[i] = NULL;
+	  cmd->cmd[i + 1] = NULL;
+	  }	
 	else if (search(cmd->cmd[i], '>'))
 	  tmp_re (cmd, cmd->cmd, i, 1);
+
 
   }
   return (0);

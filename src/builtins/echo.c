@@ -3,16 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:42:28 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/13 13:00:08 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:01:52 by sizquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_echo_builtin(t_cmd *cmd, t_data *data)
+/*
+int ft_echo(char **str)
+{
+  int i;
+  int flag;
+
+  i = -1;
+  flag = 0;
+  while (str[++i])
+  {
+	if (!ft_strncmp(str[i], "-n", 2))
+	{
+	  flag = 1;
+	  continue ;
+	}
+	ft_printf ("%s", str[i]);
+  }
+  if (!flag)
+	  printf ("\n");
+  return (0);
+} 
+*/
+void	ft_echo_builtin(t_cmd *cmd)
 {
 	char	*flag_n; // para la variable -n
 	int		num_arg; // para controlar los argumentos que recibimos
@@ -21,7 +43,6 @@ void	ft_echo_builtin(t_cmd *cmd, t_data *data)
 	num_arg = 1;
 	flag_n = 0;
 	i = 0;
-	(void)data;
 	/*caso uso, Mientras la primera coincidencia en el str que numero de argumentos de -n, en */
 	while (cmd->cmd[num_arg] && ft_strncmp(cmd->cmd[num_arg], "-n", 2) == 0)
 	{

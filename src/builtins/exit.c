@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 14:04:21 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/25 13:33:28 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:39:12 by sizquier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 //  127  if COMMAND cannot be found
 //  -    the exit g_status of COMMAND otherwise
 
-int	ft_numeric_error(t_cmd	*cmd, t_data *data)
+int	ft_numeric_error(t_cmd	*cmd)
 {
-	data->status = 255;
+	g_status = 255;
 	printf("exit: %s: numeric argument required\n", \
 			cmd->cmd[1]);
 	return (0);
@@ -31,15 +31,15 @@ bash-3.2$ echo $?
 1
 bash-3.2$
 */
-int	ft_exit(t_cmd *cmd, t_data *data)
+int	ft_exit(t_cmd *cmd)
 {
 	int	i;
 
 	i = -1;
 	if (cmd->cmd[1] && cmd->cmd[2])
 	{
-		data->status = 1;
-		ft_printf("exit: too many cmd\n");
+		g_status = 1;
+		ft_printf("exit: too many arguments\n");
 		return (1); // es el valor que devuelve tras echo $?
 	}
 	if (cmd->cmd[1])
@@ -47,15 +47,14 @@ int	ft_exit(t_cmd *cmd, t_data *data)
 		while (cmd->cmd[1][++i])
 		{
 			if (ft_isalpha(cmd->cmd[1][i]))
-				return (ft_numeric_error(cmd, data));
+				return (ft_numeric_error(cmd));
 		}
-		data->status = ft_atoi(cmd->cmd[1]);
+		g_status = ft_atoi(cmd->cmd[1]);
 	}
 	else
 	{
-		data->status = 0;
-	//printf("%d", data->status);
+		g_status = 0;
+		printf("%d", g_status);
 	}
-		data->exit = 0;  
 	return (0);
 }

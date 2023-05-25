@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/25 13:53:11 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/25 14:01:45 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,8 @@ int 	redir(t_cmd *cmd);
 
 void 	get_env_and_path(t_data *data, char **env);
 int	ft_export_general_builtin(char	**cmd, char	***env);
+
+int	ft_cmd_isalnum(char	*str);
+void	ft_invalid(char *c);
+void	free_dblearray(void **array);
 #endif

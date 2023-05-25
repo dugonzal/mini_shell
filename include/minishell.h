@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/21 17:47:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:28:52 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_data
 	char			**env;
 	int 			fd[2]; // pointer copy_fd
 	int 			status;
+	int				exit;
 } t_data;
 
 

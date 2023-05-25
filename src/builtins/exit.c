@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 14:04:21 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/14 12:34:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:33:28 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	ft_exit(t_cmd *cmd, t_data *data)
 	else
 	{
 		data->status = 0;
-		//printf("%d", data->status);
+	//printf("%d", data->status);
 	}
+		data->exit = 0;  
 	return (0);
 }

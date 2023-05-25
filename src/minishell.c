@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/18 11:45:09 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:31:30 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -37,7 +37,8 @@ int	main(int ac, char **av, char **env)
 	  err("minishell: too many arguments");
 	ft_bzero (&data, sizeof(t_data));
 	user = prompt();
-	while (42)
+	data.exit = 1;
+	while (data.exit)
 	{
 		signals();
 		data.line = readline(user);

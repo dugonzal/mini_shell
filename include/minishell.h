@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/25 13:28:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:53:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ void 	copy_fd(t_data *data);
 int 	redir(t_cmd *cmd);
 
 
-void get_env_and_path(t_data *data, char **env);
+void 	get_env_and_path(t_data *data, char **env);
+int	ft_export_general_builtin(char	**cmd, char	***env);
 #endif

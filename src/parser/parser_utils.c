@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/21 17:47:22 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/26 21:29:45 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,58 @@ int type(char *str)
 	  return (-1); // no type
 }
 
-// echo "hola""hola" -> echo holahola
+int recursive_rara(char *str,  char quote)
+{
+  int  j;
+
+  if (*str == quote)
+	j = 1;
+  else
+	j = 0;
+  while (str[j] && str[j] != quote)
+	j++;
+  if (*str == quote)
+	j--;
+  if (*str == quote && str[j + 1] == quote)
+	j = j + 1;
+  return (j);
+}
+//                   ->""<-
+// el poblema es hello""hello
+char *quit_quotes(char *str, char quote)
+{
+  char *tmp;
+  char *sub;
+  int size;
+  int i;
+  
+  size = recursive_rara(str, quote);
+  tmp = (char *)ft_calloc(size + 1, sizeof(char));
+  if (!tmp)
+	return (NULL);
+  i = -1;
+  while (++i < size)
+	if (str[i] == quote && str[i + 1] == quote)
+	  i += 2 ;
+	else if (str[i] == quote)
+	  i++;
+	else
+	  tmp[i] = str[i];
+  if (str[size + 1] == quote)
+	sub = ft_strjoin(tmp, str + size + 2, 0);
+  else
+	sub = ft_strjoin(tmp, str + size + 1, 0);
+  if (!sub)
+	return (NULL);
+  return (sub);
+}
+// echo hola"hola""hola"hola -> echo holahola
 void seach_quotes(char **str, char *quotes)
 {
   int i;
   int j;
-
+  char *tmp;
+  char tmp_quote;
   i = -1;
   while (str[++i])
   {
@@ -89,7 +135,13 @@ void seach_quotes(char **str, char *quotes)
 	while (str[i][++j])
 	  if (search(quotes, str[i][j]))
 	  {
-		  printf ("[%s]\n", str[i]);
-	  }
+		tmp_quote = str[i][j];
+		tmp = quit_quotes(str[i], tmp_quote);
+		free(str[i]);
+		str[i] = tmp;
+		continue ;
+	}
   }
-  }
+}
+
+

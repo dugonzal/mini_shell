@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/27 09:32:21 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/27 13:01:38 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,10 @@ int	lexer(t_data *data, char **env)
   flag = 0;
   if (!data->line[0])
 	return (1);
-//  if (ft_strlen(data->line) > 1 &&  search("\"\'", data->line[0])) // segfoult
-  {
-//	flag = 1;
-//	add_history (data->line); 
-//	data->line = ft_strtrim(data->line, &data->line[0], 1);
-  }
- if (!data->line[0])
+  data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
+  if (!ft_strlen(data->line))
 	return (1);
- data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
-  if (!data->line[0])
-	return (1);
-data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
+  data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
  if (!data->bufer)
   { 
 	  data->status = 127; // 127 es el error de comando no encontrado
@@ -56,7 +48,7 @@ data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
   {
 	free (data->line);
 	free_array(data->bufer);
-	//data->status = 127; // 127 es el error de comando no encontrado
+	data->status = 127; // 127 es el error de comando no encontrado
 	return (1);
   }
   print (data->bufer);

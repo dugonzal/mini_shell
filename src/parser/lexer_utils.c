@@ -6,32 +6,43 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:48:17 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/17 21:32:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/27 09:55:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+int check_quotes_arr(char *str, char *quotes)
+{
+  char 	tmp;
+  int 	j;
+  int 	count;
+  
+  j = -1;
+  count = 0;
+  while (str[++j])
+	if (search(quotes, str[j]))
+	{
+	  count += 1; 
+	  tmp = str[j];
+	  while (str[++j] && str[j] != tmp)
+		;
+	  if (str[j] == tmp)
+		count += 1;
+	}
+  if (count % 2 != 0)
+	return (1);
+  return (0);
+}
+
 int check_quotes(char **prompt, char *quotes)
 {
   int	i;
-  int	j;
-  char	tmp_quote;
 
   i = -1;
   while (prompt[++i])
-  {
-	  j = 0;
-	  if (prompt[i] && search(quotes, prompt[i][j]))
-	  {
-		tmp_quote = prompt[i][j];
-		while (prompt[i][++j] != tmp_quote)
-		if (prompt[i][j] == tmp_quote && prompt[i][j + 1] == tmp_quote)
-		  check_quotes(&prompt[i], quotes);
-		else if (prompt[i][j] == 0)
-		  	return (1);
-	  }
-  }
+	if (check_quotes_arr(prompt[i], quotes))
+	  return (1);
   return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/26 22:59:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/27 09:56:31 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,7 @@ int count_word(char *str,  char quote)
   }
   return (count);
 }
-//                   ->""<-
-// el poblema es hello""hello
+
 char *quit_quotes(char *str, char quote)
 {
   char *tmp;
@@ -112,7 +111,7 @@ char *quit_quotes(char *str, char quote)
 	  str++;
 	tmp[i++] = *str++;
   }
-  str[i] = 0;
+  tmp[i] = 0;
   return (tmp);
 }
 // echo hola"hola""hola"hola -> echo holahola

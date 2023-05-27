@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/26 23:59:58 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/27 09:31:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,20 @@ int redir(t_cmd *cmd)
   i = -1;
   while (cmd->cmd[++i])
   {
-	if (search(cmd->cmd[i], '<'))
+	if (search(cmd->cmd[i], '<') && !search(cmd->cmd[i], '\'') \
+	  && !search(cmd->cmd[i], '\"'))
 	  tmp_re (cmd, cmd->cmd, i, 0);
-	else if (search(cmd->cmd[i], '>') && cmd->cmd[i][1] == '>')
+	else if (search(cmd->cmd[i], '>') && !search(cmd->cmd[i], '\'') \
+	  && !search(cmd->cmd[i], '\"'))
+	  tmp_re (cmd, cmd->cmd, i, 1);
+	else if (search(cmd->cmd[i], '>') && cmd->cmd[i][1] == '>' && !search(cmd->cmd[i], '\'') \
+	  && !search(cmd->cmd[i], '\"'))
 	{
 	  cmd->fd[1] = ft_open(cmd->cmd[i + 1], 2);
 	  ft_dup2 (cmd->fd, 1);
 	  cmd->cmd[i] = NULL;
 	  cmd->cmd[i + 1] = NULL;
 	  }	
-	else if (search(cmd->cmd[i], '>'))
-	  tmp_re (cmd, cmd->cmd, i, 1);
-
-
   }
   return (0);
 }

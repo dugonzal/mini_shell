@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/26 23:57:54 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/27 10:00:25 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	  return(err_msg(RED"errrr fork"RESET));
 	if (!cmd->pid)
 	{
-		//redir(cmd);
 		if (cmd->in && cmd->out)
 		  redirecciones(cmd);
 		else if (cmd->in || cmd->out)

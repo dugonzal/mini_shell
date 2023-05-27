@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/18 11:46:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/27 00:03:13 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
   {
 	free (data->line);
 	free_array(data->bufer);
-	data->status = 127; // 127 es el error de comando no encontrado
+	//data->status = 127; // 127 es el error de comando no encontrado
 	return (1);
   }
-  print (data->bufer);
+ // print (data->bufer);
   if (!flag)
 	add_history (data->line); 
   free (data->line);

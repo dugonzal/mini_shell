@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:03:50 by sizquier          #+#    #+#             */
-/*   Updated: 2023/05/23 21:29:05 by sizquier         ###   ########.fr       */
+/*   Updated: 2023/05/26 21:45:34 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int	ft_export_builtin_individual(char *cmd, char ***env)
 
 	if (cmd[0] == '=')
 	{
-		g_status = 1;
+//		g_status = 1;
 		ft_printf("export: '%s': not a valid identifier\n", cmd);
 		return (1);
 	}
@@ -167,7 +167,7 @@ int	ft_export_general_builtin(char	**cmd, char	***env)
 	int	i;
 
 	i = 1;
-	g_status = 0;
+//	g_status = 0;
 	if (!cmd[1])
 	{
 		i = 0;

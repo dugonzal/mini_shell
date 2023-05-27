@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/22 13:32:19 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/26 23:57:54 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void execute_relative_or_absolute(t_cmd *cmd, t_data *data)
 {
 	execve(cmd->cmd[0], cmd->cmd, data->env);
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
-	data->status = 1;
+	cmd->status = 1;
 }
 
 void execute_path(t_cmd *cmd, t_data *data)
@@ -82,7 +82,7 @@ void execute_path(t_cmd *cmd, t_data *data)
 	  execve(tmp, cmd->cmd, data->env);
     }
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
-	data->status = 1;
+	cmd->status = 1;
 	free (tmp);
 }
 
@@ -108,16 +108,14 @@ void redirecciones(t_cmd *cmd)
 
 int	bin_execute(t_cmd *cmd, t_data *data)
 {
-	pid_t	pid;
-
 	if (cmd->type == 5)
 		pipe (cmd->fd);
-	pid = fork();
-	if (pid < 0)
+	cmd->pid = fork();
+	if (cmd->pid < 0)
 	  return(err_msg(RED"errrr fork"RESET));
-	if (!pid)
+	if (!cmd->pid)
 	{
-		redir(cmd);
+		//redir(cmd);
 		if (cmd->in && cmd->out)
 		  redirecciones(cmd);
 		else if (cmd->in || cmd->out)
@@ -132,9 +130,9 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		  execute_path(cmd, data);
 		exit (EXIT_SUCCESS);
 	}
-	if (pid > 0)
+	if (cmd->pid > 0)
 	{
-	  waitpid(pid, &data->status, 0);
+	  waitpid(cmd->pid, &cmd->status, 0);
 	  if (cmd->type == 5)
 		ft_dup2(cmd->fd, 0);
 	} 

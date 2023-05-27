@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/21 07:25:54 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/05/21 07:31:38 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/26 22:19:02 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,3 +25,9 @@ test() {
 }
 
 test "echo hello"
+test "echo hello''world"
+test "echo hello'world'"
+test "echo hello'world'"
+test "echo hello'world'hello"
+test "echo hello'world'hello'world'"
+test 'echo hello"world"'

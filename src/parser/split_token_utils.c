@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/18 11:51:47 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/26 23:50:56 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int	specials_token(const char *prompt)
 	return (i + 1);
 }
 
-int	caracteres_token(const char *prompt, char *set, char *quotes, char *specials)
+int	caracteres_token(const char *prompt, char *set, char *quote, char *specials)
 {
 	int	i;
 
 	i = 0;
 	while (prompt[i] && !search(set, prompt[i])
-		&& !search(quotes, prompt[i]) && !search(specials, prompt[i]))
+		&& !search(quote, prompt[i]) && !search(specials, prompt[i]))
 		i++;
-	if (search(quotes, prompt[i]))
+	if (search (quote, prompt[i]))
 		i += quotes_token(prompt + i, prompt[i], set);
 	return (i);
 }

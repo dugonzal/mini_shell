@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/22 13:18:24 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/26 23:59:58 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void tmp_re(t_cmd *cmd, char **str, int i,int fd)
 }
 // realmente no se como enfocarlo para que pueda hacer redirecciones multiples
 // en el mismo comando, pero si que se hacerlo para un solo comando
+// no interpetar recciones detro de comillas
 int redir(t_cmd *cmd)
 {
   int i;

@@ -3,26 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sizquier <sizquier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:19:41 by sizquier          #+#    #+#             */
-/*   Updated: 2023/05/23 20:03:40 by sizquier         ###   ########.fr       */
+/*   Updated: 2023/05/26 21:47:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_env_builtin(char **envp)
+void	ft_env(char **envp)
 {
 	int	i;
 
-	i = 1;
-	while (envp[i])
-	{
-		if (ft_strchr(envp[i], '=') != NULL)
+	i = -1;
+	while (envp[++i])
 			ft_printf("%s\n", envp[i]);
-		i++;
-	}
-	g_status = 0;
-	exit(0);
+//	g_status = 0;
+//
 }

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/26 22:16:44 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/26 22:59:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,17 @@ int	size_node(char **str)
 
 int type(char *str)
 {
-	if (!str) // end
+	if (!str)
 	  return (3);
-	else if (search(str, ';')) // break
+	else if (search(str, ';'))
 	  return (4);
-	else if (search(str, '|'))// pipe
+	else if (search(str, '|'))
 	  return (5);
 	else 
-	  return (-1); // no type
+	  return (-1);
 }
 
-int recursive_rara(char *str,  char quote)
+int count_word(char *str,  char quote)
 {
   int  j;
   int count;
@@ -100,11 +100,9 @@ int recursive_rara(char *str,  char quote)
 char *quit_quotes(char *str, char quote)
 {
   char *tmp;
-  int size;
   int i;
   
-  size = recursive_rara(str, quote);
-  tmp = (char *)ft_calloc(size + 1, sizeof(char));
+  tmp = (char *)ft_calloc(count_word(str, quote) + 1, sizeof(char));
   if (!tmp)
 	return (NULL);
   i = 0;
@@ -134,7 +132,7 @@ void seach_quotes(char **str, char *quotes)
 		free(str[i]);
 		str[i] = tmp;
 		break ;
-	}
+	  }
   }
 }
 

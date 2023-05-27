@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/26 23:50:56 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/27 09:38:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	specials_token(const char *prompt)
 	return (i + 1);
 }
 
-int	caracteres_token(const char *prompt, char *set, char *quote, char *specials)
+int	characters_tokens(const char *prompt, char *set, char *quote, char *specials)
 {
 	int	i;
 
@@ -54,7 +54,8 @@ int	quotes_token(const char *str, char quote, char *set)
 		i++;
 	if (str[i] == quote)
 		i++;
-	while (str[i] && !search(set, str[i]))
+	while (str[i] && !search(set, str[i]) \
+	&& !search(">|<", str[i]))
 	  i++;
 	if (search("\'\"", str[i]))
 		i += quotes_token(str + i, str[i], set);
@@ -74,7 +75,7 @@ int	count_tokens(const char *prompt, char *set, char *quotes, char *specials)
 			tmp += specials_token(tmp);
 		else if (*tmp && !search(specials, *tmp) \
 		&& !search(quotes, *tmp) && !search(set, *tmp))
-			tmp += caracteres_token(tmp, set, quotes, specials);
+			tmp += characters_tokens(tmp, set, quotes, specials);
 		else if (*tmp && search(quotes, *tmp))
 			tmp += quotes_token(tmp, *tmp, set);
 		while (*tmp && search(set, *tmp))

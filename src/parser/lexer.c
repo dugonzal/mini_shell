@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/27 13:01:38 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/27 13:15:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ int lexer_errors(char **str)
 
 int	lexer(t_data *data, char **env)
 {
-  int flag;
-
-  flag = 0;
   if (!data->line[0])
 	return (1);
   data->line = ft_strtrim(data->line, " \t\v\f\r", 1);
@@ -52,8 +49,7 @@ int	lexer(t_data *data, char **env)
 	return (1);
   }
   print (data->bufer);
-  if (!flag)
-	add_history (data->line); 
+  add_history (data->line); 
   free (data->line);
   get_env_and_path(data, env); // get env and path -- data->env and data->path
   return (0);

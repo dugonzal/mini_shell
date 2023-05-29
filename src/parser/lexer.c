@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/27 13:15:32 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:21:17 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	lexer(t_data *data, char **env)
 	  free (data->line);
 	  return (1);
   }
-  else if (lexer_errors(data->bufer) || expanser(data)) 
+  if (lexer_errors(data->bufer) || expanser(data)) 
   {
 	free (data->line);
 	free_array(data->bufer);

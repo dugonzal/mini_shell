@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/29 21:21:17 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:33:41 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ int	lexer(t_data *data, char **env)
   add_history (data->line); 
   free (data->line);
   get_env_and_path(data, env); // get env and path -- data->env and data->path
-  return (0);
+	return (0);
 }

@@ -15,3 +15,5 @@ echo "aspas ->'"
 echo "aspas -> ' "
 echo 'aspas ->"'
 echo 'aspas -> " '
+
+echo "exit | echo "$USER $?"   " | ./minishell 

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/27 09:18:45 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:44:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void exec(t_cmd *cmd, t_data *data)
   {
 	redir (cmd);
 	seach_quotes(tmp->cmd, "\"\'");
+	if (builtins(cmd, data))
+		;
 	bin_execute(tmp, data);
 	if (tmp->type != 5)
 	  reset_fd(data);

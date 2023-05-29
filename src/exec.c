@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/27 10:00:25 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:26:53 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 			return(1);
 	  if (cmd->type == 5)
 		  ft_dup2(cmd->fd, 1);
-		if (builtins(cmd, data));
-		else if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
+		if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 		  execute_relative_or_absolute(cmd, data);
 		else
 		  execute_path(cmd, data);
@@ -137,3 +136,32 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	} 
   return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

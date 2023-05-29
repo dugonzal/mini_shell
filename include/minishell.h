@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/27 09:37:58 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:20:26 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
+	char 			*user;
 	char			*line;
 	char			**bufer;
 	char			**path;

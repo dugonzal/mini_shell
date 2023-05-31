@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/29 15:26:53 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:42:54 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ int	exec_redir(t_cmd *cmd)
 	}
 	if (cmd->fd[cmd->io] < 0)
 		return (1);
-	if (dup2(cmd->fd[cmd->io], cmd->io) == -1)
+	if (dup2(cmd->fd[cmd->io], cmd->io) < 0)
 	{
 		perror (RED"dup2222"RESET);
 		close(cmd->fd[cmd->io]);
 		return (1);
 	}
     close(cmd->fd[cmd->io]);
-
 	return (0);
 }
 
@@ -109,17 +108,13 @@ void redirecciones(t_cmd *cmd)
 int	bin_execute(t_cmd *cmd, t_data *data)
 {
 	if (cmd->type == 5)
-		pipe (cmd->fd);
+		if (pipe (cmd->fd) < 0)
+			return(err_msg(RED"eeee pipe xd :"RESET));
 	cmd->pid = fork();
 	if (cmd->pid < 0)
 	  return(err_msg(RED"errrr fork"RESET));
 	if (!cmd->pid)
 	{
-		if (cmd->in && cmd->out)
-		  redirecciones(cmd);
-		else if (cmd->in || cmd->out)
-		  if (exec_redir(cmd))
-			return(1);
 	  if (cmd->type == 5)
 		  ft_dup2(cmd->fd, 1);
 		if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')

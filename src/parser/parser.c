@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/29 21:35:23 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:43:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ void copy_fd(t_data *data)
   int fd;
 
   fd = dup(0);
-  if (fd == -1)
+  if (fd < 0)
 	error_fd();
   data->fd[0] = fd;
   fd = dup(1);
-  if (fd == -1)
+  if (fd < 0)
 	error_fd();
   data->fd[1] = fd;
 }
 
 void reset_fd(t_data *data)
 {
-	if (dup2(data->fd[0], 0) == -1)
+	if (dup2(data->fd[0], 0) < 0)
 	{
 	  perror("dup2");
 	  ///data->status = 1;
@@ -53,7 +53,7 @@ void reset_fd(t_data *data)
 	  return ;
 	}
 	close (data->fd[0]);
-  	if (dup2(data->fd[1], 1) == -1)
+  	if (dup2(data->fd[1], 1) < 0)
 	{
 	  perror("dup2");
 	 // data->status = 1;
@@ -73,8 +73,8 @@ void exec(t_cmd *cmd, t_data *data)
   {
 	redir (cmd);
 	seach_quotes(tmp->cmd, "\"\'");
-	//if (builtins(cmd, data))
-	//	;
+	if (builtins(cmd, data))
+		;
 //	break;
 	bin_execute(tmp, data);
 	if (tmp->type != 5)
@@ -97,7 +97,7 @@ int parser(t_data *data)
 		i += parser_cmds(&data->bufer[i], &cmd);
   free (data->bufer);
 	if (cmd)
-	exec(cmd, data);
+		exec(cmd, data);
   free_cmd(cmd);
   return (0);
 }

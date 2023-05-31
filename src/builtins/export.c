@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:03:50 by sizquier          #+#    #+#             */
-/*   Updated: 2023/05/26 21:45:34 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:21:55 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int	ft_export_builtin_individual(char *cmd, char ***env)
 /*función general export builtin. Esta función permite manejar cada argumento individualmente (llamando ) y despues agregar y/o manejar las vbles del entorno
 1)no hay argumentos adicionales después de export-> muestra todas las variables precedidas del texto: declare -x
 2)si hay argumentos-> recorre y llama a la funcion export_builtin_individual con cada argumento y al env*/
-int	ft_export_general_builtin(char	**cmd, char	***env)
+int	ft_export(char	**cmd, char	***env)
 {
 	int	i;
 
@@ -177,6 +177,7 @@ int	ft_export_general_builtin(char	**cmd, char	***env)
 	}
 	while (cmd[i])
 	{
+		// el fallo esta aqui
 		ft_export_builtin_individual(cmd[i++], env);
 	}
 	return (1);

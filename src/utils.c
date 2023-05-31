@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/16 19:36:37 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:28:47 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*prompt(void)
  
 	user = getenv("USER");
 	if (!user)
-		user = ft_strdup("\033[1;31mAnonimo\033[0m");
+		user = ft_strdup("Anonimo");
 	user[0] = ft_toupper(user[0]);
 	user = ft_strjoin("\033[1;31m", user, 0);
 	anfitrion = ft_strjoin("\033[1;34m@MiniShell\033[0m", "🚀> ", 0);

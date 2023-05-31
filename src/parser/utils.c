@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 22:05:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/18 20:55:37 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:17:58 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int ft_open(char *str, int i)
 	else if (i == 3)
 	  fd = open (str, O_RDONLY | O_CREAT, 0644); //lectura / escritura
 	if (fd == -1)
-	  ft_putstr_fd(RED"Error: No such file or directory\n"RESET, 2);
+	  ft_putendl_fd(RED"Error: No such file or directory"RESET, 2);
 	return (fd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/13 09:59:48 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:14:57 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 
 void	sig_handler(int signum)
 {
-	/*bash-3.2$ hola
-	bash-3.2$
-	bash-3.2$ echo $?
-	1-> es el valor que le doy a g_exit_status.*/
 	if (signum == SIGINT)
 	{
 		if (rl_on_new_line() == -1) // si la nueva linea está creada, no la crees
 			exit(-1); //salgo de la función
-	//	g_status = 1; // el valor de salida en este caso es 1
 		printf("\n");
 	//	rl_replace_line("", 0); // creame una nueva linea vacia
 		rl_redisplay();// muestramela.
@@ -42,13 +37,10 @@ void	sig_handler_child_input(int signum)
 {
 	if (signum == SIGQUIT)
 	{
+		// esto falla, no deberua enseñar quit,
+		// su función es no hacer nada, no mostrar nada.
 		printf ("Quit: 3\n");
 	}
-	/*bash-3.2$ cat
-	^C
-	bash-3.2$ echo $?
-	130-> esto va al else if
-*/
 	else if (signum == SIGINT)
 	{
 	//	g_status = 130;

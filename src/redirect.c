@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/27 09:31:24 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:53:31 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void tmp_re(t_cmd *cmd, char **str, int i,int fd)
 // realmente no se como enfocarlo para que pueda hacer redirecciones multiples
 // en el mismo comando, pero si que se hacerlo para un solo comando
 // no interpetar recciones detro de comillas
+
+
+/*
 int redir(t_cmd *cmd)
 {
   int i;
@@ -55,3 +58,45 @@ int redir(t_cmd *cmd)
   }
   return (0);
 }
+
+*/
+
+int redir_in(char *cmd)
+{
+	printf ("redir_in [%s] \n", cmd);
+	return (0);
+}
+
+
+int redir_out(char *cmd, char *outfile)
+{
+	printf ("redir_out [%s] [%s]  \n", cmd, outfile);
+	return (0);
+}
+	// tendria que dividirlo en dos segementos de redireccion
+	// las de entrada < << || o salida > >>
+	// stdinfile, stdoutfile, stderrfile
+	// si no hay redirecciones, no hace nada
+	// 1 = stdout 2 = stderr 0 = stdin
+int redir(t_cmd *cmd)
+{
+	int i;
+
+	i = -1;
+	while (cmd->cmd[++i])
+		if (search(cmd->cmd[i], '<'))
+			redir_in(cmd->cmd[i]);
+		else if (search(cmd->cmd[i], '>'))
+			redir_out(cmd->cmd[i], cmd->cmd[i + 1]);
+	return (0);	
+}
+
+
+
+
+
+
+
+
+
+

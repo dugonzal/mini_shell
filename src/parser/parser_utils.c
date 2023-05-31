@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/27 09:56:31 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:16:26 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,10 @@ char *quit_quotes(char *str, char quote)
 	return (NULL);
   i = 0;
   while (*str)
-  {
-	while (*str == quote)
+	if (*str == quote)
 	  str++;
-	tmp[i++] = *str++;
-  }
+	else 
+		tmp[i++] = *str++;
   tmp[i] = 0;
   return (tmp);
 }

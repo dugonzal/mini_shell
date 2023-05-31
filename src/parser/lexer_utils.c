@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:48:17 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/29 21:26:01 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:35:31 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ int check_quotes_arr(char *str, char *quotes)
   while (str[++j])
 	if (search(quotes, str[j]))
 	{
-	  count += 1; 
+	  count++; 
 	  tmp = str[j];
-	  while (str[++j] && str[j] != tmp)
-		;
+	  while (str[++j] && str[j] != tmp);
 	  if (str[j] == tmp)
-		count += 1;
+		count++;
 	}
   if (count % 2 != 0)
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/29 15:20:26 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:32:46 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,13 @@ int builtins(t_cmd *cmd, t_data *data);
 int		ft_echo(char **str);
 int		ft_pwd(void);
 void	ft_execute_echo(char **cmd);
-void	ft_echo_builtin(t_cmd *cmd);
+int		ft_export(char	**cmd, char	***env);
 int		ft_exit(t_cmd  *cmd);
 void	ft_env(char **env);
+int		ft_cmd_isalnum(char	*str);
+void	ft_invalid(char *c);
+void	free_dblearray(void **array);
+void	ft_echo_builtin(t_cmd *cmd);
 
 // utils
 void	*free_array(char **array);
@@ -112,9 +116,4 @@ int 	redir(t_cmd *cmd);
 
 
 void 	get_env_and_path(t_data *data, char **env);
-int	ft_export_general_builtin(char	**cmd, char	***env);
-
-int	ft_cmd_isalnum(char	*str);
-void	ft_invalid(char *c);
-void	free_dblearray(void **array);
 #endif

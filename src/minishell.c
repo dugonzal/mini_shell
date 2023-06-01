@@ -6,11 +6,11 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/31 12:39:43 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 09:57:18 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/minishell.h"
 
+#include "../include/minishell.h"
 // quotes = "\"\'"
 // whitespaces = " \t\v\f\r\n"
 // lexer -> parser -> expanser -> builtins -> bin_execute -> waitpid
@@ -28,7 +28,6 @@ void get_env_and_path(t_data *data, char **env)
 	data->env[i] = NULL;
 	path = getenv("PATH");
 	data->path = ft_split(path, ':', 0);
-
 }
 
 int	main(int ac, char **av, char **env)
@@ -36,7 +35,7 @@ int	main(int ac, char **av, char **env)
 	t_data	data;
 	
 	if (ac > 1 && arr_size(av) > 1)
-	  err("minishell: too many arguments");
+	  err(RED"minishell: too many arguments"RESET);
 	ft_bzero (&data, sizeof(t_data));
   	get_env_and_path(&data, env); // get env and path -- data->env and data->path
 	data.user = prompt();

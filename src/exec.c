@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/31 13:42:54 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:08:37 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void execute_relative_or_absolute(t_cmd *cmd, t_data *data)
 {
 	execve(cmd->cmd[0], cmd->cmd, data->env);
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
-	cmd->status = 1;
+	data->status = 127;
 }
 
 void execute_path(t_cmd *cmd, t_data *data)
@@ -80,8 +80,8 @@ void execute_path(t_cmd *cmd, t_data *data)
 	  tmp = check_access(data->path[i], cmd->cmd[0]);
 	  execve(tmp, cmd->cmd, data->env);
     }
+	cmd->status = 127;
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
-	cmd->status = 1;
 	free (tmp);
 }
 
@@ -115,10 +115,12 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	  return(err_msg(RED"errrr fork"RESET));
 	if (!cmd->pid)
 	{
-	  if (cmd->type == 5)
+	  	if (cmd->type == 5)
 		  ft_dup2(cmd->fd, 1);
-		if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
-		  execute_relative_or_absolute(cmd, data);
+		if (builtins(cmd, data)) 
+			;
+		else if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
+		 execute_relative_or_absolute(cmd, data);
 		else
 		  execute_path(cmd, data);
 		exit (EXIT_SUCCESS);

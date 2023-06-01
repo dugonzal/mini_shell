@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/31 12:53:31 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:18:52 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int redir(t_cmd *cmd)
 
 */
 
-int redir_in(char *cmd)
+int redir_in(char *cmd, char *infile)
 {
-	printf ("redir_in [%s] \n", cmd);
+	printf ("redir_in [%s] [%s] \n", cmd, infile);
 	return (0);
 }
 
@@ -85,8 +85,10 @@ int redir(t_cmd *cmd)
 	i = -1;
 	while (cmd->cmd[++i])
 		if (search(cmd->cmd[i], '<'))
-			redir_in(cmd->cmd[i]);
-		else if (search(cmd->cmd[i], '>'))
+			redir_in(cmd->cmd[i], cmd->cmd[i + 1]);
+	i = -1;
+	while (cmd->cmd[++i])
+		if (search(cmd->cmd[i], '>'))
 			redir_out(cmd->cmd[i], cmd->cmd[i + 1]);
 	return (0);	
 }

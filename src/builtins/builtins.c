@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 13:05:56 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/31 12:34:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:19:15 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int builtins(t_cmd *cmd, t_data *data)
 {
   if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen(cmd->cmd[0])))
   {
-    ft_exit(cmd);
+	data->status = 0;
+    //ft_exit(cmd);
     return (1);
   }
   else if (!ft_strncmp(cmd->cmd[0], "pwd", ft_strlen(cmd->cmd[0])))
@@ -42,7 +43,7 @@ int builtins(t_cmd *cmd, t_data *data)
    else if (!ft_strncmp(cmd->cmd[0], "export", 7))
   {
 		printf("export\n");
-	ft_export(cmd->cmd, &data->env);
+//	ft_export(cmd->cmd, &data->env);
     return (1);
   }
   else if (!ft_strncmp(cmd->cmd[0], "unset", ft_strlen(cmd->cmd[0])))

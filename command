@@ -20,3 +20,4 @@ echo "exit | echo "$USER $?"   " | ./minishell
 
 < ls
 > ls
+echo "$?"

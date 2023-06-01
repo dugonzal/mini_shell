@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/05/30 20:30:38 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/05/31 20:25:04 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)$(parser_dir)
 	mkdir -p $(OBJ_DIR)$(builtins_dir)
-	if [[ ! -d "libft" ]]; then git clone https://github.com/dugonzal/libft.git; fi
+	if [[ ! -d "libft" ]]; then git clone https://github.com/dugonzal/libft.git -b dev; fi
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)* -I libft 
 	printf  "$(GREEN) 🚀  $< $(DEFAULT)\n"
 
@@ -85,6 +85,6 @@ fclean: clean
 	printf "$(BLUE)Cleaning $(OBJ_DIR) and bin $(DEFAULT)\n"
 
 val: $(NAME)
-	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat command | ./minishell; cat valgrind.log 
+	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat command | ./minishell; cat valgrind.log 
 
 re: fclean all val 

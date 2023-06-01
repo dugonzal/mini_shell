@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/29 21:33:41 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:28:47 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	lexer(t_data *data, char **env)
   data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
  if (!data->bufer)
   { 
-	  data->status = 127; // 127 es el error de comando no encontrado
+	  data->status = 1; // 127 es el error de comando no encontrado
 	  free (data->line);
 	  return (1);
   }
@@ -45,10 +45,10 @@ int	lexer(t_data *data, char **env)
   {
 	free (data->line);
 	free_array(data->bufer);
-	data->status = 127; // 127 es el error de comando no encontrado
+	data->status = 1; // 127 es el error de comando no encontrado
 	return (1);
   }
-  print (data->bufer);
+//  print (data->bufer);
   add_history (data->line); 
   free (data->line);
   get_env_and_path(data, env); // get env and path -- data->env and data->path

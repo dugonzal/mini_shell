@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/30 20:16:26 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:37:31 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int count_word(char *str,  char quote)
 	j = 0;
   while (str[j])
   {
-   if (str[j] == quote)
+   	if (str[j] == quote)
 	  j++;
 	j++;
 	count++;

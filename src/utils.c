@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/30 20:28:47 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:54:46 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void print(char **str)
 
   i	= -1;
   while (str[++i])
-	ft_printf ("[%s] ", str[i]);
-  printf ("\n");
+ 	ft_printf ("[%s] ", str[i]);
+  ft_printf ("\n");
 }
 
 int	search(char *str, char c)

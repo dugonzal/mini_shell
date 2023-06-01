@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/01 21:18:12 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:38:28 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void reset_fd(t_data *data)
 	  perror("dup2");
 	  data->status = 1;
 	  close(data->fd[0]);
+	  data->status = 1;
 	  close(data->fd[1]);
 	  return ;
 	}
@@ -58,6 +59,7 @@ void reset_fd(t_data *data)
 	  perror("dup2");
 	  data->status = 1;
 	  close(data->fd[0]);
+	  data->status = 1;
 	  return ;
 	}
 	close (data->fd[1]);
@@ -73,9 +75,6 @@ void exec(t_cmd *cmd, t_data *data)
   {
 	redir (cmd);
 	seach_quotes(tmp->cmd, "\"\'");
-	//if (builtins(tmp, data))
-	//	;
-	//else
 	bin_execute(tmp, data);
 	if (tmp->type != 5)
 	  reset_fd(data);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/01 19:29:30 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:28:37 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,20 @@ char *ft_getenv(char *str, char **env)
 {
 	int		i;
 	int 	j;
+
 	if (!str)
 		return (NULL);
 	i = -1;
+	j = -1;
 	while (env[++i])
 		if (!ft_strncmp(env[i], str, ft_strlen(str)))
-		{
-			j = -1;
 			while (env[i][++j])
 				if (env[i][j] == '=')
 				{
 					free (str);
-					return (ft_strdup(&env[i][j + 1]));
+					return (&env[i][j + 1]);
 				}
-		}
-  	return (NULL);
+  	return (NULL);	
 }
 
 int	expanser(t_data *data)

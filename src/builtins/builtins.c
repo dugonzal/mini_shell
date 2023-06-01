@@ -6,11 +6,12 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 13:05:56 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/01 19:14:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:17:39 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
 
 int builtins(t_cmd *cmd, t_data *data)
 {
@@ -29,12 +30,9 @@ int builtins(t_cmd *cmd, t_data *data)
     ft_echo_builtin(cmd);
     return (1);
   }
-   else if (!ft_strncmp(cmd->cmd[0], "env", 4))
+   else if (!ft_strncmp(cmd->cmd[0], "env\0", 4))
   {
-	int i = -1;
-	while (data->env[++i])
-			printf ("%s\n", data->env[i]);
-	//ft_env(data->env);
+	env(data->env);
     return (1);
   }
    else if (!ft_strncmp(cmd->cmd[0], "cd", 3))

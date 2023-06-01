@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:03:50 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/01 20:46:10 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:48:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int	ft_check_replace(char	*cmd, t_data *data)
 	int		i;
 	char	*name_cmd;
 
-	if (cmd == NULL) //caso que cmd no tenga valor
+	if (!cmd)
 		name_cmd = ft_strdup(cmd);
 	else
-		name_cmd = ft_export_namecmd(cmd); //lo he modificado, no se muy bien xq no coge
+		name_cmd = ft_export_namecmd(cmd);
 	i = -1;
-	while (data->env[++i]) // caso que cmd tenga valor
+	while (data->env[++i])
 		if (!ft_strncmp(data->env[i], name_cmd, ft_strlen(name_cmd)))
 		{
 			free((data->env)[i]);
@@ -79,11 +79,8 @@ int	ft_export_builtin_individual(char *cmd, t_data *data)
 	if (ft_strlen(cmd) > 0 && !search(cmd, '='))
 		return (ft_generate_export(ft_strjoin(cmd, "=\'\'", 1), data));
 	found = ft_check_replace(cmd, data);
-	if (found == 0)
-	{
-		printf("Enterning generate export with arg %s\n", cmd);
+	if (!found)
 		ft_generate_export(cmd, data);
-	}
 	return (0);
 }
 

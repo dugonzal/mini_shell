@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 13:05:56 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/31 20:19:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:14:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,42 @@
 
 int builtins(t_cmd *cmd, t_data *data)
 {
-  if (!ft_strncmp(cmd->cmd[0], "exit", ft_strlen(cmd->cmd[0])))
+  if (!ft_strncmp(cmd->cmd[0], "exit", 5))
   {
-	data->status = 0;
-    //ft_exit(cmd);
+    ft_exit(cmd);
     return (1);
   }
-  else if (!ft_strncmp(cmd->cmd[0], "pwd", ft_strlen(cmd->cmd[0])))
+  else if (!ft_strncmp(cmd->cmd[0], "pwd", 4))
   {
     ft_pwd();
     return (1);
   }
-  else if (!ft_strncmp(cmd->cmd[0], "echo", ft_strlen(cmd->cmd[0])))
+  else if (!ft_strncmp(cmd->cmd[0], "echo", 5))
   {
     ft_echo_builtin(cmd);
     return (1);
   }
-   else if (!ft_strncmp(cmd->cmd[0], "env", ft_strlen(cmd->cmd[0])))
+   else if (!ft_strncmp(cmd->cmd[0], "env", 4))
   {
-    ft_env(data->env);
+	int i = -1;
+	while (data->env[++i])
+			printf ("%s\n", data->env[i]);
+	//ft_env(data->env);
     return (1);
   }
-   else if (!ft_strncmp(cmd->cmd[0], "cd", ft_strlen(cmd->cmd[0])))
+   else if (!ft_strncmp(cmd->cmd[0], "cd", 3))
   {
-	;
+	  ft_cd_builtin(cmd, data);
     return (1);
   }
    else if (!ft_strncmp(cmd->cmd[0], "export", 7))
   {
-		printf("export\n");
-//	ft_export(cmd->cmd, &data->env);
+	ft_export_general_builtin(cmd->cmd, data);
     return (1);
   }
-  else if (!ft_strncmp(cmd->cmd[0], "unset", ft_strlen(cmd->cmd[0])))
+  else if (!ft_strncmp(cmd->cmd[0], "unset", 6))
   {
-	//oft_unset_builtin(cmd->cmd, &data->env);
+	ft_unset_builtin(cmd->cmd, &data->env);
     return (1);
   }
   return (0);

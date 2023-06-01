@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/26 23:14:23 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:29:30 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,25 @@ int count_expanser(char *str)
   return (i);
 }
 
-char *ft_getenv(char *str)
+char *ft_getenv(char *str, char **env)
 {
-  char *tmp;
-
-  if (!str)
-	return (NULL);
-  tmp = getenv(str);
-  free (str);
-  if (tmp)
-	return (ft_strdup(tmp));
-  return (NULL);
+	int		i;
+	int 	j;
+	if (!str)
+		return (NULL);
+	i = -1;
+	while (env[++i])
+		if (!ft_strncmp(env[i], str, ft_strlen(str)))
+		{
+			j = -1;
+			while (env[i][++j])
+				if (env[i][j] == '=')
+				{
+					free (str);
+					return (ft_strdup(&env[i][j + 1]));
+				}
+		}
+  	return (NULL);
 }
 
 int	expanser(t_data *data)
@@ -69,7 +77,9 @@ int	expanser(t_data *data)
 	  {
 		j++;
 		size = count_expanser(&data->bufer[i][j]);
-		env = ft_getenv(ft_strndup(&data->bufer[i][j], size)); // expanser
+		env = ft_getenv(ft_strndup(&data->bufer[i][j], size), data->env); // count_expanser
+		if (search(env, '\''))
+			env = ft_strtrim(env, "\'", 1);
 		if (!env)
 		  return(err_msg(RED"Error: Environment variable not found."RESET));
 		if (j > 1)

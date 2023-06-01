@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/01 09:57:18 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:47:12 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int ac, char **av, char **env)
 		data.line = readline(data.user);
 		if (!data.line)
 			break;
-		else if (lexer(&data, env))
+		else if (lexer(&data))
 			continue ;
 		parser(&data);
 	}

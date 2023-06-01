@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/01 13:07:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:47:08 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,23 @@ int		bin_execute(t_cmd *cmd, t_data *data);
 void	print(char **str);
 int		verify_quotes(t_data *data);
 
-void ft_dup2(int *fd, int io);
+void 	ft_dup2(int *fd, int io);
 // builtins
-int builtins(t_cmd *cmd, t_data *data);
+int 	builtins(t_cmd *cmd, t_data *data);
 int		ft_echo(char **str);
 int		ft_pwd(void);
 void	ft_execute_echo(char **cmd);
-int		ft_export(char	**cmd, char	***env);
+int		ft_export_general_builtin(char	**cmd, t_data *data);
+int		ft_export_builtin_individual(char *cmd, t_data *data);
 int		ft_exit(t_cmd  *cmd);
-void	ft_env(char **env);
+char	*ft_getenv_builtins(char	*cmd, char	**env); // funcion para crear enviroment, la voy a utilizar 
 int		ft_cmd_isalnum(char	*str);
 void	ft_invalid(char *c);
 void	free_dblearray(void **array);
 void	ft_echo_builtin(t_cmd *cmd);
+int		ft_cd_builtin(t_cmd *cmd, t_data *data);
+int		ft_unset_builtin(char	**cmd, char	***env);
+void	ft_env(char **envp);
 
 // utils
 void	*free_array(char **array);
@@ -79,7 +83,7 @@ int		search(char *set, char c);
 void	free_cmd(t_cmd *cmd);
 
 //lexer
-int		lexer(t_data *data, char **env);
+int		lexer(t_data *data);
 char	**split_token(const char *prompt, char *set, char *quotes, char *special);
 int		count_tokens(const char *prompt, char *set, char *quotes, char *specials);
 int		quotes_token(const char *str, char quote, char *set);

@@ -6,29 +6,11 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:03:50 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/01 19:04:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:46:10 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	ft_generate_export(char	*cmd, t_data *data)
-{
-	int		i;
-	char	**new_env;
-
-	if (ft_isdigit(cmd[0]) || !ft_cmd_isalnum(cmd))
-		ft_invalid(cmd);
-	new_env = (char **) malloc((arr_size(data->env) + 2) * sizeof(char *));
-	i = -1;
-	while (data->env[++i])
-		new_env[i] = ft_strdup(data->env[i]);
-	new_env[i++] = ft_strdup(cmd);
-	new_env[i] = NULL;
-	free_dblearray((void **)data->env);
-	data->env = new_env;
-	return (0);
-}
 
 char	*ft_export_namecmd(char	*cmd)
 {
@@ -63,6 +45,26 @@ int	ft_check_replace(char	*cmd, t_data *data)
 		free(name_cmd);
 	return (0);
 }
+int	ft_generate_export(char	*cmd, t_data *data)
+{
+	int		i;
+	char	**new_env;
+
+	if (ft_isdigit(cmd[0]) || !ft_cmd_isalnum(cmd))
+		ft_invalid(cmd);
+	if (ft_check_replace(cmd, data))
+		return (0);
+	new_env = (char **) malloc((arr_size(data->env) + 2) * sizeof(char *));
+	i = -1;
+	while (data->env[++i])
+		new_env[i] = ft_strdup(data->env[i]);
+	new_env[i++] = ft_strdup(cmd);
+	new_env[i] = NULL;
+	free_dblearray((void **)data->env);
+	data->env = new_env;
+	return (0);
+}
+
 
 int	ft_export_builtin_individual(char *cmd, t_data *data)
 {

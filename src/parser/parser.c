@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/02 17:14:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/02 19:41:39 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ void exec(t_cmd *cmd, t_data *data)
 	redir (cmd);
 	seach_quotes(tmp->cmd, "\"\'");
 	bin_execute(tmp, data);
-	if (tmp->type != 5)
-	  reset_fd(data);
+	if (tmp->type == 5)
+		ft_dup2(tmp->pipe, 0);
+	else if (tmp->type != 5)
+		reset_fd(data);
 	data->status = cmd->status;
 	tmp = tmp->next;
   }
@@ -85,18 +87,18 @@ void exec(t_cmd *cmd, t_data *data)
 
 int parser(t_data *data)
 {
-  t_cmd		*cmd;
-  int		i;
+	t_cmd	*cmd;
+	int		i;
 
-  i = 0;
-  ft_bzero (&cmd, sizeof(cmd));
-  while (data->bufer[i])
-	 if (search("|;", data->bufer[i][0]))
+	i = 0;
+	ft_bzero (&cmd, sizeof(cmd));
+	while (data->bufer[i])
+	if (search("|;", data->bufer[i][0]))
 		i++;
 	else if (data->bufer[i])
 		i += parser_cmds(&data->bufer[i], &cmd);
-  free (data->bufer);
-	if (cmd)
+	free (data->bufer);
+	if (cmd)	
 		exec(cmd, data);
   free_cmd(cmd);
   return (0);

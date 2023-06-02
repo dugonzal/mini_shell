@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/02 17:12:55 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/02 19:46:25 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ char	*check_access(char *path, char *bin)
 	i = -1;
 	while (path[++i])
 		tmp[i] = path[i];
-	tmp[i] = '/';
+	tmp[i++] = '/';
 	j = 0;
-	i++;
 	while (bin[j])
 	  tmp[i++] = bin[j++];
 	tmp[i] = 0;
@@ -49,16 +48,13 @@ void execute_relative_or_absolute(t_cmd *cmd, t_data *data)
 void execute_path(t_cmd *cmd, t_data *data)
 {
 	int		i;
-	char 	*tmp;
+	
 	i = -1;
 	while (data->path[++i] != 0)
-	{
-	  tmp = check_access(data->path[i], cmd->cmd[0]);
-	  execve(tmp, cmd->cmd, data->env);
-    }
+	  execve(check_access(data->path[i], cmd->cmd[0]), \
+		cmd->cmd, data->env);
 	cmd->status = 127;
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
-	free (tmp);
 }
 
 void ft_dup2(int *fd, int io)
@@ -92,11 +88,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		exit (EXIT_SUCCESS);
 	}
 	if (cmd->pid > 0)
-	{
 	  waitpid(cmd->pid, &cmd->status, 0);
-	  if (cmd->type == 5)
-		ft_dup2(cmd->pipe, 0);
-	} 
   return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/31 20:18:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/02 16:31:50 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void tmp_re(t_cmd *cmd, char **str, int i,int fd)
   if (str[i][0] == '<')
   {
 	  printf ("l");
-	 cmd->in = ft_strdup(str[i + 1]);
+	 ft_strdup(str[i + 1]);
   }
   else if (str[i][0] == '>')
   {
 	 printf ("a");
-	cmd->out = ft_strdup(str[i + 1]);
+	 ft_strdup(str[i + 1]);
   }
   cmd->io = fd;
   str[i] = NULL;
@@ -61,16 +61,27 @@ int redir(t_cmd *cmd)
 
 */
 
-int redir_in(char *cmd, char *infile)
+int redir_in(t_cmd *cmd, char **str)
 {
-	printf ("redir_in [%s] [%s] \n", cmd, infile);
+	if (search(str[0], '<') && !str[1])
+		cmd->fd[0] = ft_open(str[1], 0);
+	else if (search(str[0], '<') && str[0][1] == '<')
+		printf ("heredoc<");
+	str[0] = NULL;
+	str[1] = NULL;
+	ft_dup2(cmd->fd, 0);
 	return (0);
 }
 
-
-int redir_out(char *cmd, char *outfile)
+int redir_out(t_cmd *cmd, char **str)
 {
-	printf ("redir_out [%s] [%s]  \n", cmd, outfile);
+	if (search(str[0], '>') && !str[0][1])
+		cmd->fd[1] = ft_open(str[1], 1);
+	else if (search(str[0], '>') && str[0][1] == '>')
+		cmd->fd[1] = ft_open(str[1], 2);
+	str[0] = NULL;
+	str[1] = NULL;
+	ft_dup2(cmd->fd, 1);
 	return (0);
 }
 	// tendria que dividirlo en dos segementos de redireccion
@@ -85,11 +96,11 @@ int redir(t_cmd *cmd)
 	i = -1;
 	while (cmd->cmd[++i])
 		if (search(cmd->cmd[i], '<'))
-			redir_in(cmd->cmd[i], cmd->cmd[i + 1]);
+			redir_in(cmd, &cmd->cmd[i]);
 	i = -1;
 	while (cmd->cmd[++i])
 		if (search(cmd->cmd[i], '>'))
-			redir_out(cmd->cmd[i], cmd->cmd[i + 1]);
+			redir_out(cmd, &cmd->cmd[i]);
 	return (0);	
 }
 

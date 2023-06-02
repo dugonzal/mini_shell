@@ -6,35 +6,11 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/01 21:18:19 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/02 16:21:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	exec_redir(t_cmd *cmd)
-{
-	if (cmd->in)
-	{
-	  cmd->fd[cmd->io] = ft_open(cmd->in, cmd->io);
-	  free (cmd->in);
-	}
-	if (cmd->out)
-	{
-	  cmd->fd[cmd->io] = ft_open(cmd->out, cmd->io);
-	  free (cmd->out);
-	}
-	if (cmd->fd[cmd->io] < 0)
-		return (1);
-	if (dup2(cmd->fd[cmd->io], cmd->io) < 0)
-	{
-		perror (RED"dup2222"RESET);
-		close(cmd->fd[cmd->io]);
-		return (1);
-	}
-    close(cmd->fd[cmd->io]);
-	return (0);
-}
 
 char	*check_access(char *path, char *bin)
 {
@@ -95,20 +71,10 @@ void ft_dup2(int *fd, int io)
   close(fd[io ^ 1]);
 }
 
-void redirecciones(t_cmd *cmd)
-{
-  if (cmd->in && cmd->out)
-  {
-	printf ("[%s] [%s] \n", cmd->in, cmd->out);
-	ft_dup2(cmd->fd, 0);
-	ft_dup2(cmd->fd, 1);
-  }
-}
-
 int	bin_execute(t_cmd *cmd, t_data *data)
 {
 	if (cmd->type == 5)
-		if (pipe (cmd->fd) < 0)
+		if (pipe (cmd->pipe) < 0)
 			return(err_msg(RED"eeee pipe xd :"RESET));
 	cmd->pid = fork();
 	if (cmd->pid < 0)
@@ -116,7 +82,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	if (!cmd->pid)
 	{
 	  	if (cmd->type == 5)
-		  ft_dup2(cmd->fd, 1);
+		  ft_dup2(cmd->pipe, 1);
 		if (builtins(cmd, data))
 		  ;
 		else if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
@@ -129,7 +95,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	{
 	  waitpid(cmd->pid, &cmd->status, 0);
 	  if (cmd->type == 5)
-		ft_dup2(cmd->fd, 0);
+		ft_dup2(cmd->pipe, 0);
 	} 
   return (0);
 }

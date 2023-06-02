@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 22:05:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/30 20:17:58 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/02 21:10:09 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int ft_open(char *str, int i)
 	int fd;
 
 	fd = 0;
-	if (i == 0)
+	if (!i)
 	  fd = open (str, O_RDONLY); //lectura
 	else if (i == 1)
 	  fd = open (str, O_WRONLY | O_CREAT | O_TRUNC, 0644);  //escritura

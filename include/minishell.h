@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/02 17:11:50 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/02 20:27:14 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ typedef struct s_cmd
 {
 	pid_t			pid;
 	int				pipe[2];// in out I/O
-	int				fd[2];
+	int 			intfile;
+	int 			outfile;
 	char			**cmd;
 	int				type;
 	int				io;
@@ -55,7 +56,7 @@ int		bin_execute(t_cmd *cmd, t_data *data);
 void	print(char **str);
 int		verify_quotes(t_data *data);
 
-void 	ft_dup2(int *fd, int io);
+int 	ft_dup2(int *fd, int io);
 // builtins
 int 	builtins(t_cmd *cmd, t_data *data);
 int		ft_echo(char **str);

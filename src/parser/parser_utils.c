@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/01 21:37:31 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/02 19:53:17 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,25 @@ t_cmd **last_back_node(t_cmd **cmd, t_cmd *new)
 
 t_cmd	*new_node(char **str, int size)
 {
-  t_cmd		*tmp;
-  int		i;
+	t_cmd	*tmp;
+	int		i;
 
-  if (!str)
-	return (NULL);
-  tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-  if (tmp == NULL)
-	return (NULL);
-  tmp->cmd = (char **)ft_calloc(size + 1, sizeof(char *));
-  if (tmp->cmd == NULL)
-	return (NULL);
-  i = -1;
-  while (++i < size)
-	tmp->cmd[i] = str[i];
-  tmp->cmd[size] = NULL;
-  tmp->type = type(str[size]);
-  tmp->next = NULL;
-  tmp->back = NULL;
-  return (tmp);
+	if (!str)
+		return (NULL);
+	tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+	if (!tmp)
+		return (NULL);
+	tmp->cmd = (char **)ft_calloc(size + 1, sizeof(char *));
+	if (tmp->cmd == NULL)
+		return (NULL);
+	i = -1;
+	while (++i < size)
+		tmp->cmd[i] = str[i];
+	tmp->cmd[size] = NULL;
+	tmp->type = type(str[size]);
+	tmp->next = NULL;
+	tmp->back = NULL;
+	return (tmp);
 }
 
 int	size_node(char **str)
@@ -87,12 +87,13 @@ int count_word(char *str,  char quote)
   else
 	j = 0;
   while (str[j])
-  {
    	if (str[j] == quote)
 	  j++;
-	j++;
-	count++;
-  }
+	else
+	{
+		j++;
+		count++;
+	}
   return (count);
 }
 
@@ -113,6 +114,7 @@ char *quit_quotes(char *str, char quote)
   tmp[i] = 0;
   return (tmp);
 }
+
 // echo hola"hola""hola"hola -> echo holahola
 void seach_quotes(char **str, char *quotes)
 {

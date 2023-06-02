@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/02 16:20:42 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/02 17:11:50 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_cmd
 {
 	pid_t			pid;
 	int				pipe[2];// in out I/O
-//	int				fd[2];
+	int				fd[2];
 	char			**cmd;
 	int				type;
 	int				io;

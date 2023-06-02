@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/02 16:44:55 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/02 17:12:22 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int redir_out(t_cmd *cmd, char **str)
 		return (1);
 	str[0] = NULL;
 	str[1] = NULL;
-	if (ft_dup2(cmd->fd, 1))
-		return (1);	
+	 ft_dup2(cmd->fd, 1);
 	return (0);
 }
 	// tendria que dividirlo en dos segementos de redireccion

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/03 11:23:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 22:44:02 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ void	sig_handler(int signum)
 void	sig_handler_child_input(int signum)
 {
 	if (signum == SIGQUIT)
-	{
-		// esto falla, no deberua enseñar quit,
-		// su función es no hacer nada, no mostrar nada.
-		printf ("Quit: 3\n");
-	}
+		rl_redisplay();
 	else if (signum == SIGINT)
 		printf("\n");
 }

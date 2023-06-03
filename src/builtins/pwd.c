@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:52:21 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/01 20:52:22 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:02:39 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,4 @@ int	ft_pwd(void)
 	printf("%s\n", path);
 	free(path);
 	return (1);
-
 }

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:52:34 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/05/29 15:54:20 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:32:58 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	specials_token(const char *prompt)
 	return (i + 1);
 }
 
-int	characters_tokens(const char *prompt, char *set, char *quote, char *specials)
+int	characters_tokens(const char *prompt, char *set, \
+char *quote, char *specials)
 {
 	int	i;
 
@@ -49,14 +50,14 @@ int	quotes_token(const char *str, char quote, char *set)
 	if (*str == quote)
 		i = 1;
 	else
-	  return (0);
+		return (0);
 	while (str[i] && str[i] != quote)
 		i++;
 	if (str[i] == quote)
 		i++;
 	while (str[i] && !search(set, str[i]) \
 	&& !search(">|<", str[i]))
-	  i++;
+		i++;
 	if (search("\'\"", str[i]))
 		i += quotes_token(str + i, str[i], set);
 	return (i);
@@ -66,7 +67,7 @@ int	count_tokens(const char *prompt, char *set, char *quotes, char *specials)
 {
 	char	*tmp;
 	int		count;
-	
+
 	count = 0;
 	tmp = (char *)prompt;
 	while (*tmp)

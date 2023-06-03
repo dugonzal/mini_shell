@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/01 21:28:37 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 20:33:28 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,6 @@ int count_expanser(char *str)
   while (str[++i] && !search(" \t\v\f\r\"\'", str[i]))
 	;
   return (i);
-}
-
-char *ft_getenv(char *str, char **env)
-{
-	int		i;
-	int 	j;
-
-	if (!str)
-		return (NULL);
-	i = -1;
-	j = -1;
-	while (env[++i])
-		if (!ft_strncmp(env[i], str, ft_strlen(str)))
-			while (env[i][++j])
-				if (env[i][j] == '=')
-				{
-					free (str);
-					return (&env[i][j + 1]);
-				}
-  	return (NULL);	
 }
 
 int	expanser(t_data *data)
@@ -76,7 +56,7 @@ int	expanser(t_data *data)
 	  {
 		j++;
 		size = count_expanser(&data->bufer[i][j]);
-		env = ft_getenv(ft_strndup(&data->bufer[i][j], size), data->env); // count_expanser
+		env = ft_getenv_builtins(ft_strndup(&data->bufer[i][j], size), data->env); // count_expanser
 		if (search(env, '\''))
 			env = ft_strtrim(env, "\'", 1);
 		if (!env)

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/03 11:21:04 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 11:23:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	sig_handler(int signum)
 	{
 		if (rl_on_new_line() == -1)
 			exit(-1);
-		printf("\n");
-	//	rl_replace_line("", 0);
+		//rl_replace_line("", 0);
+		ft_printf("\n");
 		rl_redisplay();
 	}
 	if (signum == SIGQUIT)

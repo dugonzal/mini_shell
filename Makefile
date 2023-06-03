@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/03 09:30:47 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/03 10:27:00 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ INC_DIR		:= include/
 
 # folders for sources
 parser_dir 	:= parser/
-parser		:= split_token split_token_utils parser parser_utils lexer lexer_utils utils
+parser		:= split_token split_token_utils parser parser_utils parser_utils_2 lexer lexer_utils utils
 
 builtins_dir 	:= builtins/
 builtins		:= builtins exit echo pwd env export export_utils unset cd getenv

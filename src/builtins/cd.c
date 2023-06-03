@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:02:47 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/03 09:24:43 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 09:56:54 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	export_pwd(char *cmd, t_data *data)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (1);
-	path = ft_strjoin(cmd, pwd,0);
+	path = ft_strjoin(cmd, pwd, 0);
 	if (!path)
 		return (1);
-	if (ft_export_builtin_individual(path, data)) 
+	else if (ft_export_builtin_individual(path, data))
 		return (free(pwd), free(path), 1);
 	return (free(pwd), free(path), 0);
 }
@@ -53,10 +53,10 @@ int	cd_argument(t_data *data)
 int	ft_cd_builtin(t_cmd *cmd, t_data *data)
 {
 	char	*path;
-	
+
 	if (!cmd->cmd[1] || (cmd->cmd[1][0] == '~' && cmd->cmd[1][1] == '\0'))
 		return (cd_argument(data));
-	if (cmd->cmd[1][0] == '-' && cmd->cmd[1][1] == '\0')
+	else if (cmd->cmd[1][0] == '-' && cmd->cmd[1][1] == '\0')
 		path = ft_getenv_builtins("OLDPWD", data->env);
 	else
 		path = cmd->cmd[1];

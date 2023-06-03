@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:52:25 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/03 09:35:01 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:00:12 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,3 @@ int	ft_cmd_isalnum(char	*str)
 			return (0);
 	return (1);
 }
-
-
-

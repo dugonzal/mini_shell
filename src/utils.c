@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 21:26:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/02 21:30:02 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 11:18:05 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*prompt(void)
 	char	*prompt;
 	char	*user;
 	char	*anfitrion;
- 
+
 	user = getenv("USER");
 	if (!user)
 		user = ft_strdup("Anonimo");
@@ -31,28 +31,28 @@ char	*prompt(void)
 
 void	*free_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (array[++i])
 		free(array[i]);
 	free (array);
-  return (NULL);
+	return (NULL);
 }
 
-void print(char **str)
+void	print(char **str)
 {
-  int i;
+	int	i;
 
-  i	= -1;
-  while (str[++i])
- 	ft_printf ("[%s] ", str[i]);
-  ft_printf ("\n");
+	i = -1;
+	while (str[++i])
+		ft_printf ("[%s] ", str[i]);
+	ft_printf ("\n");
 }
 
 int	search(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])

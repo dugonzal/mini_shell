@@ -6,15 +6,15 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:19:41 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/03 09:03:55 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 09:58:04 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void env(char **env)
+void	env(char **env)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (env[++i])

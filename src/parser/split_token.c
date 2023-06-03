@@ -6,13 +6,14 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:03:08 by ciclo             #+#    #+#             */
-/*   Updated: 2023/05/27 09:39:11 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:31:01 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	**split_token(const char *prompt, char *set, char *specials, char *quotes)
+char	\
+	**split_token(const char *prompt, char *set, char *specials, char *quotes)
 {
 	char	**tmp;
 	int		word;

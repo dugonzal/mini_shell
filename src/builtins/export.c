@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:03:50 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/01 20:48:49 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 09:33:07 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	ft_check_replace(char	*cmd, t_data *data)
 		free(name_cmd);
 	return (0);
 }
+
 int	ft_generate_export(char	*cmd, t_data *data)
 {
 	int		i;
@@ -54,13 +55,15 @@ int	ft_generate_export(char	*cmd, t_data *data)
 		ft_invalid(cmd);
 	if (ft_check_replace(cmd, data))
 		return (0);
-	new_env = (char **) malloc((arr_size(data->env) + 2) * sizeof(char *));
+	new_env = (char **) ft_calloc(sizeof(char *), (arr_size(data->env) + 2));
+	if (!new_env)
+		return (1);
 	i = -1;
 	while (data->env[++i])
 		new_env[i] = ft_strdup(data->env[i]);
 	new_env[i++] = ft_strdup(cmd);
 	new_env[i] = NULL;
-	free_dblearray((void **)data->env);
+	free_array(data->env);
 	data->env = new_env;
 	return (0);
 }
@@ -73,7 +76,7 @@ int	ft_export_builtin_individual(char *cmd, t_data *data)
 	if (cmd[0] == '=')
 	{
 		data->status = 1;
-		ft_printf("export: '%s': not a valid identifier\n", cmd);
+		ft_printf(RED"export: '%s': not a valid identifier\n"RESET, cmd);
 		return (1);
 	}
 	if (ft_strlen(cmd) > 0 && !search(cmd, '='))
@@ -93,7 +96,7 @@ int	ft_export_general_builtin(char	**cmd, t_data *data)
 	{
 		i = 0;
 		while (data->env[i])
-			printf("declare -x %s\n", data->env[i++]);
+			printf(GREEN"declare -x %s\n"RESET, data->env[i++]);
 		return (1);
 	}
 	i = 0;

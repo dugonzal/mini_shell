@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/02 22:15:03 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 09:11:57 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void heredoc(t_cmd *cmd)
 	int fd;
 	char *line;
 
-	fd = ft_open("tmp", 1);
+	fd = ft_open("heredoc", 1);
 	while (42)
 	{
 		line = readline(GREEN"🚀➤  "RESET);
@@ -26,8 +26,8 @@ void heredoc(t_cmd *cmd)
 		ft_putendl_fd(line, fd);
 	}
 	close(fd);
-	cmd->intfile = ft_open("tmp", 0);
-	unlink("tmp");
+	cmd->intfile = ft_open("heredoc", 0);
+	unlink("heredoc");
 }
 
 int redir_in(t_cmd *cmd, char *str, char *intfile)
@@ -38,7 +38,7 @@ int redir_in(t_cmd *cmd, char *str, char *intfile)
 		heredoc(cmd);
 	if (cmd->intfile < 0)
 		return (1);
-	if (dup2(cmd->intfile, 0) == -1)
+	if (dup2(cmd->intfile, 0) < 0)
 		return (1);
 	return (0);
 }
@@ -51,7 +51,7 @@ int redir_out(t_cmd *cmd, char *str, char *outfile)
 		cmd->outfile = ft_open(outfile, 2);
 	if (cmd->outfile < 0)
 		return (1);
-	if (dup2(cmd->outfile, 1) == -1)
+	if (dup2(cmd->outfile, 1) < 0)
 		return (1);
 	return (0);
 }

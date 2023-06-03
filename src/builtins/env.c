@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:19:41 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/01 21:17:02 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 09:03:55 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ void env(char **env)
 {
 	int i;
 
-	i = 0;
-	while (env[i])
-	{
-		ft_putstr_fd(env[i], 1);
-		ft_putstr_fd("\n", 1);
-		i++;
-	}
+	i = -1;
+	while (env[++i])
+		ft_printf("%s\n", env[i]);
 }

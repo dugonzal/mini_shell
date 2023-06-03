@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/02 19:53:17 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 08:53:08 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int type(char *str)
 	  return (-1);
 }
 
-int count_word(char *str,  char quote)
+static int count_word(char *str,  char quote)
 {
   int  j;
   int count;
@@ -97,7 +97,7 @@ int count_word(char *str,  char quote)
   return (count);
 }
 
-char *quit_quotes(char *str, char quote)
+static char *quit_quotes(char *str, char quote)
 {
   char *tmp;
   int i;

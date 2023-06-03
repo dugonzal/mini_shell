@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/02 20:27:14 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 09:35:26 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@
 typedef struct s_cmd
 {
 	pid_t			pid;
-	int				pipe[2];// in out I/O
+	int				pipe[2];
 	int 			intfile;
 	int 			outfile;
 	char			**cmd;
 	int				type;
-	int				io;
 	int 			status;
 	struct s_cmd	*next;
 	struct s_cmd	*back;
@@ -44,7 +43,7 @@ typedef struct s_data
 	char			**bufer;
 	char			**path;
 	char			**env;
-	int 			fd[2]; // pointer copy_fd
+	int 			fd[2];
 	int				status;
 } t_data;
 
@@ -68,7 +67,6 @@ int		ft_exit(t_cmd  *cmd);
 char	*ft_getenv_builtins(char	*cmd, char	**env); // funcion para crear enviroment, la voy a utilizar 
 int		ft_cmd_isalnum(char	*str);
 void	ft_invalid(char *c);
-void	free_dblearray(void **array);
 void	ft_echo_builtin(t_cmd *cmd);
 int		ft_cd_builtin(t_cmd *cmd, t_data *data);
 int		ft_unset_builtin(char	**cmd, char	***env);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 17:48:35 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/03 09:29:22 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 09:38:09 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_unset_builtin2(char *cmd, char ***env)
 	j = 0;
 	if (!cmd)
 		return (0);
-	new_env = (char **) ft_calloc(sizeof(char *),(arr_size(*env) + 1));
+	new_env = (char **)ft_calloc(sizeof(char *),(arr_size(*env) + 1));
 	if (!new_env)
 		return (1);
 	cmd2 = ft_strjoin(cmd, "=", 0);

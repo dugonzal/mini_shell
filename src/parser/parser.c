@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/03 10:18:18 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:26:15 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@ int	parser_cmds(char **bufer, t_cmd **cmd)
 	size = size_node(bufer);
 	last_back_node(cmd, new_node(bufer, size));
 	return (size);
-}
-
-void	error_fd(t_data *data)
-{
-	perror(RED"dup"RESET);
-	data->status = 1;
-	return ;
 }
 
 void	copy_fd(t_data *data)

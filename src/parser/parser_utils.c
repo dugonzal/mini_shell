@@ -6,134 +6,93 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/03 08:53:08 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:25:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_cmd **last_back_node(t_cmd **cmd, t_cmd *new)
-{
-  t_cmd	*tmp;
-
-  if (!new)
-	return (cmd);
-  tmp = *cmd;
-  if (!*cmd)
-  {
-	*cmd = new;
-	return (cmd);
-  }
-  while (tmp->next)
-	  tmp = tmp->next;
-  tmp->next = new;
-  tmp->back = tmp;
-  return (cmd);
-}
-
-t_cmd	*new_node(char **str, int size)
-{
-	t_cmd	*tmp;
-	int		i;
-
-	if (!str)
-		return (NULL);
-	tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-	if (!tmp)
-		return (NULL);
-	tmp->cmd = (char **)ft_calloc(size + 1, sizeof(char *));
-	if (tmp->cmd == NULL)
-		return (NULL);
-	i = -1;
-	while (++i < size)
-		tmp->cmd[i] = str[i];
-	tmp->cmd[size] = NULL;
-	tmp->type = type(str[size]);
-	tmp->next = NULL;
-	tmp->back = NULL;
-	return (tmp);
-}
-
 int	size_node(char **str)
 {
-  int	i;
+	int	i;
 
-  i = -1;
-  while (str[++i] && !search("|;", str[i][0]))
-	;
-  return (i);
+	i = -1;
+	while (str[++i] && !search("|;", str[i][0]))
+		;
+	return (i);
 }
 
-int type(char *str)
+int	type(char *str)
 {
 	if (!str)
-	  return (3);
+		return (3);
 	else if (search(str, ';'))
-	  return (4);
+		return (4);
 	else if (search(str, '|'))
-	  return (5);
-	else 
-	  return (-1);
+		return (5);
+	else
+		return (-1);
 }
 
-static int count_word(char *str,  char quote)
+static int	count_word(char *str, char quote)
 {
-  int  j;
-  int count;
+	int	j;
+	int	count;
 
-  count = 0;
-  if (*str == quote)
-	j = 1;
-  else
-	j = 0;
-  while (str[j])
-   	if (str[j] == quote)
-	  j++;
+	count = 0;
+	if (*str == quote)
+		j = 1;
 	else
+		j = 0;
+	while (str[j])
 	{
+		if (str[j] == quote)
+			j++;
 		j++;
 		count++;
 	}
-  return (count);
+	return (count);
 }
 
-static char *quit_quotes(char *str, char quote)
+static char	*quit_quotes(char *str, char quote)
 {
-  char *tmp;
-  int i;
-  
-  tmp = (char *)ft_calloc(count_word(str, quote) + 1, sizeof(char));
-  if (!tmp)
-	return (NULL);
-  i = 0;
-  while (*str)
-	if (*str == quote)
-	  str++;
-	else 
+	char	*tmp;
+	int		i;
+
+	tmp = (char *)ft_calloc(count_word(str, quote) + 1, sizeof(char));
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	while (*str)
+	{
+		if (*str == quote)
+			str++;
 		tmp[i++] = *str++;
-  tmp[i] = 0;
-  return (tmp);
+	}
+	tmp[i] = 0;
+	return (tmp);
 }
 
 // echo hola"hola""hola"hola -> echo holahola
-void seach_quotes(char **str, char *quotes)
+void	seach_quotes(char **str, char *quotes)
 {
-  int i;
-  int j;
-  char *tmp;
-  i = -1;
-  while (str[++i])
-  {
-	j = -1;
-	while (str[i][++j])
-	  if (search(quotes, str[i][j]))
-	  {
-		tmp = quit_quotes(str[i], str[i][j]);
-		free(str[i]);
-		str[i] = tmp;
-		break ;
-	  }
-  }
+	char	*tmp;
+	int		i;
+	int		j;
+
+	i = -1;
+	while (str[++i])
+	{
+		j = -1;
+		while (str[i][++j])
+		{
+			if (search(quotes, str[i][j]))
+			{
+				tmp = quit_quotes(str[i], str[i][j]);
+				free(str[i]);
+				str[i] = tmp;
+				break ;
+			}
+		}
+	}
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:03:50 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/03 09:33:07 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 09:59:15 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_check_replace(char	*cmd, t_data *data)
 		name_cmd = ft_export_namecmd(cmd);
 	i = -1;
 	while (data->env[++i])
+	{
 		if (!ft_strncmp(data->env[i], name_cmd, ft_strlen(name_cmd)))
 		{
 			free((data->env)[i]);
@@ -41,6 +42,7 @@ int	ft_check_replace(char	*cmd, t_data *data)
 			free(name_cmd);
 			return (1);
 		}
+	}
 	if (name_cmd)
 		free(name_cmd);
 	return (0);
@@ -67,7 +69,6 @@ int	ft_generate_export(char	*cmd, t_data *data)
 	data->env = new_env;
 	return (0);
 }
-
 
 int	ft_export_builtin_individual(char *cmd, t_data *data)
 {

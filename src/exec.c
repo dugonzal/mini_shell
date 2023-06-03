@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/02 20:49:08 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 11:16:34 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*check_access(char *path, char *bin)
 	tmp[i++] = '/';
 	j = 0;
 	while (bin[j])
-	  tmp[i++] = bin[j++];
+		tmp[i++] = bin[j++];
 	tmp[i] = 0;
 	if (!access(tmp, F_OK | X_OK))
 		return (tmp);
@@ -38,26 +38,26 @@ char	*check_access(char *path, char *bin)
 	return (NULL);
 }
 
-void execute_relative_or_absolute(t_cmd *cmd, t_data *data)
+void	execute_relative_or_absolute(t_cmd *cmd, t_data *data)
 {
 	execve(cmd->cmd[0], cmd->cmd, data->env);
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
 	data->status = 127;
 }
 
-void execute_path(t_cmd *cmd, t_data *data)
+void	execute_path(t_cmd *cmd, t_data *data)
 {
 	int		i;
-	
+
 	i = -1;
 	while (data->path[++i] != 0)
-	  execve(check_access(data->path[i], cmd->cmd[0]), \
+		execve(check_access(data->path[i], cmd->cmd[0]), \
 		cmd->cmd, data->env);
 	cmd->status = 127;
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
 }
 
-int ft_dup2(int *fd, int io)
+int	ft_dup2(int *fd, int io)
 {
 	if (dup2(fd[io], io) < 0)
 		return (1);
@@ -69,7 +69,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 {
 	cmd->pid = fork();
 	if (cmd->pid < 0)
-	  return(err_msg(RED"errrr fork"RESET));
+		return (err_msg(RED"errrr fork"RESET));
 	if (!cmd->pid)
 	{
 		if (cmd->type == 5)
@@ -80,35 +80,6 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 			execute_path(cmd, data);
 	}
 	if (cmd->pid > 0)
-	  waitpid(cmd->pid, &cmd->status, 0);
-  return (0);
+		waitpid(cmd->pid, &cmd->status, 0);
+	return (0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

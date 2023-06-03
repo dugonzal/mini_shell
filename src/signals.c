@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/03 22:44:02 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/03 22:52:47 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ void	sig_handler(int signum)
 	{
 		if (rl_on_new_line() == -1)
 			exit(-1);
-		//rl_replace_line("", 0);
 		ft_printf("\n");
 		rl_redisplay();
 	}
-	if (signum == SIGQUIT)
+	else if (signum == SIGQUIT)
 	{
 		if (rl_on_new_line() == -1)
 			exit(-1);
@@ -30,20 +29,11 @@ void	sig_handler(int signum)
 	}
 }
 
-void	sig_handler_child_input(int signum)
-{
-	if (signum == SIGQUIT)
-		rl_redisplay();
-	else if (signum == SIGINT)
-		printf("\n");
-}
-
 void	handler(int sig, siginfo_t *info, void *context)
 {
 	(void)context;
 	(void)info;
 	sig_handler(sig);
-	sig_handler_child_input(sig);
 }
 
 void	signals(void)

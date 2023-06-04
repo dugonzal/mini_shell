@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/03 10:25:32 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:37:08 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	count_word(char *str, char quote)
 		j = 0;
 	while (str[j])
 	{
-		if (str[j] == quote)
+		while (str[j] == quote)
 			j++;
 		j++;
 		count++;
@@ -65,7 +65,7 @@ static char	*quit_quotes(char *str, char quote)
 	i = 0;
 	while (*str)
 	{
-		if (*str == quote)
+		while (*str == quote)
 			str++;
 		tmp[i++] = *str++;
 	}

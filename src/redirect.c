@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/03 09:11:57 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:39:15 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int redir(t_cmd *cmd)
 	i = -1;
 	flag = 0;
 	while (cmd->cmd[++i])
-		if (search(cmd->cmd[i], '<'))
+		if (search(cmd->cmd[i], '<') \
+	  && (!search(cmd->cmd[i], '\'') && !search(cmd->cmd[i], '\"')))
 		{
 			flag = i;
 			if (redir_in(cmd, cmd->cmd[i], cmd->cmd[i + 1]))
@@ -73,7 +74,8 @@ int redir(t_cmd *cmd)
 		}
 	i = -1;
 	while (cmd->cmd[++i])
-		if (search(cmd->cmd[i], '>'))
+		if (search(cmd->cmd[i], '>')
+		&& (!search(cmd->cmd[i], '\'') && !search(cmd->cmd[i], '\"')))
 		{
 			if (redir_out(cmd, cmd->cmd[i], cmd->cmd[i + 1]))
 				return (1);

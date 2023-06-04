@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/03 10:26:32 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:44:42 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ int		ft_pwd(void);
 void	ft_execute_echo(char **cmd);
 int		ft_export_general_builtin(char	**cmd, t_data *data);
 int		ft_export_builtin_individual(char *cmd, t_data *data);
-int		ft_exit(t_cmd *cmd);
+int		ft_exit(t_cmd *cmd, t_data *data);
 char	*ft_getenv_builtins(char	*cmd, char	**env);
 int		ft_cmd_isalnum(char	*str);
-void	ft_invalid(char *c);
+void	ft_invalid(char *c, t_data *data);
 void	ft_echo_builtin(t_cmd *cmd);
 int		ft_cd_builtin(t_cmd *cmd, t_data *data);
 int		ft_unset_builtin(char	**cmd, char	***env);

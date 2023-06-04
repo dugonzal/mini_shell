@@ -6,27 +6,27 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 14:04:21 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/03 09:21:50 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:46:37 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_numeric_error(t_cmd	*cmd)
+int	ft_numeric_error(t_cmd	*cmd, t_data *data)
 {
-	cmd->status = 255;
+	data->status = 255;
 	printf(RED"exit: %s: numeric argument required\n"RESET, \
 		cmd->cmd[1]);
 	return (0);
 }
 
-int	ft_exit(t_cmd *cmd)
+int	ft_exit(t_cmd *cmd, t_data *data)
 {
 	int	i;
 
 	if (cmd->cmd[1] && cmd->cmd[2])
 	{
-		cmd->status = 1;
+		data->status = 1;
 		ft_printf(RED"exit: too many arguments\n"RESET);
 		return (1);
 	}
@@ -35,10 +35,10 @@ int	ft_exit(t_cmd *cmd)
 	{
 		while (cmd->cmd[1][++i])
 			if (ft_isalpha(cmd->cmd[1][i]))
-				return (ft_numeric_error(cmd));
-		cmd->status = ft_atoi(cmd->cmd[1]);
+				return (ft_numeric_error(cmd, data));
+		data->status = ft_atoi(cmd->cmd[1]);
 	}
 	else
-		cmd->status = 0;
+		data->status = 0;
 	return (0);
 }

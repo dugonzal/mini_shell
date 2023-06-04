@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:03:50 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/03 09:59:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:48:28 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_generate_export(char	*cmd, t_data *data)
 	char	**new_env;
 
 	if (ft_isdigit(cmd[0]) || !ft_cmd_isalnum(cmd))
-		ft_invalid(cmd);
+		ft_invalid(cmd, data);
 	if (ft_check_replace(cmd, data))
 		return (0);
 	new_env = (char **) ft_calloc(sizeof(char *), (arr_size(data->env) + 2));

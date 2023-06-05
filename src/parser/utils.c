@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 22:05:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/05 09:58:26 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:18:52 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 int	ft_open(char *str, int i)
 {
 	int	fd;
+
+	if (access(str, 1 | 0))
+	{
+	  err_msg (RED"ERROR DE PERMISOS"RESET);
+	  return (-1);
+	} 
 
 	fd = 0;
 	if (!i)

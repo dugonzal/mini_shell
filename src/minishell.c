@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/03 10:38:00 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:27:18 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 void	get_env_and_path(t_data *data, char **env)
 {
 	int		i;
-	char	*path;
 
 	data->env = ft_calloc(arr_size(env) + 1, sizeof(char *));
 	if (!data->env)
@@ -26,14 +25,11 @@ void	get_env_and_path(t_data *data, char **env)
 	while (env[++i])
 		data->env[i] = ft_strdup(env[i]);
 	data->env[i] = NULL;
-	path = getenv("PATH");
-	data->path = ft_split(path, ':', 0);
 }
 
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
-
 	if (ac > 1 && arr_size(av) > 1)
 		err(RED"minishell: too many arguments"RESET);
 	ft_bzero (&data, sizeof(t_data));
@@ -48,6 +44,7 @@ int	main(int ac, char **av, char **env)
 		else if (lexer(&data))
 			continue ;
 		parser(&data);
+		data.path = ft_split(ft_getenv_builtins("PATH", data.env), ':', 0);
 	}
 	return (0);
 }

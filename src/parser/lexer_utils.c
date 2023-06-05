@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:48:17 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/03 10:12:50 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:48:07 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,21 @@ int	check_pipe(char **prompt, char pipe)
 	return (0);
 }
 
-int	check_redir(char **prompt, char redir)
+int	handle_input_redireccion(char **prompt, char intfile)
 {
 	int	i;
-	int	size;
-
-	size = arr_size(prompt);
-	if (prompt[0] && prompt[size - 1][0] == redir)
+	// << fd ;< fd
+	i = 0;
+	if (arr_size(prompt) < 1 &&  prompt[0][0] == intfile)
 		return (1);
-	i = -1;
-	while (prompt[++i])
+	while (prompt[i])
 	{
-		if (prompt[i][0] == redir && prompt[i][2] == redir)
+		printf ("[%d]", i);
+		if (i && search (prompt[i], intfile) && prompt[i + 1][0] == '>')
 			return (1);
-		else if (prompt[i][0] == '|' \
-			&& (prompt[i + 1][0] == '>' || prompt[i + 1][0] == '<'))
+		else if (i  && prompt[i][0] == intfile && prompt[i][2] == intfile)
 			return (1);
-		else if ((prompt[i][0] == '>' || prompt[i][0] == '<') \
-			&& (prompt[i + 1][0] == '<' || prompt[i + 1][0] == '>'))
-			return (1);
-		else if (i > 3 && prompt[size - 3][0] == redir \
-			&& prompt[size - 2][0] != 0)
-			return (1);
+		i++;
 	}
 	return (0);
 }

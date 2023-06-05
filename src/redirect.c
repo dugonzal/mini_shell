@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/05 13:36:34 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:55:39 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ void	heredoc(t_cmd *cmd)
 
 int	redir_in(t_cmd *cmd, char *str, char *intfile)
 {
-	if (search(str, '<') && !str[1])
-		cmd->intfile = ft_open(intfile, 0);
-	else if (search(str, '<') && str[1] == '<')
-		heredoc(cmd);
+	if (!intfile)
+		intfile = ft_strdup("tmp");	
+	cmd->intfile = ft_open(intfile, 0);
+	if (search(str, '<') && str[1] == '<')
+		cmd->intfile = ft_open(intfile, 0);	
 	if (cmd->intfile < 1)
 	{
 		str = NULL;
@@ -46,61 +47,25 @@ int	redir_in(t_cmd *cmd, char *str, char *intfile)
 	return (0);
 }
 
-int	redir_out(t_cmd *cmd, char *str, char *outfile)
-{
-	if (search(str, '>') && !str[1])
-		cmd->outfile = ft_open(outfile, 1);
-	else if (search(str, '>') && str[1] == '>')
-		cmd->outfile = ft_open(outfile, 2);
-	if (cmd->outfile < 0)
-		return (1);
-	if (dup2(cmd->outfile, 1) < 0)
-		return (1);
-	return (0);
-}
-
-int	redir_controller(t_cmd *cmd)
-{
-	int	i;
-
-	i = -1;
-	while (cmd->cmd[++i])
-	{
-		if (search(cmd->cmd[i], '>') \
-		&& (!search(cmd->cmd[i], '\'') && !search(cmd->cmd[i], '\"')))
-		{
-			if (redir_out(cmd, cmd->cmd[i], cmd->cmd[i + 1]))
-				return (1);
-			cmd->cmd[i] = NULL;
-			cmd->cmd[i + 1] = NULL;
-		}
-	}
-	return (0);
-}
-
 int	redir(t_cmd *cmd)
 {
-	int	i;
-	int	flag;
+	char	*tmp;
+	int		i;
 
 	i = -1;
-	flag = 0;
 	while (cmd->cmd[++i])
 	{
 		if (search(cmd->cmd[i], '<') && (!search(cmd->cmd[i], '\'') \
 		&& !search(cmd->cmd[i], '\"')))
 		{
-			flag = i;
-			if (redir_in(cmd, cmd->cmd[i], cmd->cmd[i + 1]))
+			if (cmd->cmd[i + 1])
+				tmp = ft_strdup(cmd->cmd[i + 1]);
+			else
+				tmp = NULL;
+			if (redir_in(cmd, cmd->cmd[i], tmp))
 				return (1);
 			break ;
 		}
-	}
-	redir_controller(cmd);
-	if (flag)
-	{
-		cmd->cmd[flag] = NULL;
-		cmd->cmd[flag + 1] = NULL;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/05 07:11:47 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/05 20:14:51 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,11 @@ fclean: clean
 	make -C libft fclean
 	printf "$(BLUE)Cleaning $(OBJ_DIR) and bin $(DEFAULT)\n"
 
+init:
+	echo "echo hola""mundo $USER | grep -E --color 'du' " |  ./minishell
 val: $(NAME)
 	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat command | ./minishell; cat valgrind.log 
+sani:
+	$(CC) $(CFLAGS) -fsanitize=address -g3 $(SRC) -o $(NAME) -L bin -lft -I $(INC_DIR) $(readline)
 
-re: fclean all
+re: fclean all sani init 

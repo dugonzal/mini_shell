@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/05 11:06:25 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:56:37 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ int	lexer_errors(char **str)
 		return (err_msg(RED"minishell: syntax error quotes \" <-> \'"RESET));
 	else if (check_pipe(str, '|'))
 		return (err_msg(RED"minishell: syntax error pipe '|'"RESET));
-	else if (check_redir(str, '<'))
-		return (err_msg(RED"minishell: syntax error redir '<'"RESET));
-	else if (check_redir(str, '>'))
-		return (err_msg(RED"minishell: syntax error redir '>'"RESET));
 	else if (check_semicolon(str))
 		return (err_msg(RED"minishell: syntax error parse near ';;' "RESET));
 	return (0);
@@ -46,6 +42,8 @@ int	lexer(t_data *data)
 		free (data->line);
 		free_array(data->bufer);
 		data->status = 1;
+		printf ("asassa");
+		sleep (1);
 		return (1);
 	}
 	add_history (data->line);

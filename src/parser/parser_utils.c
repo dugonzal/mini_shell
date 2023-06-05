@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/05 10:39:19 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:11:16 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,18 @@ static char	*quit_quotes(char *str, char quote)
 {
 	char	*tmp;
 	int		i;
+	int		j;
 
 	tmp = (char *)ft_calloc(count_word(str, quote) + 1, sizeof(char));
 	if (!tmp)
 		return (NULL);
+	j = 0;
 	i = 0;
-	while (*str)
+	while (str[j])
 	{
-		if (*str == quote)
-			str++;
-		tmp[i++] = *str++;
+		while (str[i] == quote)
+			str[i++] = 0;
+		tmp[i++] = str[j++];
 	}
 	tmp[i] = 0;
 	return (tmp);

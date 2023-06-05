@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/05 11:27:18 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:38:01 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	get_env_and_path(t_data *data, char **env)
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
+
 	if (ac > 1 && arr_size(av) > 1)
 		err(RED"minishell: too many arguments"RESET);
 	ft_bzero (&data, sizeof(t_data));

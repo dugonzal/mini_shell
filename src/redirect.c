@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/05 11:16:27 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:36:34 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int	redir_in(t_cmd *cmd, char *str, char *intfile)
 	else if (search(str, '<') && str[1] == '<')
 		heredoc(cmd);
 	if (cmd->intfile < 1)
+	{
+		str = NULL;
 		return (1);
+	}
 	if (dup2(cmd->intfile, 0) < 0)
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/05 09:57:35 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 10:42:16 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int		lexer_errors(char **str);
 int		parser(t_data *data);
 int		builtins(t_cmd *cmd, t_data *data);
 void	handler_execute(t_data *data, t_cmd *cmd);
+int		expanser_env(t_data *data);
 
 // parser utils
 t_cmd	**last_back_node(t_cmd **cmd, t_cmd *new);

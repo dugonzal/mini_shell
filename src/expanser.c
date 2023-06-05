@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/05 09:57:08 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:06:07 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,39 @@ void	expandir(t_data *data, int i, int j)
 	env = ft_itoa(data->status);
 	if (j > 1)
 		env = ft_strjoin(ft_strndup(data->bufer[i], j - 1), env, 1);
-	if (data->bufer[i][j + 1])
+	if (data->bufer[i][j + 1] != 0)
 		env = ft_strjoin(env, &data->bufer[i][j + 1], 1);
 	free (data->bufer[i]);
 	data->bufer[i] = env;
 }
 
-int	expandir_env(t_data *data, int i, int j)
+int	expandir_env(t_data *data, int i)
 {
 	char	*env;
 	int		size;
+	int		j;
 
-	size = count_expanser(&data->bufer[i][++j]);
-	env = ft_getenv_builtins(ft_strndup(&data->bufer[i][j], size), data->env);
-	if (!env)
-		return (err_msg(RED"Error: Environment variable not found."RESET));
-	if (data->bufer[i][j + size] != 0)
-		env = ft_strjoin(env, &data->bufer[i][j + size], 1);
-	free (data->bufer[i]);
-	data->bufer[i] = env;
+	j = find_caracter(data->bufer[i], '$');
+	if (data->bufer[i][j] == '$')
+	{
+		size = count_expanser(&data->bufer[i][++j]);
+		env = ft_getenv_builtins(ft_strndup(&data->bufer[i][j], size), \
+		data->env);
+		if (!env)
+			return (err_msg(RED"Error: Environment variable not found."RESET));
+		if (j)
+			env = ft_strjoin(ft_strndup(data->bufer[i], j - 1), env, 1);
+		if (data->bufer[i][j + size] != 0)
+			env = ft_strjoin(env, &data->bufer[i][j + size], 1);
+		free (data->bufer[i]);
+		data->bufer[i] = env;
+	}
 	return (0);
 }
 
 int	expanser_env(t_data *data)
 {
 	int		i;
-	int		j;
 
 	i = -1;
 	while (data->bufer[++i])
@@ -63,8 +70,7 @@ int	expanser_env(t_data *data)
 		if (data->bufer[i] && ft_strlen(data->bufer[i]) > 1 \
 		&& search(data->bufer[i], '$') && !search(data->bufer[i], '\''))
 		{
-			j = find_caracter(data->bufer[i], '$');
-			if (expandir_env(data, i, j))
+			if (expandir_env(data, i))
 				return (1);
 			if (search(data->bufer[i], '$'))
 				expanser_env (data);
@@ -93,7 +99,5 @@ int	expanser(t_data *data)
 			}
 		}
 	}
-	if (expanser_env(data))
-		return (1);
 	return (0);
 }

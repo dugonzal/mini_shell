@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/04 00:40:39 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 08:11:23 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ int	exec(t_cmd *cmd, t_data *data)
 	copy_fd(data);
 	while (tmp)
 	{
-		if (cmd->type == 5 && pipe (cmd->pipe) < 0)
-			return (err_msg(RED"Error : pipe"RESET));
+		if (tmp->type == 5)
+			if (pipe(tmp->pipe) < 0)
+				return (err_msg(RED"Error : pipe"RESET));
 		redir (cmd);
 		seach_quotes(tmp->cmd, "\"\'");
 		if (builtins(tmp, data))
@@ -75,10 +76,10 @@ int	exec(t_cmd *cmd, t_data *data)
 			bin_execute(tmp, data);
 			data->status = cmd->status;
 		}
-		if (tmp->type == 5)
-			ft_dup2(tmp->pipe, 0);
-		else
+		if (tmp->type != 5)
 			reset_fd(data);
+		else if (tmp->type == 5)
+			ft_dup2(tmp->pipe, 0);
 		tmp = tmp->next;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/03 11:16:34 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 08:24:14 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	if (!cmd->pid)
 	{
 		if (cmd->type == 5)
-			ft_dup2(cmd->pipe, 1);
+			if (ft_dup2 (cmd->pipe, 1))
+				return (1);
 		if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 			execute_relative_or_absolute(cmd, data);
 		else

@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/03 10:27:00 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/05 07:11:47 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,4 +87,4 @@ fclean: clean
 val: $(NAME)
 	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat command | ./minishell; cat valgrind.log 
 
-re: fclean all val 
+re: fclean all

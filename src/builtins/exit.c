@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 14:04:21 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/04 00:46:37 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 10:04:45 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ int	ft_numeric_error(t_cmd	*cmd, t_data *data)
 	printf(RED"exit: %s: numeric argument required\n"RESET, \
 		cmd->cmd[1]);
 	return (0);
+}
+
+void free_program(t_cmd *cmd, t_data *data)
+{
+	free (data->user);
+	free_cmd(cmd);
+	free(data->path);
+	free (data->env);
+	
 }
 
 int	ft_exit(t_cmd *cmd, t_data *data)
@@ -40,5 +49,7 @@ int	ft_exit(t_cmd *cmd, t_data *data)
 	}
 	else
 		data->status = 0;
+	free_program(cmd, data);
+	exit (0);
 	return (0);
 }

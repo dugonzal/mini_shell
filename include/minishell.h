@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/05 10:42:16 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:04:11 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		ft_export_builtin_individual(char *cmd, t_data *data);
 int		ft_exit(t_cmd *cmd, t_data *data);
 char	*ft_getenv_builtins(char	*cmd, char	**env);
 int		ft_cmd_isalnum(char	*str);
-void	ft_invalid(char *c, t_data *data);
+int		ft_invalid(char *c, t_data *data);
 void	ft_echo_builtin(t_cmd *cmd);
 int		ft_cd_builtin(t_cmd *cmd, t_data *data);
 int		ft_unset_builtin(char	**cmd, char	***env);

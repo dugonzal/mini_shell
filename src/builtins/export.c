@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:03:50 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/04 00:48:28 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:03:12 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,11 @@ int	ft_export_builtin_individual(char *cmd, t_data *data)
 		ft_printf(RED"export: '%s': not a valid identifier\n"RESET, cmd);
 		return (1);
 	}
-	if (ft_strlen(cmd) > 0 && !search(cmd, '='))
+	if (ft_strlen(cmd) > 0 && !search(cmd, '=') && !ft_isdigit(cmd[0]) && \
+		!ft_cmd_isalnum(cmd))
 		return (ft_generate_export(ft_strjoin(cmd, "=\'\'", 1), data));
+	else
+		return (ft_invalid(cmd, data));
 	found = ft_check_replace(cmd, data);
 	if (!found)
 		ft_generate_export(cmd, data);

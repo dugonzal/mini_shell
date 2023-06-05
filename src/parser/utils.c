@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 22:05:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/03 10:34:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 09:58:26 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	free_cmd(t_cmd *cmd)
 		tmp = cmd->next;
 	}
 	cmd = NULL;
+}
+
+int	count_expanser(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i] && !search(" \t\v\f\r\"\'", str[i]))
+		;
+	return (i);
 }

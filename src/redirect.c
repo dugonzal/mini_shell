@@ -6,16 +6,16 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/04 00:39:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/05 05:48:50 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void heredoc(t_cmd *cmd)
+void	heredoc(t_cmd *cmd)
 {
-	int fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	fd = ft_open("heredoc", 1);
 	while (42)
@@ -30,7 +30,7 @@ void heredoc(t_cmd *cmd)
 	unlink("heredoc");
 }
 
-int redir_in(t_cmd *cmd, char *str, char *intfile)
+int	redir_in(t_cmd *cmd, char *str, char *intfile)
 {
 	if (search(str, '<') && !str[1])
 		cmd->intfile = ft_open(intfile, 0);
@@ -43,7 +43,7 @@ int redir_in(t_cmd *cmd, char *str, char *intfile)
 	return (0);
 }
 
-int redir_out(t_cmd *cmd, char *str, char *outfile)
+int	redir_out(t_cmd *cmd, char *str, char *outfile)
 {
 	if (search(str, '>') && !str[1])
 		cmd->outfile = ft_open(outfile, 1);
@@ -56,25 +56,14 @@ int redir_out(t_cmd *cmd, char *str, char *outfile)
 	return (0);
 }
 
-int redir(t_cmd *cmd)
+int	redir_controller(t_cmd *cmd)
 {
-	int i;
-	int flag;
-	
-	i = -1;
-	flag = 0;
-	while (cmd->cmd[++i])
-		if (search(cmd->cmd[i], '<') \
-	  && (!search(cmd->cmd[i], '\'') && !search(cmd->cmd[i], '\"')))
-		{
-			flag = i;
-			if (redir_in(cmd, cmd->cmd[i], cmd->cmd[i + 1]))
-				return (1);
-			break ;
-		}
+	int	i;
+
 	i = -1;
 	while (cmd->cmd[++i])
-		if (search(cmd->cmd[i], '>')
+	{
+		if (search(cmd->cmd[i], '>') \
 		&& (!search(cmd->cmd[i], '\'') && !search(cmd->cmd[i], '\"')))
 		{
 			if (redir_out(cmd, cmd->cmd[i], cmd->cmd[i + 1]))
@@ -82,6 +71,29 @@ int redir(t_cmd *cmd)
 			cmd->cmd[i] = NULL;
 			cmd->cmd[i + 1] = NULL;
 		}
+	}
+	return (0);
+}
+
+int	redir(t_cmd *cmd)
+{
+	int	i;
+	int	flag;
+
+	i = -1;
+	flag = 0;
+	while (cmd->cmd[++i])
+	{
+		if (search(cmd->cmd[i], '<') && (!search(cmd->cmd[i], '\'') \
+		&& !search(cmd->cmd[i], '\"')))
+		{
+			flag = i;
+			if (redir_in(cmd, cmd->cmd[i], cmd->cmd[i + 1]))
+				return (1);
+			break ;
+		}
+	}
+	redir_controller(cmd);
 	if (flag)
 	{
 		cmd->cmd[flag] = NULL;
@@ -89,13 +101,3 @@ int redir(t_cmd *cmd)
 	}
 	return (0);
 }
-
-
-
-
-
-
-
-
-
-

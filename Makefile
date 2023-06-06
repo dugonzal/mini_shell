@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/05 20:14:51 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/06 17:55:07 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ OS := $(shell uname)
 ifeq ($(OS), Darwin)
 	readline := -lreadline -L${HOME}/.brew/opt/readline/lib  -I${HOME}/.brew/opt/readline/lib/include
 else
-	readline :=	-L/usr/include -lreadline 
+	readline :=	-lreadline 
 endif
 
 ifndef verbose
@@ -89,6 +89,6 @@ init:
 val: $(NAME)
 	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat command | ./minishell; cat valgrind.log 
 sani:
-	$(CC) $(CFLAGS) -fsanitize=address -g3 $(SRC) -o $(NAME) -L bin -lft -I $(INC_DIR) $(readline)
+	$(CC) $(CFLAGS) -fsanitize=address -g3 $(OBJ) -o $(NAME) -L bin -lft -I $(INC_DIR) $(readline)
 
 re: fclean all sani init 

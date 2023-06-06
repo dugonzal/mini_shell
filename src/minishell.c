@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/05 13:38:01 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:08:02 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void	get_env_and_path(t_data *data, char **env)
 		err(RED"minishell: malloc error"RESET);
 	i = -1;
 	while (env[++i])
+	{
 		data->env[i] = ft_strdup(env[i]);
+		if (!data->env[i])
+			err(RED"minishell: malloc error"RESET);
+	}
 	data->env[i] = NULL;
 }
 
@@ -40,6 +44,11 @@ int	main(int ac, char **av, char **env)
 	{
 		signals();
 		data.line = readline(data.user);
+		if (data.line && *data.line)
+		{
+			add_history(data.line);
+		printf ("line: %s\n", data.line);
+		}
 		if (!data.line)
 			break ;
 		else if (lexer(&data))

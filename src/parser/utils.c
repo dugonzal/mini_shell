@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 22:05:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/05 13:39:28 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:54:06 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ int	ft_open(char *str, int i)
 {
 	int	fd;
 
-	if (access(str, 1 | 0))
-	{
-		err_msg (RED"ERROR DE PERMISOS"RESET);
-		return (-1);
-	}
 	fd = 0;
 	if (!i)
 		fd = open (str, O_RDONLY);

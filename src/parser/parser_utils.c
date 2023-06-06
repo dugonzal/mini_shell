@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/05 20:11:16 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:58:54 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	seach_quotes(char **str, char *quotes)
 	int		j;
 
 	i = -1;
+	if (!str)
+		return ;
 	while (str[++i])
 	{
 		j = -1;

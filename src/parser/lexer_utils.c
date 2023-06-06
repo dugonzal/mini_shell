@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:48:17 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/05 20:48:07 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:13:15 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,18 @@ int	check_pipe(char **prompt, char pipe)
 	return (0);
 }
 
-int	handle_input_redireccion(char **prompt, char intfile)
+int	handle_input_redireccion(char **prompt, char redir)
 {
 	int	i;
-	// << fd ;< fd
-	i = 0;
-	if (arr_size(prompt) < 1 &&  prompt[0][0] == intfile)
-		return (1);
-	while (prompt[i])
+
+	i = -1;
+	while (prompt[++i])
 	{
-		printf ("[%d]", i);
-		if (i && search (prompt[i], intfile) && prompt[i + 1][0] == '>')
+		if (prompt[i] && prompt[i][0] == redir && !prompt[i + 1])
 			return (1);
-		else if (i  && prompt[i][0] == intfile && prompt[i][2] == intfile)
+		else if (prompt[i] && prompt[i][0] == redir && prompt[i + 1] \
+			&& prompt[i + 1][0] == ';')
 			return (1);
-		i++;
 	}
 	return (0);
 }

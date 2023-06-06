@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 13:05:56 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/05 08:13:45 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:59:57 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	builtins_2(t_cmd *cmd, t_data *data)
 
 int	builtins(t_cmd *cmd, t_data *data)
 {
+	if (!cmd->cmd[0])
+		return (0);
 	if (builtins_2(cmd, data))
 		return (1);
 	else if (!ft_strncmp(cmd->cmd[0], "echo", 5))

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/09 21:38:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/09 21:42:42 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	expandir_status(t_data *data, int i, int j)
 {
 	char	*env;
 
-	j++;
 	env = ft_itoa(data->status);
 	if (j > 1)
 		env = ft_strjoin(ft_strndup(data->bufer[i], j - 1), env, 1);
@@ -55,7 +54,7 @@ char	*get_env(char *str, char **env)
 	int		size;
 	
 	if (search(str, '/'))
-	  tmp = ft_strndup(str, find_caracter(str, '/'));
+		tmp = ft_strndup(str, find_caracter(str, '/'));
 	else
 		tmp = str;
 	i = -1;
@@ -74,7 +73,7 @@ char	*get_env(char *str, char **env)
 			}
 			else
 			{
-				free (str);
+				free (tmp);
 				return (expanser);
 			}
 		}
@@ -96,7 +95,7 @@ int	expanser(t_data *data)
 	  while (data->bufer[i][++j])
 	  {
 		if (data->bufer[i][j] == '$' && data->bufer[i][j + 1] == '?')
-		  expandir_status(data, i, j);
+		  expandir_status(data, i, ++j);
 		else if (data->bufer[i][j] == '$' && data->bufer[i][j + 1])
 		{
 		  size = count_expanser(&data->bufer[i][j + 1]);

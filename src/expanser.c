@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/09 21:19:09 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/09 21:33:48 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,30 @@ void	expandir_status(t_data *data, int i, int j)
 char	*get_env(char *str, char **env)
 {
 	int		i;
+	char	*expanser;
 	char	*tmp;
 	int		size;
-
-	size = find_caracter(str, '=');
+	
+	if (search(str, '/'))
+	  tmp = ft_strndup(str, find_caracter(str, '/'));
+	else
+		tmp = str;
 	i = -1;
+	size = find_caracter(tmp, '=');
 	while (env[++i])
 	{
-		if (!ft_strncmp(str, env[i] ,size))
+		if (!ft_strncmp(env[i], tmp, size) && env[i][size] == '=')
 		{
-			tmp = ft_strdup(&env[i][size + 1]);
+			expanser = ft_strdup(&env[i][size + 1]);
 			if (search(str, '/'))
-				return (ft_strjoin(tmp, &str[size], 1));
+			{
+				expanser = ft_strjoin(expanser, &str[size], 1);
+				return (expanser);
+			}
 			else
-				return (tmp);
+			{
+				return (expanser);
+			}
 		}
 	}
 	return (ft_strdup(""));

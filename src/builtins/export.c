@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:03:50 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/05 14:10:00 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:35:54 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	ft_generate_export(char	*cmd, t_data *data)
 	int		i;
 	char	**new_env;
 
-	if (ft_isdigit(cmd[0]) || !ft_cmd_isalnum(cmd))
-		ft_invalid(cmd, data);
-	if (ft_check_replace(cmd, data))
+	if (!ft_cmd_isalnum(cmd) || ft_isdigit(cmd[0]))
+		return (ft_invalid(cmd, data));
+	else if (ft_check_replace(cmd, data))
 		return (0);
 	new_env = (char **) ft_calloc(sizeof(char *), (arr_size(data->env) + 2));
 	if (!new_env)
@@ -82,8 +82,6 @@ int	ft_export_builtin_individual(char *cmd, t_data *data)
 	}
 	if (ft_strlen(cmd) > 0 && !search(cmd, '=') && !ft_isdigit(cmd[0]))
 		return (ft_generate_export(ft_strjoin(cmd, "=\'\'", 1), data));
-	else
-		return (ft_invalid(cmd, data));
 	found = ft_check_replace(cmd, data);
 	if (!found)
 		ft_generate_export(cmd, data);
@@ -94,15 +92,14 @@ int	ft_export_general_builtin(char	**cmd, t_data *data)
 {
 	int	i;
 
+	i = 0;
 	data->status = 0;
 	if (!cmd[1])
 	{
-		i = 0;
 		while (data->env[i])
 			printf(GREEN"declare -x %s\n"RESET, data->env[i++]);
 		return (1);
 	}
-	i = 0;
 	while (cmd[++i])
 		ft_export_builtin_individual(cmd[i], data);
 	return (1);

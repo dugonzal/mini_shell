@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/09 22:09:24 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/09 23:37:19 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int		parser(t_data *data);
 int		builtins(t_cmd *cmd, t_data *data);
 void	handler_execute(t_data *data, t_cmd *cmd);
 int		expanser_env(t_data *data);
+int		find_caracter(char *str, char c);
 
 // parser utils
 t_cmd	**last_back_node(t_cmd **cmd, t_cmd *new);
@@ -110,7 +111,7 @@ int		size_node(char **str);
 int		type(char *str);
 int		ft_open(char *str, int i);
 int		exec_redir(t_cmd *cmd);
-void	seach_quotes(char **str, char *quotes);
+void	search_quotes(t_cmd *cmd, char *quotes);
 void	reset_fd(t_data *data);
 void	copy_fd(t_data *data);
 int		redir(t_cmd *cmd);

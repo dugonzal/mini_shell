@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/06 16:58:54 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/09 23:49:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,65 +36,62 @@ int	type(char *str)
 
 static int	count_word(char *str, char quote)
 {
-	int	j;
-	int	count;
+	char	*tmp;
+	int		count;
 
 	count = 0;
-	if (*str == quote)
-		j = 1;
-	else
-		j = 0;
-	while (str[j])
+	tmp = str;
+	while (*tmp++)
 	{
-		if (str[j] == quote)
-			j++;
-		j++;
-		count++;
+		if (*tmp == quote)
+			while (*tmp == quote)
+				tmp++;
+		if (*tmp != quote && *tmp != '\0')
+			count++;
 	}
 	return (count);
 }
 
-static char	*quit_quotes(char *str, char quote)
+char	*quit_quotes(char *str, char quote)
 {
 	char	*tmp;
-	int		i;
+	int		i;	
 	int		j;
 
-	tmp = (char *)ft_calloc(count_word(str, quote) + 1, sizeof(char));
+	tmp  = (char *)ft_calloc(count_word(str, quote) + 1, sizeof(char));
 	if (!tmp)
 		return (NULL);
-	j = 0;
 	i = 0;
-	while (str[j])
+	j = 0;
+	while (str[i])
 	{
-		while (str[i] == quote)
-			str[i++] = 0;
-		tmp[i++] = str[j++];
+	  if (str[i] == quote)
+		i++;
+	  else 
+		tmp[j++] = str[i++];
 	}
-	tmp[i] = 0;
+	tmp[j] = 0;
 	return (tmp);
 }
 
 // echo hola"hola""hola"hola -> echo holahola
-void	seach_quotes(char **str, char *quotes)
+void	search_quotes(t_cmd *cmd, char *quotes)
 {
-	char	*tmp;
 	int		i;
 	int		j;
+	char	*tmp;
 
 	i = -1;
-	if (!str)
-		return ;
-	while (str[++i])
+	while (cmd->cmd[++i])
 	{
 		j = -1;
-		while (str[i][++j])
+		while (cmd->cmd[i][++j])
 		{
-			if (search(quotes, str[i][j]))
+			if (search(quotes, cmd->cmd[i][j]))
 			{
-				tmp = quit_quotes(str[i], str[i][j]);
-				free(str[i]);
-				str[i] = tmp;
+				tmp = quit_quotes(&cmd->cmd[i][j], cmd->cmd[i][j]);
+				free(cmd->cmd[i]);
+				cmd->cmd[i] = tmp;
 				break ;
 			}
 		}

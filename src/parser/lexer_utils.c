@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:48:17 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/06 17:13:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/09 16:42:04 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	handle_input_redireccion(char **prompt, char redir)
 			return (1);
 		else if (prompt[i] && prompt[i][0] == redir && prompt[i + 1] \
 			&& prompt[i + 1][0] == ';')
+			return (1);
+		else if (prompt[i] && prompt[i][0] == redir && ft_strlen(prompt[i]) > 2)
 			return (1);
 	}
 	return (0);

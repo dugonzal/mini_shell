@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/07 20:55:35 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:12:22 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,14 @@ int	main(int ac, char **av, char **env)
 	data.user = prompt();
 	while (42)
 	{
-		signals();
+		signals(&data);
+		data.path = ft_split(ft_getenv_builtins("PATH", data.env), ':', 0);
 		data.line = readline(data.user);
-		if (data.line && *data.line)
-		{
-			add_history(data.line);
-		printf ("line: %s\n", data.line);
-		}
 		if (!data.line)
 			break ;
 		else if (lexer(&data))
 			continue ;
 		parser(&data);
-		data.path = ft_split(ft_getenv_builtins("PATH", data.env), ':', 0);
 	}
 	return (0);
 }

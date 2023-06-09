@@ -3,39 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/05 13:40:22 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:14:38 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	sig_handler(int signum)
+int	handler(int signum, t_data *data)
 {
 	if (signum == SIGINT)
 	{
 		if (rl_on_new_line() == -1)
 			exit(-1);
-		ft_printf ("\n");
+		kill(0, 0);
+		ft_putstr_fd("\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
+		data->status = 130;
 	}
 	else if (signum == SIGQUIT)
 	{
 		if (rl_on_new_line() == -1)
 			exit(-1);
+		kill(0, SIGQUIT);
 		rl_redisplay();
+		data->status = 0;
 	}
+	return (data->status);
 }
 
-void	handler(int sig)
+int	signals(t_data *data)
 {
-	sig_handler(sig);
-}
-
-void	signals(void)
-{
-	signal(SIGINT, handler);
-	signal(SIGQUIT, handler);
+	signal(SIGINT, (void (*) (int))handler);
+	signal(SIGQUIT, (void (*) (int))handler);
+	return (data->status);
 }

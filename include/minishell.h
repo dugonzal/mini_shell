@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/05 20:36:17 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:09:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_data
 	int				status;
 }	t_data;
 
-void	signals(void);
+int	signals(t_data *data);
 char	*prompt(void);
 int		bin_execute(t_cmd *cmd, t_data *data);
 

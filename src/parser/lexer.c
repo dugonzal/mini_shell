@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/10 12:05:38 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:32:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	lexer(t_data *data)
 		free (data->line);
 		return (1);
 	}
+	expanser(data);
 	if (lexer_errors(data->bufer)) 
 	{
 		add_history (data->line);

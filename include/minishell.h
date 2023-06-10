@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/10 14:12:56 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:45:56 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_echo_builtin(t_cmd *cmd);
 int		ft_cd_builtin(t_cmd *cmd, t_data *data);
 int		ft_unset_builtin(char	**cmd, char	***env);
 void	env(char **env);
+int		builtins_2(t_cmd *cmd, t_data *data);
 // utils
 void	*free_array(char **array);
 void	print(char **str);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 13:05:56 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/06 16:59:57 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:46:57 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,6 @@ int	builtins_2(t_cmd *cmd, t_data *data)
 	else if (!ft_strncmp(cmd->cmd[0], "cd", 3))
 	{
 		ft_cd_builtin(cmd, data);
-		return (1);
-	}
-	else if (!ft_strncmp(cmd->cmd[0], "env\0", 4))
-	{
-		env(data->env);
-		return (1);
-	}
-	else if (!ft_strncmp(cmd->cmd[0], "pwd", 4))
-	{
-		ft_pwd();
 		return (1);
 	}
 	return (0);
@@ -56,6 +46,16 @@ int	builtins(t_cmd *cmd, t_data *data)
 	else if (!ft_strncmp(cmd->cmd[0], "unset", 6))
 	{
 		ft_unset_builtin(cmd->cmd, &data->env);
+		return (1);
+	}
+	else if (!ft_strncmp(cmd->cmd[0], "env\0", 4))
+	{
+		env(data->env);
+		return (1);
+	}
+	else if (!ft_strncmp(cmd->cmd[0], "pwd", 4))
+	{
+		ft_pwd();
 		return (1);
 	}
 	return (0);

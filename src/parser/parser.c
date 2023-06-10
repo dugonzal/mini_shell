@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/10 12:25:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:47:03 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	exec(t_cmd *cmd, t_data *data)
 		if (tmp->type == 5)
 			if (pipe(tmp->pipe) < 0)
 				return (err_msg(RED"Error : pipe"RESET));
-		redir (cmd);
+	//	redir (cmd);
 		search_quotes(tmp, "\"\'");
-		if (builtins(tmp, data))
+		if (builtins_2(tmp, data))
 			;
 		else
 		{
@@ -91,7 +91,6 @@ int	parser(t_data *data)
 	int		i;
 
 	i = 0;
-	expanser(data);
 	ft_bzero (&cmd, sizeof(cmd));
 	while (data->bufer[i])
 	{

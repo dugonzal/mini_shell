@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/10 14:12:41 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:36:43 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	expandir_status(t_data *data, int i, int j)
 	char	*env;
 
 	env = ft_itoa(data->status);
-	if (j)
+	if (j > 1)
 		env = ft_strjoin(ft_strndup(data->bufer[i], j - 1), env, 1);
 	if (data->bufer[i][j + 1])
 		env = ft_strjoin(env, &data->bufer[i][j + 1], 1);

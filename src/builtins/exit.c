@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 14:04:21 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/10 14:39:33 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:08:41 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int	ft_exit(t_cmd *cmd, t_data *data)
 	else
 		data->status = 0;
 	free_program(cmd, data);
-	ft_printf(GREEN"good bye :-)\n"RESET);
+	ft_printf(GREEN"good bye :(🙂 \n"RESET);
 	exit (data->status);
 }

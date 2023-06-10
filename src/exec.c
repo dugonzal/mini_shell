@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/10 14:54:42 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:08:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ char	*check_access(char *path, char *bin)
 	while (path[++i])
 		tmp[i] = path[i];
 	tmp[i++] = '/';
-	j = 0;
-	while (bin[j])
-		tmp[i++] = bin[j++];
+	j = -1;
+	while (bin[++j])
+		tmp[i++] = bin[j];
 	tmp[i] = 0;
 	if (!access(tmp, F_OK | X_OK))
 		return (tmp);
@@ -76,7 +76,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 			if (ft_dup2 (cmd->pipe, 1))
 				return (1);
 		if (builtins(cmd, data))
-			exit(data->status);
+			exit(EXIT_SUCCESS);
 		else if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 			execute_relative_or_absolute(cmd, data);
 		else
@@ -86,7 +86,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	if (cmd->pid > 0)
 	{
 		waitpid(cmd->pid, &cmd->status, 0);
-		if (cmd->status == 256)
+		if (cmd->status == 256 || cmd->status == 32512)
 			cmd->status = 127;
 	}
 	return (0);

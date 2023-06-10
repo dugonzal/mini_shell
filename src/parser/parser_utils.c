@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:07:01 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/09 23:49:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:06:29 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	count_word(char *str, char quote)
 		if (*tmp == quote)
 			while (*tmp == quote)
 				tmp++;
-		if (*tmp != quote && *tmp != '\0')
+		if (*tmp != quote && *tmp != 0)
 			count++;
 	}
 	return (count);
@@ -66,9 +66,9 @@ char	*quit_quotes(char *str, char quote)
 	while (str[i])
 	{
 	  if (str[i] == quote)
-		i++;
+			  i++;
 	  else 
-		tmp[j++] = str[i++];
+		  tmp[j++] = str[i++];
 	}
 	tmp[j] = 0;
 	return (tmp);
@@ -89,7 +89,7 @@ void	search_quotes(t_cmd *cmd, char *quotes)
 		{
 			if (search(quotes, cmd->cmd[i][j]))
 			{
-				tmp = quit_quotes(&cmd->cmd[i][j], cmd->cmd[i][j]);
+				tmp = quit_quotes(cmd->cmd[i], cmd->cmd[i][j]);
 				free(cmd->cmd[i]);
 				cmd->cmd[i] = tmp;
 				break ;

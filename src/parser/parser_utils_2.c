@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 10:24:55 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/03 10:26:11 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 11:47:08 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_cmd	*new_node(char **str, int size)
 	if (!tmp)
 		return (NULL);
 	tmp->cmd = (char **)ft_calloc(size + 1, sizeof(char *));
-	if (tmp->cmd == NULL)
+	if (!tmp->cmd)
 		return (NULL);
 	i = -1;
 	while (++i < size)
@@ -56,7 +56,7 @@ t_cmd	*new_node(char **str, int size)
 
 void	error_fd(t_data *data)
 {
-	perror(RED"dup"RESET);
+	perror(RED"dup: "RESET);
 	data->status = 1;
 	return ;
 }

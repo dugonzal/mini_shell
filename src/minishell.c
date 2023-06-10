@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/09 22:12:22 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 11:36:33 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	get_env_and_path(t_data *data, char **env)
 	{
 		data->env[i] = ft_strdup(env[i]);
 		if (!data->env[i])
+		{
+			free_array(data->env);
 			err(RED"minishell: malloc error"RESET);
+		}
 	}
 	data->env[i] = NULL;
 }
@@ -39,12 +42,11 @@ int	main(int ac, char **av, char **env)
 		err(RED"minishell: too many arguments"RESET);
 	ft_bzero (&data, sizeof(t_data));
 	get_env_and_path(&data, env);
-	data.user = prompt();
 	while (42)
 	{
 		signals(&data);
 		data.path = ft_split(ft_getenv_builtins("PATH", data.env), ':', 0);
-		data.line = readline(data.user);
+		data.line = readline(prompt(data.env));
 		if (!data.line)
 			break ;
 		else if (lexer(&data))

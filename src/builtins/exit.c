@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 14:04:21 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/09 22:39:44 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 12:02:35 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_numeric_error(t_cmd	*cmd, t_data *data)
 
 void	free_program(t_cmd *cmd, t_data *data)
 {
-	free (data->user);
 	free_cmd(cmd);
 	free(data->path);
 	free (data->env);

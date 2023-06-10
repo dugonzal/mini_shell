@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/09 23:37:19 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:12:56 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	char			*user;
 	char			*line;
 	char			**bufer;
 	char			**path;
@@ -48,8 +47,8 @@ typedef struct s_data
 	int				status;
 }	t_data;
 
-int	signals(t_data *data);
-char	*prompt(void);
+int		signals(t_data *data);
+char	*prompt(char **env);
 int		bin_execute(t_cmd *cmd, t_data *data);
 
 void	print(char **str);
@@ -80,12 +79,12 @@ void	free_cmd(t_cmd *cmd);
 //lexer
 int		lexer(t_data *data);
 char	**split_token(const char *prompt, char *set, \
-char *quotes, char *special);
+char 	*quotes, char *special);
 int		count_tokens(const char *prompt, char *set, \
-char *quotes, char *specials);
+char 	*quotes, char *specials);
 int		quotes_token(const char *str, char quote, char *set);
 int		characters_tokens(const char *prompt, char *set, \
-char *quotes, char *specials);
+char 	*quotes, char *specials);
 int		specials_token(const char *prompt);
 
 // lexer utils
@@ -94,7 +93,7 @@ int		handle_input_redireccion(char **prompt, char intfile);
 int		check_pipe(char **prompt, char pipe);
 int		check_quotes(char **prompt, char *quotes);
 int		check_semicolon(char **prompt);
-int		expanser(t_data *data);
+void	expanser(t_data *data);
 int		lexer_errors(char **str);
 
 // parser

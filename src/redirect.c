@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:05:32 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/09 16:50:06 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 12:54:22 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ void	heredoc(t_cmd *cmd)
 	fd = ft_open("heredoc", 1);
 	while (42)
 	{
-		line = readline(GREEN"🚀➤  "RESET);
+		line = readline(GREEN"🙂🚀❯   "RESET);
+		if (!line)
+		{
+			ft_printf (RED"\nError: heredoc readline\n"RESET);
+			break ;
+		}
 		if (!ft_strncmp(cmd->cmd[2], line, ft_strlen(cmd->cmd[2])))
 			break ;
 		ft_putendl_fd(line, fd);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/09 23:16:03 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 12:25:52 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	reset_fd(t_data *data)
 {
 	if (dup2(data->fd[0], 0) < 0)
 	{
-		perror(RED"dup2"RESET);
+		perror(RED"dup2: "RESET);
 		data->status = 1;
 		close(data->fd[0]);
 		close(data->fd[1]);
@@ -48,7 +48,7 @@ void	reset_fd(t_data *data)
 	close (data->fd[0]);
 	if (dup2(data->fd[1], 1) < 0)
 	{
-		perror(RED"dup2"RESET);
+		perror(RED"dup2: "RESET);
 		data->status = 1;
 		close(data->fd[0]);
 		return ;
@@ -91,6 +91,7 @@ int	parser(t_data *data)
 	int		i;
 
 	i = 0;
+	expanser(data);
 	ft_bzero (&cmd, sizeof(cmd));
 	while (data->bufer[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/06 17:38:42 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/10 12:48:22 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		waitpid(cmd->pid, &cmd->status, 0);
 		if (cmd->status == 256)
 			cmd->status = 127;
-		if (cmd->status == 139)
-			printf("Segmentation fault\n");
 	}
 	return (0);
 }

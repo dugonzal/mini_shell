@@ -15,9 +15,7 @@ echo "aspas ->'"
 echo "aspas -> ' "
 echo 'aspas ->"'
 echo 'aspas -> " '
-> echo "hello world"  <> | ls
-echo "exit | echo "$USER $?"   " | ./minishell 
-< ls | ls
-< ls
-> ls
-echo "$?"
+echo "$lll"
+echo "$lll$PWD"$HOME
+echo $HOME///SOYsIsOY"$lll"
+echo $PWD"$lll$LL"//$HOME

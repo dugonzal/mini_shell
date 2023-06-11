@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/11 12:09:22 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:22:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ char	*get_env(char *str, char **env)
 				return (return_expanser(tmp, expanser));	
 	  }
 	}
+	if (search(str, '/'))
+	{
+		expanser = ft_strdup(&str[size]);
+		free_tmp(str, tmp);
+		return (expanser);
+	}
 	return (ft_strdup(""));
 }
 
@@ -85,7 +91,12 @@ void	expanser(t_data *data)
 				expandir_status(data, i, ++j);
 			else if (data->bufer[i][j] == '$' && data->bufer[i][j + 1] \
 				&& !search(data->bufer[i], '\''))
+			{
 				expandir_env(data, i, j);
+				if (search(data->bufer[i], '$'))
+					i -= 1;
+				break ;
+			}
 		}
 	}
 }

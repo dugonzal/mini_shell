@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/11 13:43:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/11 14:10:13 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		waitpid(cmd->pid, &cmd->status, 0);
 		if (cmd->status == 256 || cmd->status == 32512)
 			cmd->status = 127;
+		else if (cmd->status == 512)
+			cmd->status = 2;
 	}
 	return (0);
 }

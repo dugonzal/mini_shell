@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 13:05:56 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/11 13:47:02 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/11 14:13:40 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	builtins_1(t_cmd *cmd, t_data *data)
 {
 	if (!ft_strncmp(cmd->cmd[0], "echo", 5))
 	{
-		ft_echo_builtin(cmd);
+		ft_echo_builtin(cmd, data);
 		return (1);
 	}
 	else if (!ft_strncmp(cmd->cmd[0], "env\0", 4))
@@ -63,9 +63,9 @@ int	builtins(t_cmd *cmd, t_data *data)
 		return (0);
 	if (cmd->type == 5)
 	  return (0);
-	if (builtins_2(cmd, data))
+	if (builtins_1(cmd, data))
 		return (1);
-	else if (builtins_1(cmd, data))
+	else if (builtins_2(cmd, data))
 		return (1);
 	return (0);
 }
@@ -74,9 +74,9 @@ int	builtins_exec(t_cmd *cmd, t_data *data)
 {
 	if (!cmd->cmd[0])
 		return (0);
-	if (builtins_2(cmd, data))
+	if (builtins_1(cmd, data))
 		return (1);
-	else if (builtins_1(cmd, data))
+	else if (builtins_2(cmd, data))
 		return (1);
 	return (0);
 }

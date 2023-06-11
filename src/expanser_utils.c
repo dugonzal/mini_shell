@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 12:00:03 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/11 12:05:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:41:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void free_tmp(char *str, char *tmp)
 {
-  free (str);
-  free (tmp);
+  if (str)
+	  free (str);
+  if (tmp)
+	  free (tmp);
 }
 
 char *return_expanser(char *tmp, char *expanser)

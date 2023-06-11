@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/11 12:22:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:50:47 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,16 @@ char	*get_env(char *str, char **env)
 			expanser = ft_strdup(&env[i][size + 1]);
 			if (search(str, '/'))
 			{
-				expanser = ft_strjoin(expanser, &str[size], 1);
-				free_tmp(str, tmp);
-				return (expanser);
+				free (tmp);
+				return (return_expanser(str, ft_strjoin(expanser, &str[size], 1)));
 			}
 			else
 				return (return_expanser(tmp, expanser));	
-	  }
+		}
 	}
-	if (search(str, '/'))
-	{
-		expanser = ft_strdup(&str[size]);
-		free_tmp(str, tmp);
-		return (expanser);
-	}
-	return (ft_strdup(""));
+	if (search (str, '/'))
+	  free (tmp);
+	return (return_expanser(str, ft_strdup(&str[size])));
 }
 
 void expandir_env(t_data *data, int i, int j)

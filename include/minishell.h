@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/11 14:14:27 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:34:48 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_cmd_isalnum(char	*str);
 int		ft_invalid(char *c, t_data *data);
 void	ft_echo_builtin(t_cmd *cmd, t_data *data);
 int		ft_cd_builtin(t_cmd *cmd, t_data *data);
-int		ft_unset_builtin(char	**cmd, char	***env);
+int		ft_unset_builtin(char	**cmd, char	***env, t_data *data);
 void	env(char **env);
 int		builtins_2(t_cmd *cmd, t_data *data);
 int		builtins_exec(t_cmd *cmd, t_data *data);

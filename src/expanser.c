@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/11 12:50:47 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:52:58 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ char	*get_env(char *str, char **env)
 				free (tmp);
 				return (return_expanser(str, ft_strjoin(expanser, &str[size], 1)));
 			}
-			else
-				return (return_expanser(tmp, expanser));	
+			return (return_expanser(tmp, expanser));	
 		}
 	}
 	if (search (str, '/'))

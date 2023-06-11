@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/10 14:32:49 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 00:06:25 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	lexer_errors(char **str)
 {
 	if (check_quotes(str, "\'\""))
 		return (err_msg(RED"minishell: syntax error quotes \" <-> \'"RESET));
-	else if (check_pipe(str, '|'))
+	 if (check_pipe(str, '|'))
 		return (err_msg(RED"minishe.ll: syntax error pipe '|'"RESET));
 	else if (handle_input_redireccion(str, '<') || handle_input_redireccion(str, '>')) 
 		return (err_msg(RED"minishell: syntax error parse near '>' or '<'"RESET));
@@ -49,6 +49,7 @@ int	lexer(t_data *data)
 		data->status = 1;
 		return (1);
 	}
+	print (data->bufer);
 	add_history (data->line);
 	free (data->line);
 	return (0);

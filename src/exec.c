@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/11 14:10:13 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:43:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	ft_dup2(int *fd, int io)
 
 int	bin_execute(t_cmd *cmd, t_data *data)
 {
+	if (cmd->cmd[0][0] == 0 || !cmd->cmd[0])
+		return (0);
 	cmd->pid = fork();
 	if (cmd->pid < 0)
 		return (err_msg(RED"errrr fork"RESET));
@@ -75,6 +77,13 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		if (cmd->type == 5)
 			if (ft_dup2 (cmd->pipe, 1))
 				return (1);
+		if (redir(cmd) == 1)
+		{
+		//	cmd->status = 1;
+			exit(1);
+		}
+		if (cmd->cmd[0] == NULL)
+			exit(EXIT_SUCCESS);
 		if (builtins_exec(cmd, data))
 			exit(EXIT_SUCCESS);
 		else if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')

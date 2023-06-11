@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:48:17 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/09 16:42:04 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/11 23:44:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	check_quotes_arr(char *str, char *quotes)
 				count++;
 		}
 	}
+//	printf ("[%s]\n", str);
+//	printf ("[%d]\n",count);
 	if (count % 2 != 0)
 		return (1);
 	return (0);

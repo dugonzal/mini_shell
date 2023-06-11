@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/11 13:22:47 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/11 23:45:13 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	exec(t_cmd *cmd, t_data *data)
 		if (tmp->type == 5)
 			if (pipe(tmp->pipe) < 0)
 				return (err_msg(RED"Error : pipe"RESET));
-	//	redir (cmd);
-		search_quotes(tmp, "\"\'");
+		//search_quotes(tmp, "\"\'");
+	//	print (tmp->cmd);
 		if (builtins(tmp, data))
 			;
 		else

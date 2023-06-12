@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/11 21:43:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:41:53 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	execute_relative_or_absolute(t_cmd *cmd, t_data *data)
 {
 	execve(cmd->cmd[0], cmd->cmd, data->env);
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
-	data->status = 127;
+	g_status = 127;
 }
 
 void	execute_path(t_cmd *cmd, t_data *data)
@@ -53,7 +53,7 @@ void	execute_path(t_cmd *cmd, t_data *data)
 	while (data->path[++i] != 0)
 		execve(check_access(data->path[i], cmd->cmd[0]), \
 		cmd->cmd, data->env);
-	cmd->status = 127;
+	g_status = 127;
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
 }
 
@@ -78,10 +78,7 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 			if (ft_dup2 (cmd->pipe, 1))
 				return (1);
 		if (redir(cmd) == 1)
-		{
-		//	cmd->status = 1;
 			exit(1);
-		}
 		if (cmd->cmd[0] == NULL)
 			exit(EXIT_SUCCESS);
 		if (builtins_exec(cmd, data))
@@ -94,11 +91,11 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 	}
 	if (cmd->pid > 0)
 	{
-		waitpid(cmd->pid, &cmd->status, 0);
-		if (cmd->status == 256 || cmd->status == 32512)
-			cmd->status = 127;
-		else if (cmd->status == 512)
-			cmd->status = 2;
+		waitpid(cmd->pid, &g_status, 0);
+		if (g_status == 256 || g_status == 32512)
+			g_status = 127;
+		else if (g_status == 512)
+			g_status = 2;
 	}
 	return (0);
 }

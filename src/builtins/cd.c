@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:02:47 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/04 00:50:50 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:43:22 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	cd_argument(t_data *data)
 		ft_printf(RED"cd: %s: %s\n"RESET, home, strerror(errno));
 		free(home);
 		perror("cd: ~");
+		g_status = 1;
 		return (1);
 	}
 	if (export_pwd("PWD=", data))
@@ -56,7 +57,7 @@ int	ft_cd_builtin(t_cmd *cmd, t_data *data)
 
 	if (arr_size(cmd->cmd) > 2)
 	{
-		data->status = 1;
+		g_status = 1;
 		return (ft_printf(RED"minishell: cd: too many arguments\n"RESET));
 	}
 	if (!cmd->cmd[1] || (cmd->cmd[1][0] == '~' && cmd->cmd[1][1] == '\0'))
@@ -70,6 +71,7 @@ int	ft_cd_builtin(t_cmd *cmd, t_data *data)
 	if (chdir(path) != 0)
 	{
 		ft_printf(RED"minishell: cd: %s: %s\n"RESET, path, strerror(errno));
+		g_status = 1;
 		return (1);
 	}
 	if (export_pwd("PWD=", data))

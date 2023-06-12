@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:03:50 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/09 22:35:54 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:39:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_generate_export(char	*cmd, t_data *data)
 	char	**new_env;
 
 	if (!ft_cmd_isalnum(cmd) || ft_isdigit(cmd[0]))
-		return (ft_invalid(cmd, data));
+		return (ft_invalid(cmd));
 	else if (ft_check_replace(cmd, data))
 		return (0);
 	new_env = (char **) ft_calloc(sizeof(char *), (arr_size(data->env) + 2));
@@ -76,7 +76,7 @@ int	ft_export_builtin_individual(char *cmd, t_data *data)
 
 	if (cmd[0] == '=')
 	{
-		data->status = 1;
+		g_status = 1;
 		ft_printf(RED"export: '%s': not a valid identifier\n"RESET, cmd);
 		return (1);
 	}
@@ -93,7 +93,7 @@ int	ft_export_general_builtin(char	**cmd, t_data *data)
 	int	i;
 
 	i = 0;
-	data->status = 0;
+	g_status = 0;
 	if (!cmd[1])
 	{
 		while (data->env[i])

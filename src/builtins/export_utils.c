@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:52:25 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/05 14:04:24 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:26:35 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_invalid(char *c, t_data *data)
+int	ft_invalid(char *c)
 {
-	data->status = 1;
+	g_status = 1;
 	ft_printf(RED"export: `%s': not a valid identifier\n"RESET, c);
 	return (1);
 }

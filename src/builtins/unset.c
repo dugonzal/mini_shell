@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 17:48:35 by sizquier          #+#    #+#             */
-/*   Updated: 2023/06/11 14:17:39 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:27:04 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ int	ft_unset_builtin2(char *cmd, char ***env)
 	return (0);
 }
 
-int	ft_unset_builtin(char	**cmd, char	***env, t_data *data)
+int	ft_unset_builtin(char	**cmd, char	***env)
 {
 	int	i;
 
 	i = 1;
 	while (cmd[i])
 		ft_unset_builtin2(cmd[i++], env);
-	data->status = 0;
+	g_status = 0;
 	return (0);
 }

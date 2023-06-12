@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/11 18:34:48 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:28:45 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <fcntl.h>
 # include <errno.h>
 
+extern int	g_status;
+
 typedef struct s_cmd
 {
 	pid_t			pid;
@@ -32,7 +34,6 @@ typedef struct s_cmd
 	int				outfile;
 	char			**cmd;
 	int				type;
-	int				status;
 	struct s_cmd	*next;
 	struct s_cmd	*back;
 }	t_cmd;
@@ -44,10 +45,9 @@ typedef struct s_data
 	char			**path;
 	char			**env;
 	int				fd[2];
-	int				status;
 }	t_data;
 
-int		signals(t_data *data);
+void	signals(void);
 char	*prompt(char **env);
 int		bin_execute(t_cmd *cmd, t_data *data);
 
@@ -64,10 +64,10 @@ int		ft_export_builtin_individual(char *cmd, t_data *data);
 int		ft_exit(t_cmd *cmd, t_data *data);
 char	*ft_getenv_builtins(char	*cmd, char	**env);
 int		ft_cmd_isalnum(char	*str);
-int		ft_invalid(char *c, t_data *data);
-void	ft_echo_builtin(t_cmd *cmd, t_data *data);
+int		ft_invalid(char *c);
+void	ft_echo_builtin(t_cmd *cmd);
 int		ft_cd_builtin(t_cmd *cmd, t_data *data);
-int		ft_unset_builtin(char	**cmd, char	***env, t_data *data);
+int		ft_unset_builtin(char	**cmd, char	***env);
 void	env(char **env);
 int		builtins_2(t_cmd *cmd, t_data *data);
 int		builtins_exec(t_cmd *cmd, t_data *data);
@@ -117,7 +117,7 @@ void	reset_fd(t_data *data);
 void	copy_fd(t_data *data);
 int		redir(t_cmd *cmd);
 void	get_env_and_path(t_data *data, char **env);
-void	error_fd(t_data *data);
+void	error_fd(void);
 
 //expanser 
 char 	*return_expanser(char *tmp, char *expanser);

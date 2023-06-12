@@ -6,13 +6,13 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/09 22:14:38 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:38:43 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	handler(int signum, t_data *data)
+void	handler(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -23,22 +23,24 @@ int	handler(int signum, t_data *data)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		data->status = 130;
+		g_status = 130;
 	}
 	else if (signum == SIGQUIT)
 	{
 		if (rl_on_new_line() == -1)
 			exit(-1);
+		g_status = 0;
 		kill(0, SIGQUIT);
 		rl_redisplay();
-		data->status = 0;
 	}
-	return (data->status);
 }
 
-int	signals(t_data *data)
+void	signals(void)
 {
-	signal(SIGINT, (void (*) (int))handler);
-	signal(SIGQUIT, (void (*) (int))handler);
-	return (data->status);
+	struct sigaction	sa;
+
+	sa.sa_handler = handler;
+	sa.sa_flags = SA_RESTART | SA_SIGINFO;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 }

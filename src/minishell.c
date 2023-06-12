@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/11 15:24:05 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:36:23 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 // quotes = "\"\'"
 // whitespaces = " \t\v\f\r\n"
 // lexer -> parser -> expanser -> builtins -> bin_execute -> waitpid
+int	g_status;
+
 void	get_env_and_path(t_data *data, char **env)
 {
 	int		i;
@@ -42,9 +44,10 @@ int	main(int ac, char **av, char **env)
 		err(RED"minishell: too many arguments"RESET);
 	ft_bzero (&data, sizeof(t_data));
 	get_env_and_path(&data, env);
+	g_status = 0;
 	while (42)
 	{
-		signals(&data);
+		signals();
 		data.path = ft_split(ft_getenv_builtins("PATH", data.env), ':', 0);
 		data.line = readline(prompt(data.env));
 		if (!data.line)

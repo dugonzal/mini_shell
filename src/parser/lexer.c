@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/12 00:06:25 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:19:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	lexer(t_data *data)
 	data->bufer = split_token(data->line, " \t\v\f\r", ">|<;", "\"\'");
 	if (!data->bufer[0])
 	{
-		data->status = 1;
+		g_status = 1;
 		add_history (data->line);
 		free (data->line);
 		return (1);
@@ -46,7 +46,7 @@ int	lexer(t_data *data)
 		add_history (data->line);
 		free (data->line);
 		free_array(data->bufer);
-		data->status = 1;
+		g_status = 1;
 		return (1);
 	}
 	print (data->bufer);

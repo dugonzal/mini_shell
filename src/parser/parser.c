@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/11 23:45:13 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 02:29:24 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	copy_fd(t_data *data)
 
 	fd = dup(0);
 	if (fd < 0)
-		error_fd(data);
+		error_fd();
 	data->fd[0] = fd;
 	fd = dup(1);
 	if (fd < 0)
-		error_fd(data);
+		error_fd();
 	data->fd[1] = fd;
 }
 
@@ -40,7 +40,7 @@ void	reset_fd(t_data *data)
 	if (dup2(data->fd[0], 0) < 0)
 	{
 		perror(RED"dup2: "RESET);
-		data->status = 1;
+		g_status = 1;
 		close(data->fd[0]);
 		close(data->fd[1]);
 		return ;
@@ -49,7 +49,7 @@ void	reset_fd(t_data *data)
 	if (dup2(data->fd[1], 1) < 0)
 	{
 		perror(RED"dup2: "RESET);
-		data->status = 1;
+		g_status = 1;
 		close(data->fd[0]);
 		return ;
 	}
@@ -67,15 +67,11 @@ int	exec(t_cmd *cmd, t_data *data)
 		if (tmp->type == 5)
 			if (pipe(tmp->pipe) < 0)
 				return (err_msg(RED"Error : pipe"RESET));
-		//search_quotes(tmp, "\"\'");
-	//	print (tmp->cmd);
+		search_quotes(tmp, "\"\'");
 		if (builtins(tmp, data))
 			;
 		else
-		{
 			bin_execute(tmp, data);
-			data->status = cmd->status;
-		}
 		if (tmp->type != 5)
 			reset_fd(data);
 		else if (tmp->type == 5)

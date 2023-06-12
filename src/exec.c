@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/12 13:16:07 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:32:55 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	execute_relative_or_absolute(t_cmd *cmd, t_data *data)
 {
 	execve(cmd->cmd[0], cmd->cmd, data->env);
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
+	exit(127);
 }
 
 void	execute_path(t_cmd *cmd, t_data *data)
@@ -53,6 +54,7 @@ void	execute_path(t_cmd *cmd, t_data *data)
 		execve(check_access(data->path[i], cmd->cmd[0]), \
 		cmd->cmd, data->env);
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
+	exit(127);
 }
 
 int	ft_dup2(int *fd, int io)
@@ -63,8 +65,17 @@ int	ft_dup2(int *fd, int io)
 	return (0);
 }
 
-void status_waitpid(void)
+void status_waitpid(pid_t pid)
 {
+	int error;
+
+	
+	error = waitpid(pid, &g_status, WUNTRACED | WCONTINUED);
+	if (error == -1)
+	{
+		ft_putendl_fd(RED"Error : waitpid"RESET, 2);
+		exit(EXIT_FAILURE);
+	}
 	if (WIFEXITED(g_status))
 		g_status = WEXITSTATUS(g_status);
 	else if (WIFSIGNALED(g_status))
@@ -91,12 +102,8 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 			execute_relative_or_absolute(cmd, data);
 		else
 			execute_path(cmd, data);
-		exit(127);
 	}
 	if (cmd->pid > 0)
-	{
-		waitpid(cmd->pid, &g_status, 0);
-		status_waitpid();
-	}
+	  status_waitpid(cmd->pid);
 	return (0);
 }

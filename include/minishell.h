@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/12 02:28:45 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:26:27 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int		exec_redir(t_cmd *cmd);
 void	search_quotes(t_cmd *cmd, char *quotes);
 void	reset_fd(t_data *data);
 void	copy_fd(t_data *data);
-int		redir(t_cmd *cmd);
+int		redirect_input(t_cmd *cmd);
 void	get_env_and_path(t_data *data, char **env);
 void	error_fd(void);
 

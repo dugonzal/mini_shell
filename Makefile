@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/11 12:03:13 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/12 12:13:42 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC_DIR		:= src/
 OBJ_DIR		:= obj/
 
 INC_DIR		:= include/
+SHELL 		:= /bin/zsh
 
 # folders for sources
 parser_dir 	:= parser/
@@ -50,7 +51,8 @@ WHITE 	= \033[0;97m
 OS := $(shell uname)
 
 ifeq ($(OS), Darwin)
-	readline := -lreadline -L${HOME}/.brew/opt/readline/lib  -I${HOME}/.brew/opt/readline/lib/include
+	#probar que si funcione en Darwin xd
+	readline := -I${HOME}/.brew/opt/readline/include  -lreadline -L${HOME}/.brew/opt/readline/lib
 else
 	readline :=	-lreadline 
 endif
@@ -77,18 +79,18 @@ all: $(NAME)
 clean:
 	make -C libft clean
 	rm -rf $(NAME)
-	printf "$(YELLOW) Cleaning $(NAME) $(DEFAULT)"
+	printf "$(YELLOW) Cleaning $(NAME) $(DEFAULT)\n"
 
 fclean: clean
 	rm -rf bin  $(OBJ_DIR)
 	make -C libft fclean
-	printf "$(BLUE)Cleaning $(OBJ_DIR) and bin $(DEFAULT)\n"
+	printf "$(BLUE)Cleaning $(OBJ_DIR) and bin \n$(DEFAULT)"
 
 init:
-	echo "echo hola""mundo $USER | grep -E --color 'du' " |  ./minishell
+	echo "echo hola""mundo $USER | grep -E --color 'ciclo' " |  ./minishell
 val: $(NAME)
-	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat command | ./minishell; cat valgrind.log 
+	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat  < command | ./minishell; cat valgrind.log 
 sani:
-	$(CC) $(CFLAGS) -fsanitize=address -g3 $(OBJ) -o $(NAME) -L bin -lft -I $(INC_DIR) $(readline)
+	$(CC) $(CFLAGS)  -g3 -O0 -g -fsanitize=address -fno-omit-frame-pointer $(OBJ) -o $(NAME) -L bin -lft -I $(INC_DIR) $(readline)
 
 re: fclean all sani init 

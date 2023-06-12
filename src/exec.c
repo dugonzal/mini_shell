@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/12 02:41:53 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:16:07 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	execute_relative_or_absolute(t_cmd *cmd, t_data *data)
 {
 	execve(cmd->cmd[0], cmd->cmd, data->env);
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
-	g_status = 127;
 }
 
 void	execute_path(t_cmd *cmd, t_data *data)
@@ -53,7 +52,6 @@ void	execute_path(t_cmd *cmd, t_data *data)
 	while (data->path[++i] != 0)
 		execve(check_access(data->path[i], cmd->cmd[0]), \
 		cmd->cmd, data->env);
-	g_status = 127;
 	ft_putendl_fd(RED"Error : comand no found"RESET, 2);
 }
 
@@ -65,10 +63,18 @@ int	ft_dup2(int *fd, int io)
 	return (0);
 }
 
+void status_waitpid(void)
+{
+	if (WIFEXITED(g_status))
+		g_status = WEXITSTATUS(g_status);
+	else if (WIFSIGNALED(g_status))
+		g_status = 128 + WTERMSIG(g_status);
+	else
+		g_status = EXIT_FAILURE;
+}
+
 int	bin_execute(t_cmd *cmd, t_data *data)
 {
-	if (cmd->cmd[0][0] == 0 || !cmd->cmd[0])
-		return (0);
 	cmd->pid = fork();
 	if (cmd->pid < 0)
 		return (err_msg(RED"errrr fork"RESET));
@@ -77,25 +83,20 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		if (cmd->type == 5)
 			if (ft_dup2 (cmd->pipe, 1))
 				return (1);
-		if (redir(cmd) == 1)
-			exit(1);
-		if (cmd->cmd[0] == NULL)
-			exit(EXIT_SUCCESS);
+		if (redirect_input(cmd))
+			exit(EXIT_FAILURE);
 		if (builtins_exec(cmd, data))
 			exit(EXIT_SUCCESS);
 		else if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')
 			execute_relative_or_absolute(cmd, data);
 		else
 			execute_path(cmd, data);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	if (cmd->pid > 0)
 	{
 		waitpid(cmd->pid, &g_status, 0);
-		if (g_status == 256 || g_status == 32512)
-			g_status = 127;
-		else if (g_status == 512)
-			g_status = 2;
+		status_waitpid();
 	}
 	return (0);
 }

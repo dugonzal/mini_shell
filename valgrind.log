@@ -1,21 +1,14 @@
-==35115== Memcheck, a memory error detector
-==35115== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==35115== Using Valgrind-3.21.0 and LibVEX; rerun with -h for copyright info
-==35115== Command: cat
-==35115== Parent PID: 35114
-==35115== 
-==33456== 
-==33456== Process terminating with default action of signal 1 (SIGHUP)
-==33456==    at 0x496EA20: __open_nocancel (open64_nocancel.c:39)
-==33456==    by 0x48A0F3E: _nl_load_locale_from_archive (loadarchive.c:205)
-==33456==    by 0x489F81E: _nl_find_locale (findlocale.c:152)
-==33456==    by 0x489F216: setlocale (setlocale.c:337)
-==33456==    by 0x10A0F2: main (cat.c:571)
-==33456== 
-==33456== HEAP SUMMARY:
-==33456==     in use at exit: 0 bytes in 0 blocks
-==33456==   total heap usage: 1 allocs, 1 frees, 5 bytes allocated
-==33456== 
-==33456== All heap blocks were freed -- no leaks are possible
-==33456== 
-==33456== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==277672== Memcheck, a memory error detector
+==277672== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==277672== Using Valgrind-3.21.0 and LibVEX; rerun with -h for copyright info
+==277672== Command: cat
+==277672== Parent PID: 277671
+==277672== 
+==277672== 
+==277672== HEAP SUMMARY:
+==277672==     in use at exit: 0 bytes in 0 blocks
+==277672==   total heap usage: 31 allocs, 31 frees, 135,065 bytes allocated
+==277672== 
+==277672== All heap blocks were freed -- no leaks are possible
+==277672== 
+==277672== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

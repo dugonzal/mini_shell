@@ -6,22 +6,17 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/12 12:13:42 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/12 16:44:26 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
-
 CC			:= clang -g3
-
 CFLAGS		:= -Wall -Wextra -Werror
-
 SRC_DIR		:= src/
-
 OBJ_DIR		:= obj/
-
 INC_DIR		:= include/
-SHELL 		:= /bin/zsh
+SHELL 		:= /bin/bash
 
 # folders for sources
 parser_dir 	:= parser/
@@ -86,11 +81,7 @@ fclean: clean
 	make -C libft fclean
 	printf "$(BLUE)Cleaning $(OBJ_DIR) and bin \n$(DEFAULT)"
 
-init:
-	echo "echo hola""mundo $USER | grep -E --color 'ciclo' " |  ./minishell
 val: $(NAME)
 	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat  < command | ./minishell; cat valgrind.log 
-sani:
-	$(CC) $(CFLAGS)  -g3 -O0 -g -fsanitize=address -fno-omit-frame-pointer $(OBJ) -o $(NAME) -L bin -lft -I $(INC_DIR) $(readline)
 
-re: fclean all sani init 
+re: fclean all val 

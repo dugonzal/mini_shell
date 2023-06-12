@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/12 13:32:55 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 22:23:14 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void status_waitpid(pid_t pid)
 {
 	int error;
 
-	
 	error = waitpid(pid, &g_status, WUNTRACED | WCONTINUED);
 	if (error == -1)
 	{
@@ -94,8 +93,6 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 		if (cmd->type == 5)
 			if (ft_dup2 (cmd->pipe, 1))
 				return (1);
-		if (redirect_input(cmd))
-			exit(EXIT_FAILURE);
 		if (builtins_exec(cmd, data))
 			exit(EXIT_SUCCESS);
 		else if (cmd->cmd[0][0] == '.' || cmd->cmd[0][0] == '/')

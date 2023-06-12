@@ -6,14 +6,11 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/12 11:34:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:45:33 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-// quotes = "\"\'"
-// whitespaces = " \t\v\f\r\n"
-// lexer -> parser -> expanser -> builtins -> bin_execute -> waitpid
 int	g_status;
 
 void	get_env_and_path(t_data *data, char **env)

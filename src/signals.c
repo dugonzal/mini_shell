@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/12 13:23:42 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:00:37 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ void	handler(int signum)
 
 void	signals(void)
 {
-	struct sigaction	sa;
+	signal(SIGINT, &handler);
+	signal(SIGQUIT, &handler);
 
-	sa.sa_handler = handler;
-	sa.sa_flags = SA_RESTART | SA_SIGINFO;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
 }

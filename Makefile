@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/14 08:40:14 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/14 11:56:11 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ OS := $(shell uname)
 
 ifeq ($(OS), Darwin)
 	#probar que si funcione en Darwin xd
-	readline := -I/goinfre/dugonzal/dugonzal/.brew/opt/readline/include -L/goinfre/dugonzal/dugonzal/.brew/opt/readline/lib -lreadline
+	readline := -I/Sgoinfre/Perso/${USER}/.brew/opt/readline/include -L/sgoinfre/${USER}/${USER}/.brew/opt/readline/lib -lreadline
 else
 	readline :=	-lreadline
 endif
@@ -65,7 +65,6 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)$(parser_dir)
 	mkdir -p $(OBJ_DIR)$(builtins_dir)
-	if [[ ! -d "libft" ]]; then git clone https://github.com/dugonzal/libft.git ; fi
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)* -I libft -I/goinfre/dugonzal/dugonzal/.brew/opt/readline/include
 	printf  "$(GREEN) 🚀  $< $(DEFAULT)\n"
 

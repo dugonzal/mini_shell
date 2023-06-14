@@ -1,42 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/12 21:58:16 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/14 15:20:19 by dugonzal         ###   ########.fr       */
+/*   Created: 2023/06/14 15:25:09 by dugonzal          #+#    #+#             */
+/*   Updated: 2023/06/14 15:26:13 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	handler(int signum)
+int	err_open(int fd)
 {
-	if (signum == SIGINT)
+	if (fd < 0)
 	{
-		if (rl_on_new_line() == -1)
-			exit(-1);
-		kill(0, 0);
-		ft_putstr_fd("\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_status = 130;
+		unlink("heredoc");
+		return (1);
 	}
-	else if (signum == SIGQUIT)
-	{
-		if (rl_on_new_line() == -1)
-			exit(-1);
-		g_status = 0;
-		kill(0, SIGQUIT);
-		rl_redisplay();
-	}
-}
-
-void	signals(void)
-{
-	signal(SIGINT, &handler);
-	signal(SIGQUIT, &handler);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/14 08:41:30 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:25:34 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_data
 }	t_data;
 
 extern int	g_status;
-
+int		err_open(int fd);
 void	signals(void);
 char	*prompt(char **env);
 int		bin_execute(t_cmd *cmd, t_data *data);
@@ -119,7 +119,7 @@ int		handler_redirecciones(t_cmd *cmd, t_data *data);
 void	get_env_and_path(t_data *data, char **env);
 void	error_fd(void);
 
-//expanser 
+//expanser
 char	*return_expanser(char *tmp, char *expanser);
 int		count_expanser(char *str);
 void	free_tmp(char *str, char *tmp);

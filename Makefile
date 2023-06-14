@@ -6,7 +6,7 @@
 #    By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/14 15:25:51 by dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/14 15:35:56 by dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC_FILES 	+= $(addprefix $(parser_dir),$(parser))
 SRC_FILES 	+= $(addprefix $(builtins_dir),$(builtins))
 
 SRC_FILES	+=	minishell  utils signals exec exec_utils expanser expanser_utils  redirect redirect_utils
+
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
@@ -46,7 +47,7 @@ OS := $(shell uname)
 
 ifeq ($(OS), Darwin)
 	#probar que si funcione en Darwin xd
-	readline := -I/Sgoinfre/Perso/${USER}/.brew/opt/readline/include -L/sgoinfre/${USER}/${USER}/.brew/opt/readline/lib -lreadline
+	readline := -I/goinfre/dugonzal/dugonzal/.brew/opt/readline  -L/goinfre/dugonzal/dugonzal/.brew/opt/readline/lib -lreadline
 else
 	readline :=	-lreadline
 endif

@@ -6,7 +6,7 @@
 #    By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/14 15:37:57 by dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/14 15:43:42 by dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,8 @@ WHITE 	= \033[0;97m
 
 OS := $(shell uname)
 
+
+#  brew --prefix readline
 ifeq ($(OS), Darwin)
 	#probar que si funcione en Darwin xd
 	readline := -I/goinfre/$(USER)/$(USER)/.brew/opt/readline  -L/goinfre/$(USER)/$(USER)/.brew/opt/readline/lib -lreadline

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:03:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/12 16:46:12 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:35:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_env(char *str, char **env)
 	char	*expanser;
 	char	*tmp;
 	int		size;
-	
+
 	i = -1;
 	tmp = tmp_variable(str);
 	size = find_caracter(tmp, '=');
@@ -43,9 +43,10 @@ char	*get_env(char *str, char **env)
 			if (search(str, '/'))
 			{
 				free (tmp);
-				return (return_expanser(str, ft_strjoin(expanser, &str[size], 1)));
+				return (return_expanser(str, \
+				ft_strjoin(expanser, &str[size], 1)));
 			}
-			return (return_expanser(tmp, expanser));	
+			return (return_expanser(tmp, expanser));
 		}
 	}
 	if (search (str, '/'))
@@ -53,10 +54,10 @@ char	*get_env(char *str, char **env)
 	return (return_expanser(str, ft_strdup(&str[size])));
 }
 
-void expandir_env(t_data *data, int i, int j)
+void	expandir_env(t_data *data, int i, int j)
 {
 	int		size;
-	char 	*tmp;
+	char	*tmp;
 
 	size = count_expanser(&data->bufer[i][j + 1]);
 	tmp = ft_strndup(&data->bufer[i][j + 1], size);
@@ -73,7 +74,7 @@ void	expanser(t_data *data)
 {
 	int		i;
 	int		j;
-	
+
 	i = -1;
 	while (data->bufer[++i])
 	{

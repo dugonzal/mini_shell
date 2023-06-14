@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+         #
+#    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/14 02:12:19 by dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/14 08:40:14 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ builtins		:= builtins exit echo pwd env export export_utils unset cd getenv
 SRC_FILES 	+= $(addprefix $(parser_dir),$(parser))
 SRC_FILES 	+= $(addprefix $(builtins_dir),$(builtins))
 
-SRC_FILES	+=	minishell  utils signals exec expanser expanser_utils  redirect
+SRC_FILES	+=	minishell  utils signals exec exec_utils expanser expanser_utils  redirect
 
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -65,7 +65,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)$(parser_dir)
 	mkdir -p $(OBJ_DIR)$(builtins_dir)
-	if [[ ! -d "libft" ]]; then git clone https://github.com/dugonzal/libft.git -b dev; fi
+	if [[ ! -d "libft" ]]; then git clone https://github.com/dugonzal/libft.git ; fi
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)* -I libft -I/goinfre/dugonzal/dugonzal/.brew/opt/readline/include
 	printf  "$(GREEN) 🚀  $< $(DEFAULT)\n"
 

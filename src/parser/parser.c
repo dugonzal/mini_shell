@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:15:13 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/12 23:37:04 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:31:27 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	exec(t_cmd *cmd, t_data *data)
 			ft_dup2(tmp->pipe, 0);
 		else
 			reset_fd(data);
-	  tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	return (0);
 }

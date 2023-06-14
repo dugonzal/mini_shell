@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:58:25 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/12 02:19:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:31:01 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ int	lexer_errors(char **str)
 {
 	if (check_quotes(str, "\'\""))
 		return (err_msg(RED"minishell: syntax error quotes \" <-> \'"RESET));
-	 if (check_pipe(str, '|'))
+	if (check_pipe(str, '|'))
 		return (err_msg(RED"minishe.ll: syntax error pipe '|'"RESET));
-	else if (handle_input_redireccion(str, '<') || handle_input_redireccion(str, '>')) 
-		return (err_msg(RED"minishell: syntax error parse near '>' or '<'"RESET));
+	else if (handle_input_redireccion(str, '<')
+		|| handle_input_redireccion(str, '>'))
+		return (err_msg(RED"minishell: syntax error parse near \
+		'>' or '<'"RESET));
 	else if (check_semicolon(str))
 		return (err_msg(RED"minishell: syntax error parse near ';;' "RESET));
 	return (0);
@@ -41,7 +43,7 @@ int	lexer(t_data *data)
 		return (1);
 	}
 	expanser(data);
-	if (lexer_errors(data->bufer)) 
+	if (lexer_errors(data->bufer))
 	{
 		add_history (data->line);
 		free (data->line);
@@ -49,7 +51,6 @@ int	lexer(t_data *data)
 		g_status = 1;
 		return (1);
 	}
-	print (data->bufer);
 	add_history (data->line);
 	free (data->line);
 	return (0);

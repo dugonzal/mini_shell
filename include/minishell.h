@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/12 22:29:39 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:26:10 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <errno.h>
-
-extern int	g_status;
 
 typedef struct s_cmd
 {
@@ -46,6 +44,8 @@ typedef struct s_data
 	char			**env;
 	int				fd[2];
 }	t_data;
+
+extern int	g_status;
 
 void	signals(void);
 char	*prompt(char **env);
@@ -81,12 +81,12 @@ void	free_cmd(t_cmd *cmd);
 //lexer
 int		lexer(t_data *data);
 char	**split_token(const char *prompt, char *set, \
-char 	*quotes, char *special);
+char	*quotes, char *special);
 int		count_tokens(const char *prompt, char *set, \
-char 	*quotes, char *specials);
+char	*quotes, char *specials);
 int		quotes_token(const char *str, char quote, char *set);
 int		characters_tokens(const char *prompt, char *set, \
-char 	*quotes, char *specials);
+char	*quotes, char *specials);
 int		specials_token(const char *prompt);
 
 // lexer utils
@@ -120,7 +120,7 @@ void	get_env_and_path(t_data *data, char **env);
 void	error_fd(void);
 
 //expanser 
-char 	*return_expanser(char *tmp, char *expanser);
+char	*return_expanser(char *tmp, char *expanser);
 int		count_expanser(char *str);
 void	free_tmp(char *str, char *tmp);
 int		find_caracter(char *str, char c);

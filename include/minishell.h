@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:41:17 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/14 08:26:10 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:41:30 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,7 @@ void	free_tmp(char *str, char *tmp);
 int		find_caracter(char *str, char c);
 int		count_expanser(char *str);
 char	*tmp_variable(char *str);
+
+// exec
+char	*check_access(char *path, char *bin);
 #endif

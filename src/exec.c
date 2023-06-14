@@ -6,37 +6,11 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:48:30 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/12 22:23:14 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:42:07 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-char	*check_access(char *path, char *bin)
-{
-	char	*tmp;
-	int		i;
-	int		j;
-
-	if (!path || !bin)
-		return (NULL);
-	tmp = (char *)ft_calloc((ft_strlen(path) \
-	+ ft_strlen(bin) + 2), sizeof(char));
-	if (!tmp)
-		return (NULL);
-	i = -1;
-	while (path[++i])
-		tmp[i] = path[i];
-	tmp[i++] = '/';
-	j = -1;
-	while (bin[++j])
-		tmp[i++] = bin[j];
-	tmp[i] = 0;
-	if (!access(tmp, F_OK | X_OK))
-		return (tmp);
-	free (tmp);
-	return (NULL);
-}
 
 void	execute_relative_or_absolute(t_cmd *cmd, t_data *data)
 {
@@ -65,12 +39,9 @@ int	ft_dup2(int *fd, int io)
 	return (0);
 }
 
-void status_waitpid(pid_t pid)
+void	status_waitpid(pid_t pid)
 {
-	int error;
-
-	error = waitpid(pid, &g_status, WUNTRACED | WCONTINUED);
-	if (error == -1)
+	if (waitpid(pid, &g_status, WUNTRACED | WCONTINUED) == -1)
 	{
 		ft_putendl_fd(RED"Error : waitpid"RESET, 2);
 		exit(EXIT_FAILURE);
@@ -101,6 +72,6 @@ int	bin_execute(t_cmd *cmd, t_data *data)
 			execute_path(cmd, data);
 	}
 	if (cmd->pid > 0)
-	  status_waitpid(cmd->pid);
+		status_waitpid(cmd->pid);
 	return (0);
 }

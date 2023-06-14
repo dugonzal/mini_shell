@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
+#    By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 09:40:27 by ciclo             #+#    #+#              #
-#    Updated: 2023/06/12 16:44:26 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/14 02:12:19 by dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,9 +47,9 @@ OS := $(shell uname)
 
 ifeq ($(OS), Darwin)
 	#probar que si funcione en Darwin xd
-	readline := -I${HOME}/.brew/opt/readline/include  -lreadline -L${HOME}/.brew/opt/readline/lib
+	readline := -I/goinfre/dugonzal/dugonzal/.brew/opt/readline/include -L/goinfre/dugonzal/dugonzal/.brew/opt/readline/lib -lreadline
 else
-	readline :=	-lreadline 
+	readline :=	-lreadline
 endif
 
 ifndef verbose
@@ -58,15 +58,15 @@ endif
 
 $(NAME): $(OBJ)
 	make -C libft && mkdir -p bin && mv libft/libft.a bin
-	$(CC) $(CFLAGS) $(OBJ) -o $@ -L bin -lft -I $(INC_DIR) $(readline)
-	printf	"$(BLUE) 🚀 $@ $(DEFAULT)\n"
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -L bin -lft $(readline)
+	printf "$(BLUE) 🚀 $@ $(DEFAULT)\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)$(parser_dir)
 	mkdir -p $(OBJ_DIR)$(builtins_dir)
 	if [[ ! -d "libft" ]]; then git clone https://github.com/dugonzal/libft.git -b dev; fi
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)* -I libft 
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)* -I libft -I/goinfre/dugonzal/dugonzal/.brew/opt/readline/include
 	printf  "$(GREEN) 🚀  $< $(DEFAULT)\n"
 
 all: $(NAME)
@@ -82,6 +82,6 @@ fclean: clean
 	printf "$(BLUE)Cleaning $(OBJ_DIR) and bin \n$(DEFAULT)"
 
 val: $(NAME)
-	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat  < command | ./minishell; cat valgrind.log 
+	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log  cat  < command | ./minishell; cat valgrind.log
 
-re: fclean all val 
+re: fclean all val

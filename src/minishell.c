@@ -6,33 +6,13 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 10:01:34 by ciclo             #+#    #+#             */
-/*   Updated: 2023/06/14 08:42:56 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:44:43 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 int	g_status;
-
-void	get_env_and_path(t_data *data, char **env)
-{
-	int		i;
-
-	data->env = ft_calloc(arr_size(env) + 1, sizeof(char *));
-	if (!data->env)
-		err(RED"minishell: malloc error"RESET);
-	i = -1;
-	while (env[++i])
-	{
-		data->env[i] = ft_strdup(env[i]);
-		if (!data->env[i])
-		{
-			free_array(data->env);
-			err(RED"minishell: malloc error"RESET);
-		}
-	}
-	data->env[i] = NULL;
-}
 
 int	main(int ac, char **av, char **env)
 {
